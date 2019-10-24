@@ -7,6 +7,7 @@ import com.zhangtory.wayhome.utils.BeanUtils;
 import com.zhangtory.wayhome.model.HomeAddrCache;
 import com.zhangtory.wayhome.utils.IpUtils;
 import com.zhangtory.wayhome.utils.SignUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description:
  */
 @Service
+@Slf4j
 public class HomeServiceImpl implements IHomeService {
 
     @Autowired
@@ -65,7 +67,7 @@ public class HomeServiceImpl implements IHomeService {
         } else {
             // 返回外网地址
             StringBuilder addr = new StringBuilder()
-                    .append(homeAddrCache.getPort()).append("://")
+                    .append(homeAddrCache.getProtocol()).append("://")
                     .append(homeAddrCache.getIpAddr()).append(":")
                     .append(homeAddrCache.getPort());
             return addr.toString();
@@ -85,6 +87,7 @@ public class HomeServiceImpl implements IHomeService {
         homeAddrCache.setInnerIpAddr(req.getInnerIp());
         homeAddrCache.setInnerPort(req.getInnerPort());
         homeAddrCache.setTimestamp(req.getTimestamp());
+        log.info(homeAddrCache.toString());
     }
 
 }
