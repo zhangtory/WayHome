@@ -38,8 +38,7 @@ public class HomeSchedule implements ApplicationRunner {
     @Value("${secretKey}")
     private String secretKey;
 
-//    private static final String WAY_HOME_SERVER_URL = "https://wayhome.zhangtory.com/set";
-    private static final String WAY_HOME_SERVER_URL = "http://127.0.0.1:8848/set";
+    private static final String WAY_HOME_SERVER_URL = "https://wayhome.zhangtory.com/set";
 
     @Scheduled(fixedRate = 10_000)
     public void sendHomeAddr() {

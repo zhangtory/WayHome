@@ -40,9 +40,7 @@ public class SignUtils {
             sb.append(key).append("=").append(trim).append("&");
         }
         sb.append("secretKey=").append(secretKey);
-        System.out.println(sb.toString());
         String sign = md5(sb.toString()).toUpperCase();
-        System.out.println(sign);
         return sign;
     }
 

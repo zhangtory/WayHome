@@ -1,7 +1,5 @@
 package com.zhangtory.wayhome.utils;
 
-import org.springframework.util.StringUtils;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,9 +40,7 @@ public class SignUtils {
             sb.append(key).append("=").append(trim).append("&");
         }
         sb.append("secretKey=").append(secretKey);
-        System.out.println(sb.toString());
         String sign = md5(sb.toString()).toUpperCase();
-        System.out.println(sign);
         return sign;
     }
 
