@@ -1,10 +1,11 @@
 package com.zhangtory.wayhomeclient.schedule;
 
+import com.zhangtory.wayhomeclient.model.HomeInfo;
 import com.zhangtory.wayhomeclient.utils.PostUtils;
 import com.zhangtory.wayhomeclient.utils.SignUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,34 +26,25 @@ public class HomeSchedule implements ApplicationRunner {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${protocol}")
-    private String protocol;
-    @Value("${port}")
-    private Long port;
-    @Value("${inner_protocol}")
-    private String innerProtocol;
-    @Value("${inner_ip}")
-    private String innerIp;
-    @Value("${inner_port}")
-    private Long innerPort;
-    @Value("${secretKey}")
-    private String secretKey;
+    @Autowired
+    private HomeInfo homeInfo;
 
     private static final String WAY_HOME_SERVER_URL = "https://wayhome.zhangtory.com/set";
 
-    @Scheduled(fixedRate = 10_000)
+    @Scheduled(fixedRate = 1_000)
     public void sendHomeAddr() {
         logger.info("start send home addr...");
         Map<String, Object> params = new HashMap<>();
-        params.put("protocol", protocol);
-        params.put("port", port);
-        params.put("innerProtocol", innerProtocol);
-        params.put("innerIp", innerIp);
-        params.put("innerPort", innerPort);
+        params.put("protocol", homeInfo.getProtocol());
+        params.put("port", homeInfo.getPort());
+        params.put("innerProtocol", homeInfo.getInnerProtocol());
+        params.put("innerIp", homeInfo.getInnerIpAddr());
+        params.put("innerPort", homeInfo.getInnerPort());
         params.put("timestamp", new Date().getTime());
-        params.put("sign", SignUtils.getSign(params, secretKey));
+        params.put("sign", SignUtils.getSign(params, homeInfo.getSecretKey()));
         try {
-            PostUtils.post(WAY_HOME_SERVER_URL, params);
+            String ret = PostUtils.post(WAY_HOME_SERVER_URL, params);
+            logger.info(ret);
         } catch (IOException e) {
             e.printStackTrace();
         }

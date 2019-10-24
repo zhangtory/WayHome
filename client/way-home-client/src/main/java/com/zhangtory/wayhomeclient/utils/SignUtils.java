@@ -41,6 +41,8 @@ public class SignUtils {
         }
         sb.append("secretKey=").append(secretKey);
         String sign = md5(sb.toString()).toUpperCase();
+//        System.out.println(sb.toString());
+//        System.out.println(sign);
         return sign;
     }
 
