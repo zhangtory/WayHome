@@ -3,7 +3,6 @@ package com.zhangtory.wayhome.utils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Copyright (C) 四川千行你我科技有限公司
  * @Author: ZhangYaoYu
  * @Date: 10/23 16:28
  * @Description:
