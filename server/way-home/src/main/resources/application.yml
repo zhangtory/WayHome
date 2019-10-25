@@ -9,6 +9,6 @@ spring:
     url: jdbc:mysql://zhangtory.com:3306/wayhome?useUnicode=true&characterEncording=utf-8&useSSL=true
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true

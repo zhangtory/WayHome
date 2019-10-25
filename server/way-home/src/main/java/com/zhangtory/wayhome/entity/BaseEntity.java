@@ -3,6 +3,7 @@ package com.zhangtory.wayhome.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -14,6 +15,7 @@ import java.util.Date;
 @Entity
 public class BaseEntity {
 
+    @Id
     private Long id;
     private Date createTime;
     private Date updateTime;

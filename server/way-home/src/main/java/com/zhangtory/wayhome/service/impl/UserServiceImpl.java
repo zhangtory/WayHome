@@ -1,8 +1,11 @@
 package com.zhangtory.wayhome.service.impl;
 
+import com.zhangtory.wayhome.dao.UserRepository;
+import com.zhangtory.wayhome.entity.User;
 import com.zhangtory.wayhome.exception.PasswordErrorException;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 import com.zhangtory.wayhome.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements IUserService {
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public void registerUser(UserRegisterReq req) {
         if (!req.getPassword().equals(req.getRepassword())) {
@@ -21,9 +27,12 @@ public class UserServiceImpl implements IUserService {
         }
         // username为唯一索引，如果用户名已存在会报异常
         // http://lrwinx.github.io/
-        req.setPassword(new BCryptPasswordEncoder().encode(req.getPassword()));
-        // TODO 插入数据库
-
+        User user = new User();
+        user.setUsername(req.getUsername());
+        user.setPassword(new BCryptPasswordEncoder().encode(req.getPassword()));
+        user.setMobile(req.getMobile());
+        user.setEmail(req.getEmail());
+        userRepository.save(user);
     }
 
 }
