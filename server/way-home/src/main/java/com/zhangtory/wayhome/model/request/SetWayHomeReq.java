@@ -1,4 +1,4 @@
-package com.zhangtory.wayhome.model;
+package com.zhangtory.wayhome.model.request;
 
 import lombok.Data;
 

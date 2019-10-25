@@ -1,9 +1,10 @@
 package com.zhangtory.wayhome.controller;
 
-import com.zhangtory.wayhome.model.SetWayHomeReq;
+import com.zhangtory.wayhome.model.request.SetWayHomeReq;
 import com.zhangtory.wayhome.service.IHomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,19 +24,19 @@ public class HomeController {
     @Autowired
     private IHomeService homeService;
 
-    @GetMapping("/go")
-    public String getWayHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @GetMapping("/go/{appID}")
+    public String getWayHome(@PathVariable String appID, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect(homeService.getWayHome(request));
         return "go";
     }
 
-    @GetMapping("/get")
-    public String getWayHomeAddr(HttpServletRequest request) {
+    @GetMapping("/get/{appID}")
+    public String getWayHomeAddr(@PathVariable String appID, HttpServletRequest request) {
         return homeService.getWayHome(request);
     }
 
-    @PostMapping("/set")
-    public String setWayHome(@Valid SetWayHomeReq req, HttpServletRequest request) {
+    @PostMapping("/set/{appID}")
+    public String setWayHome(@PathVariable String appID, @Valid SetWayHomeReq req, HttpServletRequest request) {
         homeService.setHomeAddr(req, request);
         return "hello";
     }

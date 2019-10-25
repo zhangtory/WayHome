@@ -1,6 +1,6 @@
 package com.zhangtory.wayhome.service;
 
-import com.zhangtory.wayhome.model.SetWayHomeReq;
+import com.zhangtory.wayhome.model.request.SetWayHomeReq;
 
 import javax.servlet.http.HttpServletRequest;
 

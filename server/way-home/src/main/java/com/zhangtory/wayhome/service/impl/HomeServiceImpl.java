@@ -1,7 +1,7 @@
 package com.zhangtory.wayhome.service.impl;
 
 import com.zhangtory.wayhome.exception.SignErrorException;
-import com.zhangtory.wayhome.model.SetWayHomeReq;
+import com.zhangtory.wayhome.model.request.SetWayHomeReq;
 import com.zhangtory.wayhome.service.IHomeService;
 import com.zhangtory.wayhome.utils.BeanUtils;
 import com.zhangtory.wayhome.model.HomeAddrCache;
