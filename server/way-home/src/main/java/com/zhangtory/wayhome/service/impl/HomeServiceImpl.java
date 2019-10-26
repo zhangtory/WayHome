@@ -26,7 +26,7 @@ public class HomeServiceImpl implements IHomeService {
 
     @Autowired
     private HomeAddrCache homeAddrCache;
-    @Value("${secretKey}")
+    @Value("${wayhome.secretKey}")
     private String secretKey;
 
     @Override

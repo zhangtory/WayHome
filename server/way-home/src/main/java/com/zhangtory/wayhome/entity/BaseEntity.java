@@ -2,8 +2,7 @@ package com.zhangtory.wayhome.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -12,12 +11,15 @@ import java.util.Date;
  * @Description:
  */
 @Data
-@Entity
+@MappedSuperclass
 public class BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(insertable = false, updatable = false)
     private Date createTime;
+    @Column(insertable = false)
     private Date updateTime;
 
 }

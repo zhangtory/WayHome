@@ -2,7 +2,7 @@ package com.zhangtory.wayhome.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * @Author: ZhangYaoYu

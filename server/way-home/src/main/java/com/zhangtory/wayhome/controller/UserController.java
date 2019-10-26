@@ -3,9 +3,7 @@ package com.zhangtory.wayhome.controller;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 import com.zhangtory.wayhome.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: ZhangYaoYu
@@ -18,10 +16,6 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @PostMapping("/login")
-    public void login() {
-    }
-
     @PostMapping("/register")
     public String register(@ModelAttribute UserRegisterReq req) {
         userService.registerUser(req);
@@ -31,7 +25,13 @@ public class UserController {
     @PostMapping("/password")
     public String changePassword() {
 
-        return "";
+        return "success";
+    }
+
+    @PostMapping("/dashboard")
+    public String dashboard() {
+
+        return "success";
     }
 
 }
