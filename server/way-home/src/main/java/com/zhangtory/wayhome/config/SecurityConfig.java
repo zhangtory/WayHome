@@ -1,7 +1,9 @@
 package com.zhangtory.wayhome.config;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zhangtory.wayhome.dao.UserRepository;
-import com.zhangtory.wayhome.exception.PasswordErrorException;
+import com.zhangtory.wayhome.model.response.BaseResponse;
+import com.zhangtory.wayhome.utils.BaseResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +28,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.io.PrintWriter;
+import java.util.*;
+import java.util.function.Supplier;
 
 /**
  * @Author: ZhangYaoYu
@@ -67,6 +69,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                 User userDetails = (User) authentication.getPrincipal();
                 // TODO 自定义登录成功后的操作
+                Map<String, String> result = new HashMap<>();
+                result.put("token", "1233211234567");
+
+                httpServletResponse.setContentType("application/json;charset=utf-8");
+                PrintWriter out = httpServletResponse.getWriter();
+                out.write(JSONObject.toJSONString(BaseResponseBuilder.success("登录成功", result)));
+                out.flush();
             }
         };
     }
@@ -77,7 +86,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
                 // 自定义登录失败的返回
-                throw new PasswordErrorException("登录失败，请检查用户名及密码是否正确");
+                httpServletResponse.setContentType("application/json;charset=utf-8");
+                PrintWriter out = httpServletResponse.getWriter();
+                out.write(JSONObject.toJSONString(BaseResponseBuilder.failure("用户名或密码错误")));
+                out.flush();
             }
         };
     }

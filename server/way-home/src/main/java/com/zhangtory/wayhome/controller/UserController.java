@@ -1,7 +1,9 @@
 package com.zhangtory.wayhome.controller;
 
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
+import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.service.IUserService;
+import com.zhangtory.wayhome.utils.BaseResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,21 +19,21 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserRegisterReq req) {
+    public BaseResponse register(@ModelAttribute UserRegisterReq req) {
         userService.registerUser(req);
-        return "success";
+        return BaseResponseBuilder.success();
     }
 
     @PostMapping("/password")
-    public String changePassword() {
+    public BaseResponse changePassword() {
 
-        return "success";
+        return BaseResponseBuilder.success();
     }
 
     @PostMapping("/dashboard")
-    public String dashboard() {
+    public BaseResponse dashboard() {
 
-        return "success";
+        return BaseResponseBuilder.success();
     }
 
 }
