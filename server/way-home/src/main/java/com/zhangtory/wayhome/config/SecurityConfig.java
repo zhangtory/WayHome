@@ -118,10 +118,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 // 从数据库查询用户信息
-                com.zhangtory.wayhome.entity.User user = new com.zhangtory.wayhome.entity.User();
-                user.setUsername(username);
-                Example<com.zhangtory.wayhome.entity.User> example = Example.of(user);
-                Optional<com.zhangtory.wayhome.entity.User> one = userRepository.findOne(example);
+                Optional<com.zhangtory.wayhome.entity.User> one = Optional.of(userRepository.getByUsername(username));
                 if (one.isPresent()) {
                     List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
                     simpleGrantedAuthorities.add(new SimpleGrantedAuthority("USER"));

@@ -3,6 +3,8 @@ package com.zhangtory.wayhome.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * @Author: ZhangYaoYu
@@ -16,5 +18,8 @@ public class UserKey extends BaseEntity {
     private Long userId;
     private String appId;
     private String secretKey;
+    @OneToOne
+    @JoinColumn(name = "appId", referencedColumnName = "appId")
+    private Address address;
 
 }
