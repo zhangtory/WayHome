@@ -72,13 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                 User userDetails = (User) authentication.getPrincipal();
-                // TODO 自定义登录成功后的操作
-                Map<String, String> result = new HashMap<>();
-                result.put("session", "1233211234567");
-
+                // 自定义登录成功后的返回
                 httpServletResponse.setContentType("application/json;charset=utf-8");
                 PrintWriter out = httpServletResponse.getWriter();
-                out.write(JSONObject.toJSONString(BaseResponseBuilder.success("登录成功", result)));
+                out.write(JSONObject.toJSONString(BaseResponseBuilder.success("登录成功")));
                 out.flush();
             }
         };
@@ -104,7 +101,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                 // 自定义注销成功的返回
-                // TODO 注销session
                 httpServletResponse.setContentType("application/json;charset=utf-8");
                 PrintWriter out = httpServletResponse.getWriter();
                 out.write(JSONObject.toJSONString(BaseResponseBuilder.success("退出成功")));

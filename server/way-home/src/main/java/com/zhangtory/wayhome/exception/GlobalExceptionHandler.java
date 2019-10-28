@@ -3,8 +3,6 @@ package com.zhangtory.wayhome.exception;
 import com.zhangtory.wayhome.constant.CodeConstant;
 import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.utils.BaseResponseBuilder;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
