@@ -2,7 +2,6 @@ package com.zhangtory.wayhome.config;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zhangtory.wayhome.dao.UserRepository;
-import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.utils.BaseResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +20,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
-import java.util.function.Supplier;
 
 /**
  * @Author: ZhangYaoYu
@@ -45,11 +45,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .httpBasic().authenticationEntryPoint(authenticationEntryPoint())
+                .and()
                 .authorizeRequests()
                 .antMatchers( "/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler());
+                .formLogin().loginPage("/login").permitAll().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler())
+                .and()
+                .logout().logoutSuccessHandler(logoutSuccessHandler()).permitAll();
     }
 
     @Override
@@ -70,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 User userDetails = (User) authentication.getPrincipal();
                 // TODO 自定义登录成功后的操作
                 Map<String, String> result = new HashMap<>();
-                result.put("token", "1233211234567");
+                result.put("session", "1233211234567");
 
                 httpServletResponse.setContentType("application/json;charset=utf-8");
                 PrintWriter out = httpServletResponse.getWriter();
@@ -95,6 +99,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new LogoutSuccessHandler() {
+            @Override
+            public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+                // 自定义注销成功的返回
+                // TODO 注销session
+                httpServletResponse.setContentType("application/json;charset=utf-8");
+                PrintWriter out = httpServletResponse.getWriter();
+                out.write(JSONObject.toJSONString(BaseResponseBuilder.success("退出成功")));
+                out.flush();
+            }
+        };
+    }
+
+    @Bean
     public UserDetailsService myUserDetailsService() {
         return new UserDetailsService() {
             @Autowired
@@ -107,9 +126,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 user.setUsername(username);
                 Example<com.zhangtory.wayhome.entity.User> example = Example.of(user);
                 Optional<com.zhangtory.wayhome.entity.User> one = userRepository.findOne(example);
-                List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-                simpleGrantedAuthorities.add(new SimpleGrantedAuthority("USER"));
-                return new User(username, one.get().getPassword(), simpleGrantedAuthorities);
+                if (one.isPresent()) {
+                    List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+                    simpleGrantedAuthorities.add(new SimpleGrantedAuthority("USER"));
+                    return new User(username, one.get().getPassword(), simpleGrantedAuthorities);
+                } else {
+                    throw new UsernameNotFoundException("用户名或密码错误");
+                }
+            }
+        };
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new AuthenticationEntryPoint() {
+            @Override
+            public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+                // 用户访问无权限资源时的异常处理
+                httpServletResponse.setContentType("application/json;charset=utf-8");
+                PrintWriter out = httpServletResponse.getWriter();
+                out.write(JSONObject.toJSONString(BaseResponseBuilder.failure("请先登录")));
+                out.flush();
             }
         };
     }

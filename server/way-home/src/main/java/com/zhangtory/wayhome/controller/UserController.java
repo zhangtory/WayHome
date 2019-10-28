@@ -7,6 +7,8 @@ import com.zhangtory.wayhome.utils.BaseResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @Author: ZhangYaoYu
  * @Date: 10/25 16:07
@@ -19,7 +21,7 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/register")
-    public BaseResponse register(@ModelAttribute UserRegisterReq req) {
+    public BaseResponse register(@Valid @ModelAttribute UserRegisterReq req) {
         userService.registerUser(req);
         return BaseResponseBuilder.success();
     }

@@ -10,4 +10,6 @@ public class CodeConstant {
 
     public static final int FAILURE_CODE = -1;
 
+    public static final String VALID_ERROR = "valid_error";
+
 }
