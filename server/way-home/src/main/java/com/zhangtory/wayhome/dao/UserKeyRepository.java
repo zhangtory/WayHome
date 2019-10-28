@@ -16,4 +16,8 @@ public interface UserKeyRepository extends JpaRepository<UserKey, Long> {
 
     List<UserKey> findAllByUserId(Long userId);
 
+    Long countByUserId(Long userId);
+
+    void deleteByUserIdAndAppId(Long userId, String appId);
+
 }

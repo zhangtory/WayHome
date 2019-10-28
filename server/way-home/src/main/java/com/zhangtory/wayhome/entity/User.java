@@ -3,6 +3,7 @@ package com.zhangtory.wayhome.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @Author: ZhangYaoYu
@@ -17,5 +18,8 @@ public class User extends BaseEntity {
     private String password;
     private String email;
     private String mobile;
+    @OneToMany
+    @JoinColumn(name = "id", referencedColumnName = "user_id")
+    private List<UserKey> userKeyList;
 
 }

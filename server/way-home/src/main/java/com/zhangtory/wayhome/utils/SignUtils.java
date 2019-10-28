@@ -44,7 +44,7 @@ public class SignUtils {
         return sign;
     }
 
-    private static String md5(String origin) {
+    public static String md5(String origin) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(origin.getBytes());
