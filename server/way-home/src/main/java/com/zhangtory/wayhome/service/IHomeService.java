@@ -15,7 +15,7 @@ public interface IHomeService {
      * 跳转回家
      * @return
      */
-    String getWayHome(String url, HttpServletRequest request);
+    String getWayHome(String appId, HttpServletRequest request);
 
     /**
      * 设置家的地址

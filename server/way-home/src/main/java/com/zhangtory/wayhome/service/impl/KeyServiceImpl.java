@@ -27,6 +27,7 @@ public class KeyServiceImpl implements IKeyService {
     private UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserKeyResp applyUserKey(String username) {
         UserKeyResp userKeyResp = new UserKeyResp();
 
@@ -38,13 +39,11 @@ public class KeyServiceImpl implements IKeyService {
         }
         UserKey userKey = new UserKey();
         userKey.setUserId(user.getId());
-        String uuid = UUID.randomUUID().toString();
+        String uuid = UUID.randomUUID().toString().replace("-", "");
         userKey.setAppId(uuid);
         String secretKey = SignUtils.md5(Math.random() + uuid);
         userKey.setSecretKey(secretKey);
         userKey = userKeyRepository.save(userKey);
-        // TODO 生成url
-
         BeanUtils.copyProperties(userKey, userKeyResp);
         return userKeyResp;
     }
@@ -67,4 +66,5 @@ public class KeyServiceImpl implements IKeyService {
         List<UserKeyResp> userKeyRespList = BeanUtils.copyListProperties(user.getUserKeyList(), UserKeyResp.class);
         return userKeyRespList;
     }
+
 }

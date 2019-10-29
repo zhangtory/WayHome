@@ -34,12 +34,11 @@ public class HomeServiceImpl implements IHomeService {
     private AddressRepository addressRepository;
 
     @Override
-    public String getWayHome(String url, HttpServletRequest request) {
-        UserKey userKey = userKeyRepository.getByUrl(url);
-        if (userKey == null) {
+    public String getWayHome(String appId, HttpServletRequest request) {
+        Address address = addressRepository.getByAppId(appId);
+        if (address == null) {
             throw new UrlNotFundException("没有该url");
         }
-        Address address = addressRepository.getByAppId(userKey.getAppId());
         String reqIp = IpUtils.getIpAddr(request);
         StringBuffer ret = new StringBuffer();
         if (reqIp.equals(address.getIp())) {

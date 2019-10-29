@@ -26,9 +26,9 @@ public class HomeController {
     @Autowired
     private IHomeService homeService;
 
-    @GetMapping("/go/{url}")
-    public String getWayHome(@PathVariable String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(homeService.getWayHome(url, request));
+    @GetMapping("/go/{appId}")
+    public String getWayHome(@PathVariable String appId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect(homeService.getWayHome(appId, request));
         return "go";
     }
 

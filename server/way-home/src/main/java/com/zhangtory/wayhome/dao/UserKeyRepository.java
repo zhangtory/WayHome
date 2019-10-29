@@ -20,6 +20,4 @@ public interface UserKeyRepository extends JpaRepository<UserKey, Long> {
 
     UserKey getByUserIdAndAppId(Long userId, String appId);
 
-    UserKey getByUrl(String url);
-
 }
