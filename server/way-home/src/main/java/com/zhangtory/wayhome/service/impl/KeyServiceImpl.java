@@ -7,12 +7,12 @@ import com.zhangtory.wayhome.entity.UserKey;
 import com.zhangtory.wayhome.exception.MaxAppCountException;
 import com.zhangtory.wayhome.model.response.UserKeyResp;
 import com.zhangtory.wayhome.service.IKeyService;
+import com.zhangtory.wayhome.utils.BeanUtils;
 import com.zhangtory.wayhome.utils.SignUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,17 +48,16 @@ public class KeyServiceImpl implements IKeyService {
     }
 
     @Override
+    @Transactional
     public void deleteUserKey(String username, String appId) {
-        System.out.println("111");
         User user = userRepository.getByUsername(username);
-        userKeyRepository.deleteByUserIdAndAppId(user.getId(), appId);
+        userKeyRepository.deleteUserKeyByUserIdAndAppId(user.getId(), appId);
     }
 
     @Override
     public List<UserKeyResp> queryAllUserKey(String username) {
-        List<UserKeyResp> userKeyRespList = new ArrayList<>();
         User user = userRepository.getByUsername(username);
-        BeanUtils.copyProperties(user.getUserKeyList(), userKeyRespList);
+        List<UserKeyResp> userKeyRespList = BeanUtils.copyListProperties(user.getUserKeyList(), UserKeyResp.class);
         return userKeyRespList;
     }
 }

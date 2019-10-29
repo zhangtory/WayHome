@@ -12,7 +12,7 @@ import com.zhangtory.wayhome.model.request.ChangePasswordReq;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 import com.zhangtory.wayhome.model.response.DashboardResp;
 import com.zhangtory.wayhome.service.IUserService;
-import org.springframework.beans.BeanUtils;
+import com.zhangtory.wayhome.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

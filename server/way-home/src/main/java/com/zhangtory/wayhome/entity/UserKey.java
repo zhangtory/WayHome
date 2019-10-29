@@ -18,8 +18,5 @@ public class UserKey extends BaseEntity {
     private Long userId;
     private String appId;
     private String secretKey;
-    @OneToOne
-    @JoinColumn(insertable = false, name = "app_id")
-    private Address address;
 
 }

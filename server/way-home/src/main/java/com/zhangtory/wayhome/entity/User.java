@@ -18,8 +18,7 @@ public class User extends BaseEntity {
     private String password;
     private String email;
     private String mobile;
-    @OneToMany
-    @JoinColumn(name = "id", referencedColumnName = "user_id")
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private List<UserKey> userKeyList;
 
 }
