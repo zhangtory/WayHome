@@ -26,15 +26,10 @@ public class HomeController {
     @Autowired
     private IHomeService homeService;
 
-    @GetMapping("/go/{appID}")
-    public String getWayHome(@PathVariable String appID, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(homeService.getWayHome(appID, request));
+    @GetMapping("/go/{url}")
+    public String getWayHome(@PathVariable String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect(homeService.getWayHome(url, request));
         return "go";
-    }
-
-    @GetMapping("/address/{appID}")
-    public BaseResponse getWayHomeAddr(@PathVariable String appID, HttpServletRequest request) {
-        return BaseResponseBuilder.success(homeService.getWayHome(appID, request));
     }
 
     @PostMapping("/address/{appID}")

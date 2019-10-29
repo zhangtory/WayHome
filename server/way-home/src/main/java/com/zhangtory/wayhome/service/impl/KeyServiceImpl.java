@@ -5,6 +5,7 @@ import com.zhangtory.wayhome.dao.UserRepository;
 import com.zhangtory.wayhome.entity.User;
 import com.zhangtory.wayhome.entity.UserKey;
 import com.zhangtory.wayhome.exception.MaxAppCountException;
+import com.zhangtory.wayhome.exception.UserExistsException;
 import com.zhangtory.wayhome.model.response.UserKeyResp;
 import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.utils.BeanUtils;
@@ -42,6 +43,7 @@ public class KeyServiceImpl implements IKeyService {
         String secretKey = SignUtils.md5(Math.random() + uuid);
         userKey.setSecretKey(secretKey);
         userKey = userKeyRepository.save(userKey);
+        // TODO 生成url
 
         BeanUtils.copyProperties(userKey, userKeyResp);
         return userKeyResp;
@@ -51,7 +53,12 @@ public class KeyServiceImpl implements IKeyService {
     @Transactional
     public void deleteUserKey(String username, String appId) {
         User user = userRepository.getByUsername(username);
-        userKeyRepository.deleteUserKeyByUserIdAndAppId(user.getId(), appId);
+        UserKey userKey = userKeyRepository.getByUserIdAndAppId(user.getId(), appId);
+        if (userKey == null) {
+            throw new UserExistsException("appId删除失败");
+        }
+        userKey.setDel(1);
+        userKeyRepository.save(userKey);
     }
 
     @Override

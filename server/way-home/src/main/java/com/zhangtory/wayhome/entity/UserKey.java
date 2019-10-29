@@ -16,5 +16,7 @@ public class UserKey extends BaseEntity {
     private Long userId;
     private String appId;
     private String secretKey;
+    private String url;
+    private Integer del;
 
 }

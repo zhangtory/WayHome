@@ -5,18 +5,16 @@ import com.zhangtory.wayhome.dao.UserKeyRepository;
 import com.zhangtory.wayhome.entity.Address;
 import com.zhangtory.wayhome.entity.UserKey;
 import com.zhangtory.wayhome.exception.SignErrorException;
+import com.zhangtory.wayhome.exception.UrlNotFundException;
 import com.zhangtory.wayhome.model.request.SetWayHomeReq;
 import com.zhangtory.wayhome.service.IHomeService;
 import com.zhangtory.wayhome.utils.BeanUtils;
-import com.zhangtory.wayhome.model.HomeAddrCache;
 import com.zhangtory.wayhome.utils.IpUtils;
 import com.zhangtory.wayhome.utils.SignUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,17 +28,36 @@ import javax.servlet.http.HttpServletRequest;
 public class HomeServiceImpl implements IHomeService {
 
     @Autowired
-    private HomeAddrCache homeAddrCache;
-
-    @Autowired
     private UserKeyRepository userKeyRepository;
 
     @Autowired
     private AddressRepository addressRepository;
 
     @Override
-    public String getWayHome(String appID, HttpServletRequest request) {
-        return findWayHome(IpUtils.getIpAddr(request));
+    public String getWayHome(String url, HttpServletRequest request) {
+        UserKey userKey = userKeyRepository.getByUrl(url);
+        if (userKey == null) {
+            throw new UrlNotFundException("没有该url");
+        }
+        Address address = addressRepository.getByAppId(userKey.getAppId());
+        String reqIp = IpUtils.getIpAddr(request);
+        StringBuffer ret = new StringBuffer();
+        if (reqIp.equals(address.getIp())) {
+            // 请求ip来自家中内网，返回内网信息
+            ret.append(address.getInnerProtocol())
+                    .append("://")
+                    .append(address.getInnerIp())
+                    .append(":")
+                    .append(address.getInnerPort());
+        } else {
+            // 返回外网信息
+            ret.append(address.getProtocol())
+                    .append("://")
+                    .append(address.getIp())
+                    .append(":")
+                    .append(address.getPort());
+        }
+        return ret.toString();
     }
 
     @Override
@@ -64,33 +81,6 @@ public class HomeServiceImpl implements IHomeService {
         address.setIp(ip);
         BeanUtils.copyProperties(req, address);
         addressRepository.save(address);
-    }
-
-    /**
-     * 通过请求的ip地址判断返回公网还是内网地址
-     * @param requestIp
-     * @return
-     */
-    private String findWayHome(String requestIp) {
-        // 如果没有地址，返回默认地址
-        if (StringUtils.isEmpty(homeAddrCache.getIpAddr())) {
-            return "https://zhangyaoyu.com";
-        }
-        if (requestIp.equals(homeAddrCache.getIpAddr())) {
-            // 请求来自同一个ip，返回内网地址
-            StringBuilder addr = new StringBuilder()
-                    .append(homeAddrCache.getInnerProtocol()).append("://")
-                    .append(homeAddrCache.getInnerIpAddr()).append(":")
-                    .append(homeAddrCache.getInnerPort());
-            return addr.toString();
-        } else {
-            // 返回外网地址
-            StringBuilder addr = new StringBuilder()
-                    .append(homeAddrCache.getProtocol()).append("://")
-                    .append(homeAddrCache.getIpAddr()).append(":")
-                    .append(homeAddrCache.getPort());
-            return addr.toString();
-        }
     }
 
 }

@@ -18,6 +18,8 @@ public interface UserKeyRepository extends JpaRepository<UserKey, Long> {
 
     Long countByUserId(Long userId);
 
-    void deleteUserKeyByUserIdAndAppId(Long userId, String appId);
+    UserKey getByUserIdAndAppId(Long userId, String appId);
+
+    UserKey getByUrl(String url);
 
 }

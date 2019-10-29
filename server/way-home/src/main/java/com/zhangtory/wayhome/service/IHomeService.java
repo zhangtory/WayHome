@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 public interface IHomeService {
 
     /**
-     * 获取家的跳转地址
+     * 跳转回家
      * @return
      */
-    String getWayHome(String appID, HttpServletRequest request);
+    String getWayHome(String url, HttpServletRequest request);
 
     /**
      * 设置家的地址
