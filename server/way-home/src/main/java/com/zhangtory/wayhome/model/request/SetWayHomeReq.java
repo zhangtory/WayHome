@@ -23,7 +23,7 @@ public class SetWayHomeReq {
      * 公网转发端口
      * default: 8123
      */
-    private Long port = 8123L;
+    private Integer port = 8123;
 
     /**
      * 内网使用协议
@@ -41,7 +41,7 @@ public class SetWayHomeReq {
      * 内网监听端口
      * default: 8123
      */
-    private Long innerPort = 8123L;
+    private Integer innerPort = 8123;
 
     /**
      * 时间戳，防重放攻击

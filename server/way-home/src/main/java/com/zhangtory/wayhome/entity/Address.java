@@ -3,6 +3,7 @@ package com.zhangtory.wayhome.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 /**
  * @Author: ZhangYaoYu
@@ -19,6 +20,6 @@ public class Address extends BaseEntity {
     private Integer port;
     private String innerProtocol;
     private String innerIp;
-    private String innerPort;
+    private Integer innerPort;
 
 }

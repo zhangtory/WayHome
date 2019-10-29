@@ -3,8 +3,6 @@ package com.zhangtory.wayhome.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 /**
  * @Author: ZhangYaoYu

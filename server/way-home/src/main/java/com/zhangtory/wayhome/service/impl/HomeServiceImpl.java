@@ -1,5 +1,9 @@
 package com.zhangtory.wayhome.service.impl;
 
+import com.zhangtory.wayhome.dao.AddressRepository;
+import com.zhangtory.wayhome.dao.UserKeyRepository;
+import com.zhangtory.wayhome.entity.Address;
+import com.zhangtory.wayhome.entity.UserKey;
 import com.zhangtory.wayhome.exception.SignErrorException;
 import com.zhangtory.wayhome.model.request.SetWayHomeReq;
 import com.zhangtory.wayhome.service.IHomeService;
@@ -11,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,25 +31,39 @@ public class HomeServiceImpl implements IHomeService {
 
     @Autowired
     private HomeAddrCache homeAddrCache;
-    @Value("${wayhome.secretKey}")
-    private String secretKey;
+
+    @Autowired
+    private UserKeyRepository userKeyRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Override
-    public String getWayHome(HttpServletRequest request) {
+    public String getWayHome(String appID, HttpServletRequest request) {
         return findWayHome(IpUtils.getIpAddr(request));
     }
 
     @Override
-    public void setHomeAddr(SetWayHomeReq req, HttpServletRequest request) {
+    @Transactional
+    public void setHomeAddr(String appID, SetWayHomeReq req, HttpServletRequest request) {
         // 验签，防止恶意调用及攻击
-        if (!SignUtils.checkSign(BeanUtils.objectToMap(req), secretKey, req.getSign())) {
+        UserKey userKey = userKeyRepository.getByAppId(appID);
+        if (userKey == null) {
+            throw new SignErrorException("appID错误");
+        }
+        if (!SignUtils.checkSign(BeanUtils.objectToMap(req), userKey.getSecretKey(), req.getSign())) {
             throw new SignErrorException("签名错误");
         }
-        if (homeAddrCache.getTimestamp() != null && req.getTimestamp() <= homeAddrCache.getTimestamp()) {
-            throw new SignErrorException("时间戳错误");
-        }
         // 记录信息
-        recordHomeInfo(req, IpUtils.getIpAddr(request));
+        String ip = IpUtils.getIpAddr(request);
+        Address address = addressRepository.getByAppId(appID);
+        if (address == null) {
+            address = new Address();
+            address.setAppId(appID);
+        }
+        address.setIp(ip);
+        BeanUtils.copyProperties(req, address);
+        addressRepository.save(address);
     }
 
     /**
@@ -72,22 +91,6 @@ public class HomeServiceImpl implements IHomeService {
                     .append(homeAddrCache.getPort());
             return addr.toString();
         }
-    }
-
-    /**
-     * 设置新的地址信息
-     * @param req
-     * @param ipAddr
-     */
-    private void recordHomeInfo(SetWayHomeReq req, String ipAddr) {
-        homeAddrCache.setProtocol(req.getProtocol());
-        homeAddrCache.setIpAddr(ipAddr);
-        homeAddrCache.setPort(req.getPort());
-        homeAddrCache.setInnerProtocol(req.getInnerProtocol());
-        homeAddrCache.setInnerIpAddr(req.getInnerIp());
-        homeAddrCache.setInnerPort(req.getInnerPort());
-        homeAddrCache.setTimestamp(req.getTimestamp());
-        log.info(homeAddrCache.toString());
     }
 
 }

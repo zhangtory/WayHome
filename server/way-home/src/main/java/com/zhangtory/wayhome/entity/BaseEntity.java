@@ -19,7 +19,7 @@ public class BaseEntity {
     private Long id;
     @Column(insertable = false, updatable = false)
     private Date createTime;
-    @Column(insertable = false)
+    @Column(insertable = false, updatable = false)
     private Date updateTime;
 
 }
