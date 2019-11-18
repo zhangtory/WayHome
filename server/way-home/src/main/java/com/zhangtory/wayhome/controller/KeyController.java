@@ -16,6 +16,7 @@ import java.util.List;
  * @Description:
  */
 @RestController
+@RequestMapping("/api")
 public class KeyController {
 
     @Autowired

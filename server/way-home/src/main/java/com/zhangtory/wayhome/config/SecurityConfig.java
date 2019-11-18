@@ -48,10 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().authenticationEntryPoint(authenticationEntryPoint())
                 .and()
                 .authorizeRequests()
-                .antMatchers( "/register", "/go", "/address**").permitAll()
+                .antMatchers( "/api/register", "/api/go", "/api/address**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler())
+                .formLogin().loginPage("/api/login").permitAll().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler())
                 .and()
                 .logout().logoutSuccessHandler(logoutSuccessHandler()).permitAll();
     }
