@@ -1,12 +1,12 @@
 <template>
-  <div class="login">
+  <div class="reg">
     <Row type="flex" justify="center">
       <Col>
         <div class="register">
           <h1>WayHome - 注册</h1>
           <Form ref="formData" :model="formData" :rules="rule">
             <FormItem prop="username">
-              <Input clearable size="large" placeholder="请输入用户名" maxlength="10" prefix="ios-person-outline" v-model="formData.username"/>
+              <Input clearable size="large" placeholder="请输入用户名" maxlength="20" prefix="ios-person-outline" v-model="formData.username"/>
             </FormItem>
             <FormItem prop="password">
               <Input type="password" password size="large" placeholder="请输入密码" maxlength="20" prefix="ios-lock-outline" v-model="formData.password"/>
@@ -20,10 +20,10 @@
             <FormItem prop="mobile">
               <Input clearable size="large" placeholder="请输入手机号码" maxlength="11" prefix="ios-phone-portrait" v-model="formData.mobile"/>
             </FormItem>
-            <FormItem>
-              <label class="warning" v-if="msg"><Icon class="warning" type="ios-information-circle-outline" /> {{msg}}</label>
+            <FormItem v-if="msg">
+              <label class="warning"><Icon class="warning" type="ios-information-circle-outline" /> {{msg}}</label>
             </FormItem>
-            <Button type="success" size="large" @click="register('formData')">登录</Button>
+            <Button type="success" size="large" @click="register('formData')">注册</Button>
             <router-link to="/login">已有账号？马上登录</router-link>
           </Form>
         </div>
@@ -100,7 +100,7 @@ export default {
             }
           }).then(response => {
             if (response.data['code'] === 0) {
-              this.$router.push({name:'Index'});
+              this.$router.push({name:'Dashboard'});
             } else {
               this.msg = response.data['msg'];
             }
@@ -120,12 +120,14 @@ export default {
     margin-bottom: 2vh;
   }
 
-  .login {
+  .reg {
     width: 100vw;
     height: 100vh;
     background-image: url("../../static/stars.jpg");
     background-size: cover;
     background-position: center;
+
+    text-align: center;
 
     display: flex;
     align-items: center;
