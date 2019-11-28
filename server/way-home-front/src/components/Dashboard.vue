@@ -2,18 +2,22 @@
   <div class="layout">
     <Layout style="height: 99.7vh">
       <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-        <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-          <MenuItem name="1-1">
+        <Menu active-name="dashboard" theme="dark" width="auto" :class="menuitemClasses">
+          <MenuItem name="dashboard">
             <Icon type="ios-navigate"></Icon>
-            <span>Option 1</span>
+            <span><router-link :to="{name: 'AddressList'}" tag="li">地址管理</router-link></span>
           </MenuItem>
-          <MenuItem name="1-2">
-            <Icon type="ios-search"></Icon>
-            <span>Option 2</span>
+          <MenuItem name="applyAddress">
+            <Icon type="ios-add-circle-outline" />
+            <span><router-link :to="{name: 'ApplyAddress'}" tag="li">创建地址</router-link></span>
           </MenuItem>
-          <MenuItem name="1-3">
+          <MenuItem name="resetPassword">
+            <Icon type="ios-key-outline" />
+            <span><router-link :to="{name: 'ResetPassword'}" tag="li">修改密码</router-link></span>
+          </MenuItem>
+          <MenuItem name="OpenApi">
             <Icon type="ios-settings"></Icon>
-            <span>Option 3</span>
+            <span><router-link :to="{name: 'OpenAPI'}" tag="li">开放API</router-link></span>
           </MenuItem>
         </Menu>
       </Sider>
@@ -22,8 +26,7 @@
           <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}" type="md-menu" size="24"></Icon>
         </Header>
         <Content :style="{margin: '20px', background: '#fff'}">
-          Content
-          <h1>asdf</h1>
+          <router-view></router-view>
         </Content>
       </Layout>
     </Layout>
@@ -71,19 +74,6 @@ export default {
   .layout-header-bar{
     background: #fff;
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
-  }
-  .layout-logo-left{
-    width: 90%;
-    height: 30px;
-    background: #5b6270;
-    border-radius: 3px;
-    margin: 15px auto;
-  }
-  .menu-icon{
-    transition: all .3s;
-  }
-  .rotate-icon{
-    transform: rotate(-90deg);
   }
   .menu-item span{
     display: inline-block;
