@@ -29,9 +29,9 @@ public class HomeSchedule implements ApplicationRunner {
     @Autowired
     private HomeInfo homeInfo;
 
-    private static final String WAY_HOME_SERVER_URL = "https://wayhome.zhangtory.com/set";
+    private static final String WAY_HOME_SERVER_URL = "https://wayhome.zhangtory.com/api/address/";
 
-    @Scheduled(fixedRate = 1_000)
+    @Scheduled(fixedRate = 1000)
     public void sendHomeAddr() {
         logger.info("start send home addr...");
         Map<String, Object> params = new HashMap<>();
@@ -43,7 +43,7 @@ public class HomeSchedule implements ApplicationRunner {
         params.put("timestamp", new Date().getTime());
         params.put("sign", SignUtils.getSign(params, homeInfo.getSecretKey()));
         try {
-            String ret = PostUtils.post(WAY_HOME_SERVER_URL, params);
+            String ret = PostUtils.post(WAY_HOME_SERVER_URL + homeInfo.getAppId(), params);
             logger.info(ret);
         } catch (IOException e) {
             e.printStackTrace();

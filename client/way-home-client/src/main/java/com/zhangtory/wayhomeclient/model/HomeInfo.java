@@ -44,6 +44,11 @@ public class HomeInfo {
     private Long innerPort;
 
     /**
+     * appId
+     */
+    private String appId;
+
+    /**
      * 秘钥
      */
     private String secretKey;
