@@ -7,10 +7,6 @@
             <Icon type="ios-navigate"></Icon>
             <span><router-link :to="{name: 'AddressList'}" tag="li">地址管理</router-link></span>
           </MenuItem>
-          <MenuItem name="applyAddress">
-            <Icon type="ios-add-circle-outline" />
-            <span><router-link :to="{name: 'ApplyAddress'}" tag="li">创建地址</router-link></span>
-          </MenuItem>
           <MenuItem name="resetPassword">
             <Icon type="ios-key-outline" />
             <span><router-link :to="{name: 'ResetPassword'}" tag="li">修改密码</router-link></span>

@@ -5,7 +5,6 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard'
 import AddressList from '@/components/dashboards/AddressList'
-import ApplyAddress from '@/components/dashboards/ApplyAddress'
 import ResetPassword from '@/components/dashboards/ResetPassword'
 import OpenApi from '@/components/dashboards/OpenApi'
 
@@ -37,11 +36,6 @@ export default new Router({
           path: '/',
           name: 'AddressList',
           component: AddressList
-        },
-        {
-          path: 'applyaddress',
-          name: 'ApplyAddress',
-          component: ApplyAddress
         },
         {
           path: 'resetpassword',
