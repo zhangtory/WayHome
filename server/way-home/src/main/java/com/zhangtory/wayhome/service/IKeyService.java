@@ -8,6 +8,7 @@ public interface IKeyService {
 
     /**
      * 申请appID
+     *
      * @param username
      * @return
      */
@@ -15,6 +16,7 @@ public interface IKeyService {
 
     /**
      * 删除key
+     *
      * @param username
      * @param appId
      */
@@ -22,6 +24,7 @@ public interface IKeyService {
 
     /**
      * 查询用户的所有key
+     *
      * @param username
      * @return
      */

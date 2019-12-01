@@ -7,7 +7,8 @@ package com.zhangtory.wayhome.exception;
  */
 public class UrlNotFundException extends RuntimeException {
 
-    public UrlNotFundException() {}
+    public UrlNotFundException() {
+    }
 
     public UrlNotFundException(String message) {
         super(message);

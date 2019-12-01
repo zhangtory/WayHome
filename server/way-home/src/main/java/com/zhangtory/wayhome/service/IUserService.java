@@ -18,12 +18,14 @@ public interface IUserService {
 
     /**
      * 修改密码
+     *
      * @param req
      */
     void changePassword(ChangePasswordReq req, String username);
 
     /**
      * 控制台信息
+     *
      * @param username
      * @return
      */

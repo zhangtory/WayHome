@@ -13,12 +13,14 @@ public interface IHomeService {
 
     /**
      * 跳转回家
+     *
      * @return
      */
     String getWayHome(String appId, HttpServletRequest request);
 
     /**
      * 设置家的地址
+     *
      * @param request
      */
     void setHomeAddr(String appID, SetWayHomeReq req, HttpServletRequest request);

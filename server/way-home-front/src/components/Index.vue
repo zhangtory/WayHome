@@ -8,14 +8,14 @@
 </template>
 
 <script>
-export default {
-  name: "Index",
-  data () {
-    return {
-      msg: '123'
+  export default {
+    name: "Index",
+    data() {
+      return {
+        msg: '123'
+      }
     }
   }
-}
 </script>
 
 <style scoped>

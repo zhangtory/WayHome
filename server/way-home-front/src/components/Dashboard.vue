@@ -8,7 +8,7 @@
             <span><router-link :to="{name: 'AddressList'}" tag="li">地址管理</router-link></span>
           </MenuItem>
           <MenuItem name="resetPassword">
-            <Icon type="ios-key-outline" />
+            <Icon type="ios-key-outline"/>
             <span><router-link :to="{name: 'ResetPassword'}" tag="li">修改密码</router-link></span>
           </MenuItem>
           <MenuItem name="OpenApi">
@@ -19,7 +19,8 @@
       </Sider>
       <Layout>
         <Header :style="{padding: 0}" class="layout-header-bar">
-          <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}" type="md-menu" size="24"></Icon>
+          <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}" type="md-menu"
+                size="24"></Icon>
         </Header>
         <Content :style="{margin: '20px', background: '#fff'}">
           <router-view></router-view>
@@ -30,48 +31,50 @@
 </template>
 
 <script>
-export default {
-  name: "Dashboard",
-  data () {
-    return {
-      isCollapsed: false
-    }
-  },
-  computed: {
-    rotateIcon () {
-      return [
-        'menu-icon',
-        this.isCollapsed ? 'rotate-icon' : ''
-      ];
+  export default {
+    name: "Dashboard",
+    data() {
+      return {
+        isCollapsed: false
+      }
     },
-    menuitemClasses () {
-      return [
-        'menu-item',
-        this.isCollapsed ? 'collapsed-menu' : ''
-      ]
-    }
-  },
-  methods: {
-    collapsedSider () {
-      this.$refs.side1.toggleCollapse();
+    computed: {
+      rotateIcon() {
+        return [
+          'menu-icon',
+          this.isCollapsed ? 'rotate-icon' : ''
+        ];
+      },
+      menuitemClasses() {
+        return [
+          'menu-item',
+          this.isCollapsed ? 'collapsed-menu' : ''
+        ]
+      }
+    },
+    methods: {
+      collapsedSider() {
+        this.$refs.side1.toggleCollapse();
+      }
     }
   }
-}
 </script>
 
 <style scoped>
-  .layout{
+  .layout {
     border: 1px solid #d7dde4;
     background: #f5f7f9;
     position: relative;
     border-radius: 4px;
     overflow: hidden;
   }
-  .layout-header-bar{
+
+  .layout-header-bar {
     background: #fff;
-    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   }
-  .menu-item span{
+
+  .menu-item span {
     display: inline-block;
     overflow: hidden;
     width: 69px;
@@ -80,17 +83,20 @@ export default {
     vertical-align: bottom;
     transition: width .2s ease .2s;
   }
-  .menu-item i{
+
+  .menu-item i {
     transform: translateX(0px);
     transition: font-size .2s ease, transform .2s ease;
     vertical-align: middle;
     font-size: 16px;
   }
-  .collapsed-menu span{
+
+  .collapsed-menu span {
     width: 0px;
     transition: width .2s ease;
   }
-  .collapsed-menu i{
+
+  .collapsed-menu i {
     transform: translateX(5px);
     transition: font-size .2s ease .2s, transform .2s ease .2s;
     vertical-align: middle;
