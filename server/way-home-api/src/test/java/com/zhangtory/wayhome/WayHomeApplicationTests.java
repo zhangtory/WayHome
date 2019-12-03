@@ -2,6 +2,7 @@ package com.zhangtory.wayhome;
 
 import com.zhangtory.wayhome.entity.Key;
 import com.zhangtory.wayhome.entity.User;
+import com.zhangtory.wayhome.mapper.UserMapper;
 import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.service.IUserService;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ class WayHomeApplicationTests {
 
     @Autowired
     private IKeyService keyService;
+
 
     @Test
     void userServiceTest() {

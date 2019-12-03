@@ -2,6 +2,7 @@ package com.zhangtory.wayhome.mapper;
 
 import com.zhangtory.wayhome.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zhangtory
  * @since 2019-12-01
  */
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
 }
