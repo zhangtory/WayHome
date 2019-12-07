@@ -27,6 +27,7 @@ public class Key implements Serializable {
     /**
      * keyID
      */
+    @TableId
     private String keyId;
 
     /**

@@ -1,8 +1,5 @@
 package com.zhangtory.wayhome.utils;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -29,30 +26,18 @@ public class SignUtils {
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
-            if (null == value) {
+            if (value == null) {
                 continue;
             }
-            String s = String.valueOf(value);
-            String trim = s.trim();
-            if (trim.equals("")) {
+            String trim = String.valueOf(value).trim();
+            if ("".equals(trim)) {
                 continue;
             }
             sb.append(key).append("=").append(trim).append("&");
         }
         sb.append("secretKey=").append(secretKey);
-        String sign = md5(sb.toString()).toUpperCase();
+        String sign = EncryptUtils.md5(sb.toString()).toUpperCase();
         return sign;
-    }
-
-    public static String md5(String origin) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(origin.getBytes());
-            return new BigInteger(1, md.digest()).toString(16);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 
 }

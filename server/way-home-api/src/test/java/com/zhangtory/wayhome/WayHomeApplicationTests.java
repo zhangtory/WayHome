@@ -1,8 +1,11 @@
 package com.zhangtory.wayhome;
 
+import com.zhangtory.wayhome.controller.UserController;
 import com.zhangtory.wayhome.entity.Key;
 import com.zhangtory.wayhome.entity.User;
 import com.zhangtory.wayhome.mapper.UserMapper;
+import com.zhangtory.wayhome.model.request.UserRegisterReq;
+import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.service.IUserService;
 import org.junit.jupiter.api.Test;
@@ -22,28 +25,14 @@ class WayHomeApplicationTests {
 
 
     @Test
-    void userServiceTest() {
-        User user = new User();
-        user.setUsername("name3");
-        user.setPassword("123");
-        user.setEmail("3@q.com");
-        user.setMobile("1922321");
-        userService.save(user);
-    }
-
-    @Test
-    void queryUserTest() {
-        List<User> list = userService.list();
-        list.forEach(System.out::println);
-    }
-
-    @Test
-    void addKeyTest() {
-        Key key = new Key();
-        key.setKeyId("44556");
-        key.setSecretKey("kjjgbk");
-        key.setUserId(41L);
-        keyService.save(key);
+    public void registerTest() {
+        UserRegisterReq req = new UserRegisterReq();
+        req.setUsername("ut1");
+        req.setPassword("123456");
+        req.setRepassword("123456");
+        req.setEmail("1@qq.com");
+        req.setMobile("18733334444");
+        userService.register(req);
     }
 
     @Test
