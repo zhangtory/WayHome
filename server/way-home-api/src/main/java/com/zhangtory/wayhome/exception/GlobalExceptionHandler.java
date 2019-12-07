@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = BindException.class)
     public BaseResponse bindException(BindException e) {
-        return BaseResponseBuilder.failure(CodeConstant.VALID_ERROR, e.getBindingResult().getAllErrors());
+        return BaseResponseBuilder.failure(CodeConstant.VALID_ERROR_MSG, e.getBindingResult().getAllErrors());
     }
 
     @ExceptionHandler(value = Exception.class)
