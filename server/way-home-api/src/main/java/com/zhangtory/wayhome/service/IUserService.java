@@ -2,6 +2,7 @@ package com.zhangtory.wayhome.service;
 
 import com.zhangtory.wayhome.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhangtory.wayhome.model.request.LoginReq;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 
 /**
@@ -19,5 +20,11 @@ public interface IUserService extends IService<User> {
      * @param userRegisterReq
      */
     void register(UserRegisterReq userRegisterReq);
+
+    /**
+     * 用户登录
+     * @param loginReq
+     */
+    void login(LoginReq loginReq);
 
 }

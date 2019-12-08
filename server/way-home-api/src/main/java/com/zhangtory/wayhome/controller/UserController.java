@@ -22,11 +22,15 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/user")
-    public BaseResponse addUser(@RequestBody @Valid UserRegisterReq userRegisterReq) {
+    public BaseResponse register(@RequestBody @Valid UserRegisterReq userRegisterReq) {
         userService.register(userRegisterReq);
         return BaseResponseBuilder.success();
     }
 
+    @PostMapping("/login")
+    public BaseResponse login() {
 
+        return BaseResponseBuilder.success();
+    }
 
 }

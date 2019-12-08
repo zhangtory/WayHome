@@ -4,6 +4,7 @@ import com.zhangtory.wayhome.entity.User;
 import com.zhangtory.wayhome.mapper.UserMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangtory.wayhome.exception.UserException;
+import com.zhangtory.wayhome.model.request.LoginReq;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 import com.zhangtory.wayhome.service.IUserService;
 import com.zhangtory.wayhome.utils.BeanUtils;
@@ -36,6 +37,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             this.save(user);
         } catch (DuplicateKeyException e) {
             throw new UserException("用户名已存在");
+        }
+    }
+
+    @Override
+    public void login(LoginReq loginReq) {
+        User user = this.getOne(lambdaQuery().eq(User::getUsername, loginReq.getUsername()));
+        if (user != null) {
+            if (PasswordUtils.checkPassword(loginReq.getPassword(), user.getPassword())) {
+                // TODO 用户名密码匹配
+            }
         }
     }
 
