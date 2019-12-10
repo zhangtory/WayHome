@@ -9,9 +9,14 @@ import com.zhangtory.wayhome.model.request.UserRegisterReq;
 import com.zhangtory.wayhome.service.IUserService;
 import com.zhangtory.wayhome.utils.BeanUtils;
 import com.zhangtory.wayhome.utils.PasswordUtils;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+
+import java.security.Key;
 
 /**
  * <p>
@@ -46,6 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (user != null) {
             if (PasswordUtils.checkPassword(loginReq.getPassword(), user.getPassword())) {
                 // TODO 用户名密码匹配
+
             }
         }
     }

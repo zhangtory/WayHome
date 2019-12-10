@@ -1,6 +1,7 @@
 package com.zhangtory.wayhome.utils;
 
 import com.zhangtory.wayhome.constant.CodeConstant;
+import com.zhangtory.wayhome.constant.ConfigConstant;
 
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class PasswordUtils {
     public static String getEncryptedPassword(String password) {
         Random random = new Random();
         StringBuilder salt = new StringBuilder(String.valueOf(random.nextInt(999999)));
-        while (salt.toString().length() < CodeConstant.PASSWORD_SALT_LEN) {
+        while (salt.toString().length() < ConfigConstant.PASSWORD_SALT_LEN) {
             salt.append("0");
         }
         String encode = EncryptUtils.md5(password + salt.toString());

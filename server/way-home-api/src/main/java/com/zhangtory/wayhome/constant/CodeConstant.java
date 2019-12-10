@@ -14,10 +14,11 @@ public class CodeConstant {
 
     public static final int FAILURE_CODE = -1;
 
+    public static final String UNKNOWN = "unknown";
+
+    /**
+     * 参数验证错误
+     */
     public static final String VALID_ERROR_MSG = "valid_error";
-
-
-
-    public static final int PASSWORD_SALT_LEN = 6;
 
 }
