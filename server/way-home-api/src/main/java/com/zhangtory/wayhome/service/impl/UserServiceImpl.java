@@ -1,22 +1,23 @@
 package com.zhangtory.wayhome.service.impl;
 
-import com.zhangtory.wayhome.entity.User;
-import com.zhangtory.wayhome.mapper.UserMapper;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhangtory.wayhome.constant.ExceptionConstant;
+import com.zhangtory.wayhome.entity.User;
 import com.zhangtory.wayhome.exception.UserException;
+import com.zhangtory.wayhome.mapper.UserMapper;
 import com.zhangtory.wayhome.model.request.LoginReq;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 import com.zhangtory.wayhome.service.IUserService;
 import com.zhangtory.wayhome.utils.BeanUtils;
+import com.zhangtory.wayhome.utils.JwtUtils;
 import com.zhangtory.wayhome.utils.PasswordUtils;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
+import javax.management.Query;
+import java.util.Optional;
 
 /**
  * <p>
@@ -46,14 +47,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public void login(LoginReq loginReq) {
-        User user = this.getOne(lambdaQuery().eq(User::getUsername, loginReq.getUsername()));
+    public String login(LoginReq loginReq) {
+        User user = lambdaQuery().eq(User::getUsername, loginReq.getUsername()).one();
         if (user != null) {
             if (PasswordUtils.checkPassword(loginReq.getPassword(), user.getPassword())) {
-                // TODO 用户名密码匹配
-
+                // 用户名密码匹配，创建token
+                String token = JwtUtils.createToken(user);
+                return token;
             }
         }
+        throw new UserException(ExceptionConstant.USER_NOT_EXIST);
     }
 
 }

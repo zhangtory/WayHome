@@ -21,4 +21,9 @@ public class CodeConstant {
      */
     public static final String VALID_ERROR_MSG = "valid_error";
 
+    /**
+     * Header token
+     */
+    public static final String TOKEN_HEADER = "Authorization";
+
 }

@@ -1,6 +1,7 @@
 package com.zhangtory.wayhome.exception;
 
 import com.zhangtory.wayhome.constant.CodeConstant;
+import com.zhangtory.wayhome.constant.ExceptionConstant;
 import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.utils.BaseResponseBuilder;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -21,6 +22,11 @@ import java.util.Map;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(value = UserException.class)
+    public BaseResponse userException(UserException e) {
+        return BaseResponseBuilder.failure(e.getMessage());
+    }
 
     @ExceptionHandler(value = BindException.class)
     public BaseResponse bindException(BindException e) {
@@ -43,7 +49,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public BaseResponse globalExceptionHandler(Exception e) {
-        return BaseResponseBuilder.failure(e.getMessage());
+        e.printStackTrace();
+        return BaseResponseBuilder.failure(ExceptionConstant.SYSTEM_BUSY);
     }
 
 }
