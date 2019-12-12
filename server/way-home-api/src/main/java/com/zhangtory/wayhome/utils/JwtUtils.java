@@ -25,15 +25,19 @@ public class JwtUtils {
     private static final Key KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public static String createToken(User user) {
+        return Jwts.builder()
+                .signWith(KEY)
+                .setIssuer(JWT_ISSUER)
+                .setIssuedAt(new Date())
+                .setId(user.getId().toString())
+                .setSubject(user.getUsername())
+                .setExpiration(new Date(System.currentTimeMillis() + DEFAULT_EXPIRATION))
+                .compact();
+    }
+
+    public static Claims getTokenBody(String token) {
         try {
-            return Jwts.builder()
-                    .signWith(KEY)
-                    .setIssuer(JWT_ISSUER)
-                    .setIssuedAt(new Date())
-                    .setId(user.getId().toString())
-                    .setSubject(user.getUsername())
-                    .setExpiration(new Date(System.currentTimeMillis() + DEFAULT_EXPIRATION))
-                    .compact();
+            return Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException e) {
             // token过期
             throw new UserException(ExceptionConstant.TOKEN_EXPIRED);
@@ -41,10 +45,6 @@ public class JwtUtils {
             // token无效
             throw new UserException(ExceptionConstant.TOKEN_INVALID);
         }
-    }
-
-    public static Claims getTokenBody(String token) {
-        return Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
     }
 
     public static String getId(String token) {

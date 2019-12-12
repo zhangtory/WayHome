@@ -1,6 +1,5 @@
 package com.zhangtory.wayhome.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangtory.wayhome.constant.ExceptionConstant;
 import com.zhangtory.wayhome.entity.User;
@@ -15,9 +14,6 @@ import com.zhangtory.wayhome.utils.PasswordUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-
-import javax.management.Query;
-import java.util.Optional;
 
 /**
  * <p>

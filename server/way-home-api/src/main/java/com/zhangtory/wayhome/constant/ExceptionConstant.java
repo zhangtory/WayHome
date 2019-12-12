@@ -26,4 +26,9 @@ public class ExceptionConstant {
      */
     public static final String USER_NOT_EXIST = "user_not_exist";
 
+    /**
+     * 用户未登录
+     */
+    public static final String USER_NOT_LOGIN = "user_not_login";
+
 }
