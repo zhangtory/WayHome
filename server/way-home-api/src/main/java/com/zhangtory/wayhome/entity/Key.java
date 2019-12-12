@@ -51,6 +51,11 @@ public class Key implements Serializable {
     private Integer port;
 
     /**
+     * 请求路径
+     */
+    private String path;
+
+    /**
      * 用户id
      */
     private Long userId;

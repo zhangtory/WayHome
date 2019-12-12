@@ -6,6 +6,7 @@ import com.zhangtory.wayhome.entity.User;
 import com.zhangtory.wayhome.exception.UserException;
 import com.zhangtory.wayhome.mapper.UserMapper;
 import com.zhangtory.wayhome.model.request.LoginReq;
+import com.zhangtory.wayhome.model.request.ResetPasswordReq;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 import com.zhangtory.wayhome.service.IUserService;
 import com.zhangtory.wayhome.utils.BeanUtils;
@@ -53,6 +54,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             }
         }
         throw new UserException(ExceptionConstant.USER_NOT_EXIST);
+    }
+
+    @Override
+    public void resetPassword(ResetPasswordReq resetPasswordReq) {
+        // 检查旧密码是否正确
+//        User user = lambdaQuery().eq(User::getUsername, ).one();
     }
 
 }

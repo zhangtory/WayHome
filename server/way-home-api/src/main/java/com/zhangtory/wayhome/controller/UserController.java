@@ -2,6 +2,7 @@ package com.zhangtory.wayhome.controller;
 
 import com.zhangtory.wayhome.constant.CodeConstant;
 import com.zhangtory.wayhome.model.request.LoginReq;
+import com.zhangtory.wayhome.model.request.ResetPasswordReq;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.service.IUserService;
@@ -37,6 +38,12 @@ public class UserController {
         String token = userService.login(loginReq);
         response.setHeader(CodeConstant.TOKEN_HEADER, token);
         return BaseResponseBuilder.success(CodeConstant.SUCCESS_MSG, token);
+    }
+
+    @PostMapping("/resetPassword")
+    public BaseResponse changePassword(@RequestBody @Valid ResetPasswordReq resetPasswordReq) {
+        userService.resetPassword(resetPasswordReq);
+        return BaseResponseBuilder.success();
     }
 
     @PostMapping("/check")

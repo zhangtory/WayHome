@@ -3,6 +3,7 @@ package com.zhangtory.wayhome.service;
 import com.zhangtory.wayhome.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhangtory.wayhome.model.request.LoginReq;
+import com.zhangtory.wayhome.model.request.ResetPasswordReq;
 import com.zhangtory.wayhome.model.request.UserRegisterReq;
 
 /**
@@ -26,5 +27,11 @@ public interface IUserService extends IService<User> {
      * @param loginReq
      */
     String login(LoginReq loginReq);
+
+    /**
+     * 修改密码
+     * @param resetPasswordReq
+     */
+    void resetPassword(ResetPasswordReq resetPasswordReq);
 
 }
