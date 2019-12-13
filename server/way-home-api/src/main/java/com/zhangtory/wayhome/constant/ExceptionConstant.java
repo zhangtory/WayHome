@@ -46,4 +46,15 @@ public class ExceptionConstant {
      */
     public static final String REPASSWORD_NOT_SAME = "repassword_not_same";
 
+
+    /**
+     * 地址不存在
+     */
+    public static final String ADDRESS_NOT_EXIST = "address_not_exist";
+
+    /**
+     * 地址未初始化
+     */
+    public static final String ADDRESS_NOT_INIT = "address_not_init";
+
 }

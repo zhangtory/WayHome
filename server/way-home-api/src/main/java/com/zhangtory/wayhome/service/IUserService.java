@@ -25,6 +25,7 @@ public interface IUserService extends IService<User> {
     /**
      * 用户登录
      * @param loginReq
+     * @return
      */
     String login(LoginReq loginReq);
 

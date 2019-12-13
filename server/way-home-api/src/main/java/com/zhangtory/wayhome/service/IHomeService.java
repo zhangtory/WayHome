@@ -6,4 +6,11 @@ package com.zhangtory.wayhome.service;
  */
 public interface IHomeService {
 
+    /**
+     * 获取跳转地址
+     * @param keyId
+     * @return
+     */
+    String getAddress(String keyId);
+
 }
