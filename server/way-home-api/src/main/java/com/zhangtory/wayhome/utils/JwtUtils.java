@@ -55,5 +55,4 @@ public class JwtUtils {
         return getTokenBody(token).getSubject();
     }
 
-
 }

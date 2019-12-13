@@ -1,10 +1,13 @@
 package com.zhangtory.wayhome.controller;
 
+import com.zhangtory.wayhome.entity.Key;
 import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.utils.BaseResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author ZhangYaoYu
@@ -18,20 +21,20 @@ public class KeyController {
 
     @PostMapping("/key")
     public BaseResponse addKey() {
-
-        return BaseResponseBuilder.success();
+        Key key = keyService.addKey();
+        return BaseResponseBuilder.success(key);
     }
 
     @GetMapping("/key")
     public BaseResponse queryKeys() {
-
-        return BaseResponseBuilder.success();
+        List<Key> keyList = keyService.queryKeys();
+        return BaseResponseBuilder.success(keyList);
     }
 
     @DeleteMapping("/key/{id}")
     public BaseResponse queryKeys(@PathVariable String id) {
-
-        return BaseResponseBuilder.success(id);
+        keyService.deleteKey(id);
+        return BaseResponseBuilder.success();
     }
 
 }

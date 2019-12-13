@@ -1,6 +1,7 @@
 package com.zhangtory.wayhome.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhangtory.wayhome.config.UserContext;
 import com.zhangtory.wayhome.constant.ExceptionConstant;
 import com.zhangtory.wayhome.entity.User;
 import com.zhangtory.wayhome.exception.UserException;
@@ -31,7 +32,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public void register(UserRegisterReq userRegisterReq) {
         if (!userRegisterReq.getPassword().equals(userRegisterReq.getRepassword())) {
-            throw new UserException("两次密码不一致");
+            throw new UserException(ExceptionConstant.REPASSWORD_NOT_SAME);
         }
         User user = new User();
         BeanUtils.copyProperties(userRegisterReq, user);
@@ -39,7 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         try {
             this.save(user);
         } catch (DuplicateKeyException e) {
-            throw new UserException("用户名已存在");
+            throw new UserException(ExceptionConstant.USERNAME_EXIST);
         }
     }
 
@@ -53,13 +54,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 return token;
             }
         }
-        throw new UserException(ExceptionConstant.USER_NOT_EXIST);
+        throw new UserException(ExceptionConstant.USER_OR_PASSWORD_ERROR);
     }
 
     @Override
     public void resetPassword(ResetPasswordReq resetPasswordReq) {
+        if (!resetPasswordReq.getNewPassword().equals(resetPasswordReq.getReNewPassword())) {
+            throw new UserException(ExceptionConstant.REPASSWORD_NOT_SAME);
+        }
         // 检查旧密码是否正确
-//        User user = lambdaQuery().eq(User::getUsername, ).one();
+        User user = lambdaQuery().eq(User::getId, UserContext.getUserId()).one();
+        if (PasswordUtils.checkPassword(resetPasswordReq.getOldPassword(), user.getPassword())) {
+            // 旧密码正确，修改密码
+            user.setPassword(PasswordUtils.getEncryptedPassword(resetPasswordReq.getNewPassword()));
+            this.updateById(user);
+        }
     }
 
 }
