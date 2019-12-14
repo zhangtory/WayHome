@@ -17,36 +17,29 @@ import org.springframework.context.annotation.PropertySource;
 public class HomeInfo {
 
     /**
-     * 公网使用协议
-     * http/https
+     * 服务器API地址
+     */
+    private String serverUrl;
+
+    /**
+     * 访问协议
      */
     private String protocol;
 
     /**
-     * 公网转发端口
+     * 访问端口
      */
     private Long port;
 
     /**
-     * 内网使用协议
-     * http/https
+     * 访问参数
      */
-    private String innerProtocol;
+    private String path;
 
     /**
-     * 内网提供服务的ip地址
+     * Keyd
      */
-    private String innerIpAddr;
-
-    /**
-     * 内网监听端口
-     */
-    private Long innerPort;
-
-    /**
-     * appId
-     */
-    private String appId;
+    private String keyId;
 
     /**
      * 秘钥

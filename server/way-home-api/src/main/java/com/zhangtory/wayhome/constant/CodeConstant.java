@@ -26,4 +26,9 @@ public class CodeConstant {
      */
     public static final String TOKEN_HEADER = "Authorization";
 
+    /**
+     * 时间戳允许的误差范围(毫秒ms)
+     */
+    public static final Long TIMESTAMP_RANGE = 5 * 1000L;
+
 }

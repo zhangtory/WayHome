@@ -1,16 +1,16 @@
 package com.zhangtory.wayhome.controller;
 
+import com.zhangtory.wayhome.model.request.SetWayHomeReq;
 import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.service.IHomeService;
 import com.zhangtory.wayhome.utils.BaseResponseBuilder;
+import com.zhangtory.wayhome.utils.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 
 /**
@@ -24,8 +24,8 @@ public class HomeController {
     private IHomeService homeService;
 
     @PostMapping("/address")
-    public BaseResponse setAddress(HttpServletRequest request) {
-
+    public BaseResponse setAddress(HttpServletRequest request, @RequestBody @Valid SetWayHomeReq req) {
+        homeService.setAddress(req, IpUtils.getIpAddr(request));
         return BaseResponseBuilder.success();
     }
 

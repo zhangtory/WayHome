@@ -1,5 +1,7 @@
 package com.zhangtory.wayhome.utils;
 
+import com.zhangtory.wayhome.constant.CodeConstant;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -9,6 +11,18 @@ import java.util.TreeMap;
  * @Description:
  */
 public class SignUtils {
+
+    /**
+     * 检查时间戳是否在指定时间范围内，防止重放攻击
+     * @param timestamp
+     * @return
+     */
+    public static boolean checkTimestamp(Long timestamp) {
+        if (Math.abs(timestamp - System.currentTimeMillis()) < CodeConstant.TIMESTAMP_RANGE) {
+            return true;
+        }
+        return false;
+    }
 
     public static boolean checkSign(Map<String, Object> params, String secretKey, String signStr) {
         params.remove("sign");

@@ -34,15 +34,13 @@ public class SignUtils {
             }
             String s = String.valueOf(value);
             String trim = s.trim();
-            if (trim.equals("")) {
+            if ("".equals(trim)) {
                 continue;
             }
             sb.append(key).append("=").append(trim).append("&");
         }
         sb.append("secretKey=").append(secretKey);
         String sign = md5(sb.toString()).toUpperCase();
-//        System.out.println(sb.toString());
-//        System.out.println(sign);
         return sign;
     }
 
