@@ -3,6 +3,7 @@ package com.zhangtory.wayhome.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangtory.wayhome.constant.ExceptionConstant;
 import com.zhangtory.wayhome.entity.Key;
+import com.zhangtory.wayhome.enums.KeyDelEnum;
 import com.zhangtory.wayhome.exception.AddressException;
 import com.zhangtory.wayhome.mapper.KeyMapper;
 import com.zhangtory.wayhome.service.IHomeService;
@@ -20,7 +21,7 @@ public class HomeServiceImpl extends ServiceImpl<KeyMapper, Key> implements IHom
 
     @Override
     public String getAddress(String keyId) {
-        Key key = this.getById(keyId);
+        Key key = lambdaQuery().eq(Key::getKeyId, keyId).eq(Key::getDel, KeyDelEnum.UnDelete.getDel()).one();
         StringBuffer address = new StringBuffer();
         if (key != null) {
             if (StringUtils.isEmpty(key.getIp())) {
