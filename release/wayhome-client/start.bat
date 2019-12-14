@@ -1,1 +1,0 @@
-java -jar way-home-client-1.0.jar
