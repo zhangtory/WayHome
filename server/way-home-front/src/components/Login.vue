@@ -83,7 +83,7 @@
   .login {
     width: 100vw;
     height: 100vh;
-    background-image: url("../../static/stars.jpg");
+    background-image: url("../../static/stars_bg.jpg");
     background-size: cover;
     background-position: center;
 

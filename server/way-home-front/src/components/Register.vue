@@ -91,23 +91,32 @@
       }
     },
     methods: {
+      show() {
+        this.$Message['success']({
+          background: true,
+          content: "注册成功，请登录",
+          duration: 3,
+          onClose: this.goLogin()
+        });
+      },
+      goLogin() {
+        this.$router.push({name: 'Login'})
+      },
       register(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            // 请求后端
-            let fd = new FormData();
-            fd.append('username', this.formData.username);
-            fd.append('password', this.formData.password);
-            fd.append('repassword', this.formData.repassword);
-            fd.append('email', this.formData.email);
-            fd.append('mobile', this.formData.mobile);
-            this.axios.post('https://wayhome.zhangtory.com/api/register', fd, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
+            this.axios.post('https://wayhome.zhangtory.com/api/register', {
+              params: {
+                username: this.formData.username,
+                password: this.formData.password,
+                repassword: this.formData.repassword,
+                email: this.formData.email,
+                mobile: this.formData.mobile
               }
             }).then(response => {
               if (response.data['code'] === 0) {
-                this.$router.push({name: 'Dashboard'});
+                // 提示用户跳转到登录页面
+                this.show();
               } else {
                 this.msg = response.data['msg'];
               }
@@ -130,7 +139,7 @@
   .reg {
     width: 100vw;
     height: 100vh;
-    background-image: url("../../static/stars.jpg");
+    background-image: url("../../static/stars_bg.jpg");
     background-size: cover;
     background-position: center;
 
