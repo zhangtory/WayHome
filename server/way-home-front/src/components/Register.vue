@@ -105,14 +105,13 @@
       register(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            this.axios.post('https://wayhome.zhangtory.com/api/register', {
-              params: {
-                username: this.formData.username,
-                password: this.formData.password,
-                repassword: this.formData.repassword,
-                email: this.formData.email,
-                mobile: this.formData.mobile
-              }
+            // this.axios.post('https://wayhome.zhangtory.com/api/register', {
+            this.axios.post('http://127.0.0.1:8848/api/register', {
+              username: this.formData.username,
+              password: this.formData.password,
+              repassword: this.formData.repassword,
+              email: this.formData.email,
+              mobile: this.formData.mobile
             }).then(response => {
               if (response.data['code'] === 0) {
                 // 提示用户跳转到登录页面
