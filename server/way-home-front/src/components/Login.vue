@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import {findResultMsg} from '../service/msg.js'
   export default {
     name: "Login",
     data() {
@@ -50,22 +51,19 @@
       login(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            // 请求后端
-            let fd = new FormData();
-            fd.append('username', this.formData.username);
-            fd.append('password', this.formData.password);
-            this.axios.post('https://wayhome.zhangtory.com/api/login', fd, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
+            this.axios.post('https://wayhome.zhangtory.com/api/login', {
+              username: this.formData.username,
+              password: this.formData.password
             }).then(response => {
               if (response.data['code'] === 0) {
+                // 保存token，跳转到控制台
+                localStorage.setItem("Authorization", response.data['data']);
                 this.$router.push({name: 'Dashboard'});
               } else {
-                this.msg = response.data['msg'];
+                this.msg = findResultMsg(response.data['msg']);
               }
             }).catch(function (error) {
-              this.msg = error;
+              console.log(error);
             })
           }
         });

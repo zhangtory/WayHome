@@ -40,6 +40,7 @@
 </template>
 
 <script>
+  import {findResultMsg} from '../service/msg.js'
   export default {
     name: "Register",
     data() {
@@ -105,8 +106,7 @@
       register(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            // this.axios.post('https://wayhome.zhangtory.com/api/register', {
-            this.axios.post('http://127.0.0.1:8848/api/register', {
+            this.axios.post('https://wayhome.zhangtory.com/api/register', {
               username: this.formData.username,
               password: this.formData.password,
               repassword: this.formData.repassword,
@@ -117,10 +117,10 @@
                 // 提示用户跳转到登录页面
                 this.show();
               } else {
-                this.msg = response.data['msg'];
+                this.msg = findResultMsg(response.data['msg']);
               }
             }).catch(function (error) {
-              this.msg = error;
+              console.log(error);
             })
           }
         });
