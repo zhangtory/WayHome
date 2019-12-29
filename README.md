@@ -2,6 +2,7 @@
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![](https://img.shields.io/badge/version-0.2.0-brightgreen)](https://wayhome.zhangtory.com/)
 ![](https://img.shields.io/badge/license-MIT-blue)
+[![download](https://img.shields.io/badge/download-client-red)](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip)
   
 对浏览器支持的协议，它比DDNS更方便。  
 外网访问家中的服务器总是不方便。当我在家搭建了NAS和HomeAssistant后，我觉得我需要自己撸这个轮子了。
@@ -27,7 +28,7 @@
 
 #### 客户端配置
   1. 下载客户端。  
-      目前实现了Java的客户端，在client中有已经编译好的jar包。  
+      目前实现了Java的客户端([点击下载](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip))，在client中有已经编译好的jar包。  
       如果您觉得Java客户端不方便，也可以根据[API文档](https://github.com/zhangtory/WayHome/blob/master/API.md)自行开发客户端，或给我们提Issue。
   2. 配置home.properties  
       `home.server_url`: 服务器地址，默认为https://wayhome.zhangtory.com/api/address ，如果自己搭建有私服，可以修改为自己的地址。  
