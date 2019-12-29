@@ -1,5 +1,6 @@
 # WayHome 回家之路
-对浏览器支持的协议，它比DDNS更方便。
+对浏览器支持的协议，它比DDNS更方便。  
+外网访问家中的服务器总是不方便。当我在家搭建了NAS和HomeAssistant后，我觉得我需要自己撸这个轮子了。
 
 ## 实现原理  
 通过浏览器302重定向，跳转到设定的URL上。  
@@ -22,7 +23,8 @@
 
 #### 客户端配置
   1. 下载客户端。  
-      目前实现了Java的客户端，在client中有已经编译好的jar包。
+      目前实现了Java的客户端，在client中有已经编译好的jar包。  
+      如果您觉得Java客户端不方便，也可以根据[API文档](https://github.com/zhangtory/WayHome/blob/master/API.md)自行开发客户端，或给我们提Issue。
   2. 配置home.properties  
       `home.server_url`: 服务器地址，默认为https://wayhome.zhangtory.com/api/address ，如果自己搭建有私服，可以修改为自己的地址。  
       `home.keyId`: 网站控制台申请获取的keyId。  
@@ -37,3 +39,7 @@
   网页控制台可以查看对应keyId设置的跳转地址及其他信息。  
   访问https://wayhome.zhangtory.com/api/go/{keyId} 即可跳转到设置的地址上。  
   可以将跳转地址作为书签保存。  
+
+## 开发中...
+  如果你有什么想法，可以提Issue给我们。  
+  后续我会根据我自己的使用进行优化。
