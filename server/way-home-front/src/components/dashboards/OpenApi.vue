@@ -4,7 +4,10 @@
 
 <script>
 export default {
-    name: "OpenApi"
+    name: "OpenApi",
+  mounted: function () {
+    window.open("https://github.com/zhangtory/wayhome");
+  }
 }
 </script>
 

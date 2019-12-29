@@ -13,7 +13,7 @@
           </MenuItem>
           <MenuItem name="OpenApi">
             <Icon type="ios-settings"></Icon>
-            <span><router-link :to="{name: 'OpenAPI'}" tag="li">开放API</router-link></span>
+            <span><router-link :to="{name: 'OpenAPI'}" tag="li">Github</router-link></span>
           </MenuItem>
         </Menu>
       </Sider>

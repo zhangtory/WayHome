@@ -1,5 +1,7 @@
 package com.zhangtory.wayhome.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -47,6 +49,7 @@ public class User implements Serializable {
 
     private LocalDateTime createTime;
 
+    @TableField(update = "now()")
     private LocalDateTime updateTime;
 
 

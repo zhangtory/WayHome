@@ -80,7 +80,10 @@
               let secretKey = item.secretKey;
               let address = "未设置";
               if (item.ip != null) {
-                address = item.protocol + item.ip + item.port + item.path;
+                address = item.protocol + "://" + item.ip + ":" + item.port;
+              }
+              if (item.path != null) {
+                address += item.path;
               }
               let updateTime = item.updateTime[0] + "-"
                               + item.updateTime[1] + "-"

@@ -86,7 +86,7 @@ public class HomeServiceImpl extends ServiceImpl<KeyMapper, Key> implements IHom
             key.setPort(req.getPort());
             flag = true;
         }
-        if (req.getPath().equals(key.getPath())) {
+        if (!req.getPath().equals(key.getPath())) {
             key.setPath(req.getPath());
             flag = true;
         }

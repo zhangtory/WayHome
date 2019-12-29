@@ -4,4 +4,4 @@ server:
   port: 8848
 spring:
   profiles:
-    active: dev
+    active: prod
