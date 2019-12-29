@@ -1,4 +1,8 @@
 # WayHome 回家之路
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+[![](https://img.shields.io/badge/version-0.2.0-brightgreen)](https://wayhome.zhangtory.com/)
+![](https://img.shields.io/badge/license-MIT-blue)
+  
 对浏览器支持的协议，它比DDNS更方便。  
 外网访问家中的服务器总是不方便。当我在家搭建了NAS和HomeAssistant后，我觉得我需要自己撸这个轮子了。
 
@@ -41,5 +45,5 @@
   可以将跳转地址作为书签保存。  
 
 ## 开发中...
-  如果你有什么想法，可以提Issue给我们。  
+  如果你有什么想法，可以提Issue给我们，或者发邮件到i@zhangtory.com 。  
   后续我会根据我自己的使用进行优化。
