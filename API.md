@@ -13,5 +13,5 @@ version 0.2.0
 #### 设置回家地址
  * HTTP请求  
  `GET` : `/address/{appID}`
- * 请求参数: 
+ * 请求参数  
      appId : 申请获得的appId
