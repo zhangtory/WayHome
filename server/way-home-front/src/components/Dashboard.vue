@@ -2,8 +2,8 @@
   <div class="layout">
     <Layout style="height: 99.7vh">
       <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-        <Menu active-name="dashboard" theme="dark" width="auto" :class="menuitemClasses">
-          <MenuItem name="dashboard">
+        <Menu active-name="addressList" theme="dark" width="auto" :class="menuitemClasses">
+          <MenuItem name="addressList">
             <Icon type="ios-navigate"></Icon>
             <span><router-link :to="{name: 'AddressList'}" tag="li">地址管理</router-link></span>
           </MenuItem>

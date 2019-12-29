@@ -23,6 +23,16 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(value = KeyException.class)
+    public BaseResponse addressException(KeyException e) {
+        return BaseResponseBuilder.failure(e.getMessage());
+    }
+
+    @ExceptionHandler(value = AddressException.class)
+    public BaseResponse addressException(AddressException e) {
+        return BaseResponseBuilder.failure(e.getMessage());
+    }
+
     @ExceptionHandler(value = UserException.class)
     public BaseResponse userException(UserException e) {
         return BaseResponseBuilder.failure(e.getMessage());

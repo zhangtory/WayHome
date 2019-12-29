@@ -34,12 +34,13 @@ public class KeyServiceImpl extends ServiceImpl<KeyMapper, Key> implements IKeyS
         key.setSecretKey(secretKey);
         key.setUserId(UserContext.getUserId());
         this.save(key);
+        key = this.getById(uuid);
         return key;
     }
 
     @Override
     public List<Key> queryKeys() {
-        List<Key> keyList = this.lambdaQuery().eq(Key::getDel, KeyDelEnum.UnDelete.getDel()).eq(Key::getUserId, UserContext.getUserId()).list();
+        List<Key> keyList = this.lambdaQuery().eq(Key::getDel, KeyDelEnum.UnDelete.getDel()).eq(Key::getUserId, UserContext.getUserId()).orderByAsc(Key::getCreateTime).list();
         return keyList;
     }
 

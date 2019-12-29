@@ -37,6 +37,11 @@ public class ExceptionConstant {
     public static final String USER_OR_PASSWORD_ERROR = "user_or_password_error";
 
     /**
+     * 密码错误
+     */
+    public static final String PASSWORD_ERROR = "password_error";
+
+    /**
      * 用户未登录
      */
     public static final String USER_NOT_LOGIN = "user_not_login";

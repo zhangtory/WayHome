@@ -1,5 +1,9 @@
 export function findResultMsg(msg) {
   switch (msg) {
+    case 'failure':
+      return '请求失败';
+    case 'success':
+      return '请求成功';
     case 'system_busy':
       return '系统繁忙，请稍后再试';
     case 'token_expired':
@@ -24,6 +28,8 @@ export function findResultMsg(msg) {
       return '签名错误';
     case 'timestamp_error':
       return '时间戳错误';
+    case 'password_error':
+      return '密码错误';
     default:
       return msg;
   }

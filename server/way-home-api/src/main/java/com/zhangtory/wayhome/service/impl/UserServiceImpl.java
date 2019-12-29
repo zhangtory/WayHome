@@ -68,7 +68,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             // 旧密码正确，修改密码
             user.setPassword(PasswordUtils.getEncryptedPassword(resetPasswordReq.getNewPassword()));
             this.updateById(user);
+            return;
         }
+        throw new UserException(ExceptionConstant.PASSWORD_ERROR);
     }
 
 }
