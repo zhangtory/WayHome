@@ -15,7 +15,7 @@ export default new Router({
     {
       path: '/',
       name: 'Index',
-      component: Login
+      component: Index
     },
     {
       path: '/register',
