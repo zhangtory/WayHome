@@ -8,10 +8,12 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
-
 module.exports = {
   context: path.resolve(__dirname, '../'),
+  externals: {
+    'vue': 'Vue',
+    'view-design': 'ViewUI'
+  },
   entry: {
     app: './src/main.js'
   },
