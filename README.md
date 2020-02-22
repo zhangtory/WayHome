@@ -1,6 +1,6 @@
 # WayHome 回家之路
-[![](https://img.shields.io/badge/version-0.2.0-brightgreen)](https://wayhome.zhangtory.com/)
-![](https://img.shields.io/badge/license-MIT-blue)
+[![version](https://img.shields.io/badge/version-0.2.0-brightgreen)](https://wayhome.zhangtory.com/)
+![license](https://img.shields.io/badge/license-MIT-blue)
 [![download](https://img.shields.io/badge/download-client-red)](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip)
   
 对浏览器支持的协议，它比DDNS更方便。  
