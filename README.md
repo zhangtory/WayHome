@@ -1,5 +1,4 @@
 # WayHome 回家之路
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![](https://img.shields.io/badge/version-0.2.0-brightgreen)](https://wayhome.zhangtory.com/)
 ![](https://img.shields.io/badge/license-MIT-blue)
 [![download](https://img.shields.io/badge/download-client-red)](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip)
