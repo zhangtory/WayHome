@@ -4,10 +4,11 @@ import com.zhangtory.wayhomeclient.model.HomeInfo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * @author zhang
+ */
 @SpringBootApplication
-@EnableScheduling
 @EnableConfigurationProperties({HomeInfo.class})
 public class WayHomeClientApplication {
 
