@@ -44,6 +44,18 @@
   访问https://wayhome.zhangtory.com/api/go/{keyId} 即可跳转到设置的地址上。  
   可以将跳转地址作为书签保存。  
 
+## API
+
+#### 地址更新上报接口  
+  客户端定时上报跳转信息，需要keyId、protocol、port、path、timestamp参数，并签名sign。  
+  POST ，参数以json形式放入body， 使用UTF-8编码。     
+  `keyId` : 后台分配的KeyId。  
+  `protocol` : 访问协议，如http、https、ftp。  
+  `path` : 路径参数，可选，如?user=admin&password=123456。  
+  `timestamp` : 毫秒级时间戳。  
+  `sign` : 参数名按照ascii升序排序，并以key=value&key=value&secretKey=secret形式拼接成字符串，然后对字符串取MD5摘要，MD5不区分大小写。  
+
+
 ## 开发中...
   如果你有什么想法，可以提Issue给我们，或者发邮件到i@zhangtory.com 。  
   后续我会根据我自己的使用进行优化。
