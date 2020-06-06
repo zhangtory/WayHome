@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
  * @date 2019/12/8 20:24
  */
 @Data
-public class LoginReq {
+public class LoginRequest {
 
     @NotBlank(message = "用户名不能为空")
     @Length(min = 4, max = 16, message = "用户名长度需要4到16个字符")

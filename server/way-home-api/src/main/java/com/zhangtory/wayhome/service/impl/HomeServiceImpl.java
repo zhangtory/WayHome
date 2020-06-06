@@ -7,7 +7,7 @@ import com.zhangtory.wayhome.enums.KeyDelEnum;
 import com.zhangtory.wayhome.exception.AddressException;
 import com.zhangtory.wayhome.exception.KeyException;
 import com.zhangtory.wayhome.mapper.KeyMapper;
-import com.zhangtory.wayhome.model.request.SetWayHomeReq;
+import com.zhangtory.wayhome.model.request.SetWayHomeRequest;
 import com.zhangtory.wayhome.service.IHomeService;
 import com.zhangtory.wayhome.utils.BeanUtils;
 import com.zhangtory.wayhome.utils.SignUtils;
@@ -25,7 +25,7 @@ public class HomeServiceImpl extends ServiceImpl<KeyMapper, Key> implements IHom
 
     @Override
     public String getAddress(String keyId) {
-        Key key = lambdaQuery().eq(Key::getKeyId, keyId).eq(Key::getDel, KeyDelEnum.UnDelete.getDel()).one();
+        Key key = lambdaQuery().eq(Key::getKeyId, keyId).eq(Key::getDel, KeyDelEnum.UN_DELETE.getDel()).one();
         StringBuffer address = new StringBuffer();
         if (key != null) {
             if (StringUtils.isEmpty(key.getIp())) {
@@ -49,19 +49,19 @@ public class HomeServiceImpl extends ServiceImpl<KeyMapper, Key> implements IHom
     }
 
     @Override
-    public void setAddress(SetWayHomeReq setWayHomeReq, String ip) {
-        Key key = lambdaQuery().eq(Key::getKeyId, setWayHomeReq.getKeyId()).eq(Key::getDel, KeyDelEnum.UnDelete.getDel()).one();
+    public void setAddress(SetWayHomeRequest setWayHomeRequest, String ip) {
+        Key key = lambdaQuery().eq(Key::getKeyId, setWayHomeRequest.getKeyId()).eq(Key::getDel, KeyDelEnum.UN_DELETE.getDel()).one();
         if (key == null) {
             throw new KeyException(ExceptionConstant.ADDRESS_NOT_EXIST);
         }
-        if (!SignUtils.checkTimestamp(setWayHomeReq.getTimestamp())) {
+        if (!SignUtils.checkTimestamp(setWayHomeRequest.getTimestamp())) {
             throw new KeyException(ExceptionConstant.TIMESTAMP_ERROR);
         }
-        if (!SignUtils.checkSign(BeanUtils.objectToMap(setWayHomeReq), key.getSecretKey(), setWayHomeReq.getSign())) {
+        if (!SignUtils.checkSign(BeanUtils.objectToMap(setWayHomeRequest), key.getSecretKey(), setWayHomeRequest.getSign())) {
             throw new KeyException(ExceptionConstant.SIGN_ERROR);
         }
         // 如果数据有变动，则记录信息
-        if (checkChange(key, setWayHomeReq, ip)) {
+        if (checkChange(key, setWayHomeRequest, ip)) {
             this.updateById(key);
         }
     }
@@ -72,7 +72,7 @@ public class HomeServiceImpl extends ServiceImpl<KeyMapper, Key> implements IHom
      * @param req
      * @return
      */
-    private boolean checkChange(Key key, SetWayHomeReq req, String ip) {
+    private boolean checkChange(Key key, SetWayHomeRequest req, String ip) {
         boolean flag = false;
         if (!req.getProtocol().equals(key.getProtocol())) {
             key.setProtocol(req.getProtocol());

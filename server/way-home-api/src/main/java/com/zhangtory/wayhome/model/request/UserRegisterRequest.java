@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
  * @Description:
  */
 @Data
-public class UserRegisterReq {
+public class UserRegisterRequest {
 
     @NotBlank(message = "用户名不能为空")
     @Length(min = 4, max = 16, message = "用户名长度需要4到16个字符")

@@ -1,8 +1,8 @@
 package com.zhangtory.wayhome.service;
 
-import com.zhangtory.wayhome.model.request.LoginReq;
-import com.zhangtory.wayhome.model.request.ResetPasswordReq;
-import com.zhangtory.wayhome.model.request.UserRegisterReq;
+import com.zhangtory.wayhome.model.request.LoginRequest;
+import com.zhangtory.wayhome.model.request.ResetPasswordRequest;
+import com.zhangtory.wayhome.model.request.UserRegisterRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +19,7 @@ public class UserServiceTest {
 
     @Test
     public void registerTest() {
-        UserRegisterReq req = new UserRegisterReq();
+        UserRegisterRequest req = new UserRegisterRequest();
         req.setUsername("ut123");
         req.setPassword("123456");
         req.setRepassword("123456");
@@ -35,7 +35,7 @@ public class UserServiceTest {
 
     @Test
     public void resetPasswordTest() {
-        ResetPasswordReq req = new ResetPasswordReq();
+        ResetPasswordRequest req = new ResetPasswordRequest();
         req.setOldPassword("123456");
         req.setNewPassword("111111");
         req.setReNewPassword("111111");
@@ -45,7 +45,7 @@ public class UserServiceTest {
     }
 
     private String login(String username, String password) {
-        LoginReq req = new LoginReq();
+        LoginRequest req = new LoginRequest();
         req.setUsername(username);
         req.setPassword(password);
         String token = userService.login(req);

@@ -2,9 +2,9 @@ package com.zhangtory.wayhome.service;
 
 import com.zhangtory.wayhome.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zhangtory.wayhome.model.request.LoginReq;
-import com.zhangtory.wayhome.model.request.ResetPasswordReq;
-import com.zhangtory.wayhome.model.request.UserRegisterReq;
+import com.zhangtory.wayhome.model.request.LoginRequest;
+import com.zhangtory.wayhome.model.request.ResetPasswordRequest;
+import com.zhangtory.wayhome.model.request.UserRegisterRequest;
 
 /**
  * <p>
@@ -18,21 +18,21 @@ public interface IUserService extends IService<User> {
 
     /**
      * 用户注册
-     * @param userRegisterReq
+     * @param userRegisterRequest
      */
-    void register(UserRegisterReq userRegisterReq);
+    void register(UserRegisterRequest userRegisterRequest);
 
     /**
      * 用户登录
-     * @param loginReq
+     * @param loginRequest
      * @return
      */
-    String login(LoginReq loginReq);
+    String login(LoginRequest loginRequest);
 
     /**
      * 修改密码
-     * @param resetPasswordReq
+     * @param resetPasswordRequest
      */
-    void resetPassword(ResetPasswordReq resetPasswordReq);
+    void resetPassword(ResetPasswordRequest resetPasswordRequest);
 
 }

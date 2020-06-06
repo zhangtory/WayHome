@@ -49,7 +49,7 @@ public class ExceptionConstant {
     /**
      * 两次密码不一致
      */
-    public static final String REPASSWORD_NOT_SAME = "repassword_not_same";
+    public static final String RE_PASSWORD_NOT_SAME = "re_password_not_same";
 
     /**
      * 地址不存在

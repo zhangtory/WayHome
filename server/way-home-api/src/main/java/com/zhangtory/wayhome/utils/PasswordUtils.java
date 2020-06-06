@@ -1,6 +1,5 @@
 package com.zhangtory.wayhome.utils;
 
-import com.zhangtory.wayhome.constant.CodeConstant;
 import com.zhangtory.wayhome.constant.ConfigConstant;
 
 import java.util.Random;

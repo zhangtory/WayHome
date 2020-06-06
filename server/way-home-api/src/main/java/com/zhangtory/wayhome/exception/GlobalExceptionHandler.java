@@ -3,7 +3,9 @@ package com.zhangtory.wayhome.exception;
 import com.zhangtory.wayhome.constant.CodeConstant;
 import com.zhangtory.wayhome.constant.ExceptionConstant;
 import com.zhangtory.wayhome.model.response.BaseResponse;
-import com.zhangtory.wayhome.utils.BaseResponseBuilder;
+import com.zhangtory.wayhome.model.response.BaseResponseBuilder;
+import com.zhangtory.wayhome.utils.ExceptionUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -21,6 +23,7 @@ import java.util.Map;
  * @date 2019/12/7 20:35
  */
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = KeyException.class)
@@ -59,7 +62,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public BaseResponse globalExceptionHandler(Exception e) {
-        e.printStackTrace();
+        log.error(ExceptionUtils.getStackTrace(e));
         return BaseResponseBuilder.failure(ExceptionConstant.SYSTEM_BUSY);
     }
 

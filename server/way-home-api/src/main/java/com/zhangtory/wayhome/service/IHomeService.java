@@ -1,6 +1,6 @@
 package com.zhangtory.wayhome.service;
 
-import com.zhangtory.wayhome.model.request.SetWayHomeReq;
+import com.zhangtory.wayhome.model.request.SetWayHomeRequest;
 
 /**
  * @author ZhangYaoYu
@@ -17,9 +17,9 @@ public interface IHomeService {
 
     /**
      * 设置地址
-     * @param setWayHomeReq
+     * @param setWayHomeRequest
      * @param ip
      */
-    void setAddress(SetWayHomeReq setWayHomeReq, String ip);
+    void setAddress(SetWayHomeRequest setWayHomeRequest, String ip);
 
 }

@@ -1,12 +1,12 @@
 package com.zhangtory.wayhome.controller;
 
 import com.zhangtory.wayhome.constant.CodeConstant;
-import com.zhangtory.wayhome.model.request.LoginReq;
-import com.zhangtory.wayhome.model.request.ResetPasswordReq;
-import com.zhangtory.wayhome.model.request.UserRegisterReq;
+import com.zhangtory.wayhome.model.request.LoginRequest;
+import com.zhangtory.wayhome.model.request.ResetPasswordRequest;
+import com.zhangtory.wayhome.model.request.UserRegisterRequest;
 import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.service.IUserService;
-import com.zhangtory.wayhome.utils.BaseResponseBuilder;
+import com.zhangtory.wayhome.model.response.BaseResponseBuilder;
 import com.zhangtory.wayhome.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,21 +28,21 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/register")
-    public BaseResponse register(@RequestBody @Valid UserRegisterReq userRegisterReq) {
-        userService.register(userRegisterReq);
+    public BaseResponse register(@RequestBody @Valid UserRegisterRequest userRegisterRequest) {
+        userService.register(userRegisterRequest);
         return BaseResponseBuilder.success();
     }
 
     @PostMapping("/login")
-    public BaseResponse login(@RequestBody @Valid LoginReq loginReq, HttpServletResponse response) {
-        String token = userService.login(loginReq);
+    public BaseResponse login(@RequestBody @Valid LoginRequest loginRequest, HttpServletResponse response) {
+        String token = userService.login(loginRequest);
         response.setHeader(CodeConstant.TOKEN_HEADER, token);
         return BaseResponseBuilder.success(CodeConstant.SUCCESS_MSG, token);
     }
 
     @PostMapping("/resetPassword")
-    public BaseResponse changePassword(@RequestBody @Valid ResetPasswordReq resetPasswordReq) {
-        userService.resetPassword(resetPasswordReq);
+    public BaseResponse changePassword(@RequestBody @Valid ResetPasswordRequest resetPasswordRequest) {
+        userService.resetPassword(resetPasswordRequest);
         return BaseResponseBuilder.success();
     }
 

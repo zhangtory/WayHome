@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author ZhangYaoYu
  * @date 2019/12/22 22:41
  */
-@WebFilter(filterName = "CorsFilter ")
+@WebFilter(filterName = "CorsFilter")
 @Configuration
 public class CorsFilter implements Filter {
 

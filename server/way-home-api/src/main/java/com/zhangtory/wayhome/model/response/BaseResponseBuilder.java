@@ -1,4 +1,4 @@
-package com.zhangtory.wayhome.utils;
+package com.zhangtory.wayhome.model.response;
 
 import com.zhangtory.wayhome.constant.CodeConstant;
 import com.zhangtory.wayhome.model.response.BaseResponse;

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * @date 2019/12/14 12:49
  */
 @Data
-public class SetWayHomeReq {
+public class SetWayHomeRequest {
 
     /**
      * keyId

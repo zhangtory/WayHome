@@ -1,6 +1,6 @@
 package com.zhangtory.wayhome;
 
-import com.zhangtory.wayhome.model.request.UserRegisterReq;
+import com.zhangtory.wayhome.model.request.UserRegisterRequest;
 import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.service.IUserService;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +24,7 @@ class WayHomeApplicationTests {
 
     @Test
     public void registerTest() {
-        UserRegisterReq req = new UserRegisterReq();
+        UserRegisterRequest req = new UserRegisterRequest();
         req.setUsername("ut1");
         req.setPassword("123456");
         req.setRepassword("123456");

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
  * @date 2019/12/12 21:45
  */
 @Data
-public class ResetPasswordReq {
+public class ResetPasswordRequest {
 
     @NotBlank(message = "旧密码不能为空")
     @Length(min = 4, max = 16, message = "密码长度在4到16个字符之间")

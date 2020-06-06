@@ -7,8 +7,6 @@ import com.zhangtory.wayhome.mapper.KeyMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.utils.EncryptUtils;
-import com.zhangtory.wayhome.utils.JwtUtils;
-import com.zhangtory.wayhome.utils.SignUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,14 +38,14 @@ public class KeyServiceImpl extends ServiceImpl<KeyMapper, Key> implements IKeyS
 
     @Override
     public List<Key> queryKeys() {
-        List<Key> keyList = this.lambdaQuery().eq(Key::getDel, KeyDelEnum.UnDelete.getDel()).eq(Key::getUserId, UserContext.getUserId()).orderByAsc(Key::getCreateTime).list();
+        List<Key> keyList = this.lambdaQuery().eq(Key::getDel, KeyDelEnum.UN_DELETE.getDel()).eq(Key::getUserId, UserContext.getUserId()).orderByAsc(Key::getCreateTime).list();
         return keyList;
     }
 
     @Override
     public void deleteKey(String keyId) {
         Key key = getById(keyId);
-        key.setDel(KeyDelEnum.Deleted.getDel());
+        key.setDel(KeyDelEnum.DELETED.getDel());
         this.updateById(key);
     }
 }

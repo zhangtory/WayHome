@@ -6,9 +6,9 @@ import com.zhangtory.wayhome.constant.ExceptionConstant;
 import com.zhangtory.wayhome.entity.User;
 import com.zhangtory.wayhome.exception.UserException;
 import com.zhangtory.wayhome.mapper.UserMapper;
-import com.zhangtory.wayhome.model.request.LoginReq;
-import com.zhangtory.wayhome.model.request.ResetPasswordReq;
-import com.zhangtory.wayhome.model.request.UserRegisterReq;
+import com.zhangtory.wayhome.model.request.LoginRequest;
+import com.zhangtory.wayhome.model.request.ResetPasswordRequest;
+import com.zhangtory.wayhome.model.request.UserRegisterRequest;
 import com.zhangtory.wayhome.service.IUserService;
 import com.zhangtory.wayhome.utils.BeanUtils;
 import com.zhangtory.wayhome.utils.JwtUtils;
@@ -30,13 +30,13 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
-    public void register(UserRegisterReq userRegisterReq) {
-        if (!userRegisterReq.getPassword().equals(userRegisterReq.getRepassword())) {
-            throw new UserException(ExceptionConstant.REPASSWORD_NOT_SAME);
+    public void register(UserRegisterRequest userRegisterRequest) {
+        if (!userRegisterRequest.getPassword().equals(userRegisterRequest.getRepassword())) {
+            throw new UserException(ExceptionConstant.RE_PASSWORD_NOT_SAME);
         }
         User user = new User();
-        BeanUtils.copyProperties(userRegisterReq, user);
-        user.setPassword(PasswordUtils.getEncryptedPassword(userRegisterReq.getPassword()));
+        BeanUtils.copyProperties(userRegisterRequest, user);
+        user.setPassword(PasswordUtils.getEncryptedPassword(userRegisterRequest.getPassword()));
         try {
             this.save(user);
         } catch (DuplicateKeyException e) {
@@ -45,10 +45,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public String login(LoginReq loginReq) {
-        User user = lambdaQuery().eq(User::getUsername, loginReq.getUsername()).one();
+    public String login(LoginRequest loginRequest) {
+        User user = lambdaQuery().eq(User::getUsername, loginRequest.getUsername()).one();
         if (user != null) {
-            if (PasswordUtils.checkPassword(loginReq.getPassword(), user.getPassword())) {
+            if (PasswordUtils.checkPassword(loginRequest.getPassword(), user.getPassword())) {
                 // 用户名密码匹配，创建token
                 String token = JwtUtils.createToken(user);
                 return token;
@@ -58,15 +58,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public void resetPassword(ResetPasswordReq resetPasswordReq) {
-        if (!resetPasswordReq.getNewPassword().equals(resetPasswordReq.getReNewPassword())) {
-            throw new UserException(ExceptionConstant.REPASSWORD_NOT_SAME);
+    public void resetPassword(ResetPasswordRequest resetPasswordRequest) {
+        if (!resetPasswordRequest.getNewPassword().equals(resetPasswordRequest.getReNewPassword())) {
+            throw new UserException(ExceptionConstant.RE_PASSWORD_NOT_SAME);
         }
         // 检查旧密码是否正确
         User user = lambdaQuery().eq(User::getId, UserContext.getUserId()).one();
-        if (PasswordUtils.checkPassword(resetPasswordReq.getOldPassword(), user.getPassword())) {
+        if (PasswordUtils.checkPassword(resetPasswordRequest.getOldPassword(), user.getPassword())) {
             // 旧密码正确，修改密码
-            user.setPassword(PasswordUtils.getEncryptedPassword(resetPasswordReq.getNewPassword()));
+            user.setPassword(PasswordUtils.getEncryptedPassword(resetPasswordRequest.getNewPassword()));
             this.updateById(user);
             return;
         }
