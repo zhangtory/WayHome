@@ -24,6 +24,13 @@ public class SignUtils {
         return false;
     }
 
+    /**
+     * 检查签名是否正确
+     * @param params
+     * @param secretKey
+     * @param signStr
+     * @return
+     */
     public static boolean checkSign(Map<String, Object> params, String secretKey, String signStr) {
         params.remove("sign");
         if (signStr.equals(getSign(params, secretKey))) {
@@ -32,6 +39,12 @@ public class SignUtils {
         return false;
     }
 
+    /**
+     * 对params进行签名
+     * @param params
+     * @param secretKey
+     * @return
+     */
     public static String getSign(Map<String, Object> params, String secretKey) {
         //准备签名字符串
         StringBuilder sb = new StringBuilder();

@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class IpUtils {
 
+    /**
+     * 获取客户端的真实IP
+     * @param request
+     * @return
+     */
     public static String getIpAddr(HttpServletRequest request) {
         String ip = request.getHeader("X-Real-IP");
         if (ip == null || ip.length() == 0 || CodeConstant.UNKNOWN.equalsIgnoreCase(ip)) {

@@ -24,6 +24,11 @@ public class JwtUtils {
 
     private static final Key KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
+    /**
+     * 对用户颁发令牌
+     * @param user
+     * @return
+     */
     public static String createToken(User user) {
         return Jwts.builder()
                 .signWith(KEY)
@@ -35,6 +40,11 @@ public class JwtUtils {
                 .compact();
     }
 
+    /**
+     * 获取请求用户的令牌内容
+     * @param token
+     * @return
+     */
     public static Claims getTokenBody(String token) {
         try {
             return Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
@@ -47,10 +57,20 @@ public class JwtUtils {
         }
     }
 
+    /**
+     * 从令牌中获取id
+     * @param token
+     * @return
+     */
     public static String getId(String token) {
         return getTokenBody(token).getId();
     }
 
+    /**
+     * 从令牌中获取Subject
+     * @param token
+     * @return
+     */
     public static String getSubject(String token) {
         return getTokenBody(token).getSubject();
     }

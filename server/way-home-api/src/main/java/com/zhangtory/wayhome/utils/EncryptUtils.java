@@ -10,11 +10,16 @@ import java.security.NoSuchAlgorithmException;
  */
 public class EncryptUtils {
 
+    /**
+     * 对字符串进行MD5摘要
+     * @param origin
+     * @return
+     */
     public static String md5(String origin) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(origin.getBytes());
-            return new BigInteger(1, md.digest()).toString(16);
+            return new BigInteger(1, md.digest()).toString(16).toUpperCase();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

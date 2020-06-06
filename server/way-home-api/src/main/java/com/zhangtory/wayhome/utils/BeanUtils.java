@@ -13,6 +13,11 @@ import java.util.Map;
  */
 public class BeanUtils extends org.springframework.beans.BeanUtils {
 
+    /**
+     * 将对象转换为map
+     * @param obj
+     * @return
+     */
     public static Map<String, Object> objectToMap(Object obj) {
         Map<String, Object> map = new HashMap<>();
         Class<?> clazz = obj.getClass();
@@ -28,23 +33,6 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
             map.put(fieldName, value);
         }
         return map;
-    }
-
-    public static <T> List<T> copyListProperties(List<?> source, Class<T> targetClass) {
-        if (source == null) {
-            return new ArrayList<>();
-        }
-        List<T> list = new ArrayList<>();
-        try {
-            for (Object o : source) {
-                T tClass = targetClass.newInstance();
-                org.springframework.beans.BeanUtils.copyProperties(o, tClass);
-                list.add(tClass);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
     }
 
 }
