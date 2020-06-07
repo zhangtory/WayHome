@@ -1,11 +1,11 @@
 package com.zhangtory.wayhome.config;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.zhangtory.wayhome.constant.CodeConstant;
 import com.zhangtory.wayhome.constant.ExceptionConstant;
 import com.zhangtory.wayhome.exception.UserException;
 import com.zhangtory.wayhome.utils.JwtUtils;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;

@@ -19,8 +19,8 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
      * @return
      */
     public static Map<String, Object> objectToMap(Object obj) {
-        Map<String, Object> map = new HashMap<>();
         Class<?> clazz = obj.getClass();
+        Map<String, Object> map = new HashMap<>((int) (clazz.getDeclaredFields().length / 0.75D));
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
             String fieldName = field.getName();
