@@ -1,6 +1,6 @@
 package com.zhangtory.wayhome.service;
 
-import com.zhangtory.wayhome.entity.Key;
+import com.zhangtory.wayhome.model.entity.Key;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -32,5 +32,18 @@ public interface IKeyService extends IService<Key> {
      * @param keyId
      */
     void deleteKey(String keyId);
+
+    /**
+     * 从缓存中获取key
+     * @param keyId
+     * @return
+     */
+    Key getKeyInCache(String keyId);
+
+    /**
+     * 将key保存到缓存
+     * @param key
+     */
+    void saveKeyToCache(Key key);
 
 }

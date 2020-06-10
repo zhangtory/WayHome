@@ -1,6 +1,6 @@
 package com.zhangtory.wayhome.service;
 
-import com.zhangtory.wayhome.entity.User;
+import com.zhangtory.wayhome.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhangtory.wayhome.model.request.LoginRequest;
 import com.zhangtory.wayhome.model.request.ResetPasswordRequest;

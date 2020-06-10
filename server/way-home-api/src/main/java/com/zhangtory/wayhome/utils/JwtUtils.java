@@ -1,7 +1,7 @@
 package com.zhangtory.wayhome.utils;
 
 import com.zhangtory.wayhome.constant.ExceptionConstant;
-import com.zhangtory.wayhome.entity.User;
+import com.zhangtory.wayhome.model.entity.User;
 import com.zhangtory.wayhome.exception.UserException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

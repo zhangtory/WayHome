@@ -1,6 +1,6 @@
 package com.zhangtory.wayhome.controller;
 
-import com.zhangtory.wayhome.entity.Key;
+import com.zhangtory.wayhome.model.entity.Key;
 import com.zhangtory.wayhome.model.response.BaseResponse;
 import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.model.response.BaseResponseBuilder;

@@ -1,6 +1,6 @@
 package com.zhangtory.wayhome.service;
 
-import com.zhangtory.wayhome.entity.Key;
+import com.zhangtory.wayhome.model.entity.Key;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

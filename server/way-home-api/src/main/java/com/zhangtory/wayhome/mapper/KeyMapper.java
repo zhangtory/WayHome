@@ -1,6 +1,6 @@
 package com.zhangtory.wayhome.mapper;
 
-import com.zhangtory.wayhome.entity.Key;
+import com.zhangtory.wayhome.model.entity.Key;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

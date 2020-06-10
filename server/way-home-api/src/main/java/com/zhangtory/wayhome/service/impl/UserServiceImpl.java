@@ -3,7 +3,7 @@ package com.zhangtory.wayhome.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangtory.wayhome.config.UserContext;
 import com.zhangtory.wayhome.constant.ExceptionConstant;
-import com.zhangtory.wayhome.entity.User;
+import com.zhangtory.wayhome.model.entity.User;
 import com.zhangtory.wayhome.exception.UserException;
 import com.zhangtory.wayhome.mapper.UserMapper;
 import com.zhangtory.wayhome.model.request.LoginRequest;

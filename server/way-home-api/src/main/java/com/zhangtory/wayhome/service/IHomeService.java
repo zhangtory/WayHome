@@ -17,9 +17,9 @@ public interface IHomeService {
 
     /**
      * 设置地址
-     * @param setWayHomeRequest
+     * @param request
      * @param ip
      */
-    void setAddress(SetWayHomeRequest setWayHomeRequest, String ip);
+    void setAddress(SetWayHomeRequest request, String ip);
 
 }

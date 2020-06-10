@@ -1,18 +1,17 @@
 package com.zhangtory.wayhome.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangtory.wayhome.constant.ExceptionConstant;
-import com.zhangtory.wayhome.entity.Key;
-import com.zhangtory.wayhome.enums.KeyDelEnum;
 import com.zhangtory.wayhome.exception.AddressException;
 import com.zhangtory.wayhome.exception.KeyException;
-import com.zhangtory.wayhome.mapper.KeyMapper;
+import com.zhangtory.wayhome.model.entity.Key;
 import com.zhangtory.wayhome.model.request.SetWayHomeRequest;
 import com.zhangtory.wayhome.service.IHomeService;
+import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.utils.BeanUtils;
 import com.zhangtory.wayhome.utils.SignUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,11 +20,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class HomeServiceImpl extends ServiceImpl<KeyMapper, Key> implements IHomeService {
+public class HomeServiceImpl implements IHomeService {
+
+    @Autowired
+    private IKeyService keyService;
 
     @Override
     public String getAddress(String keyId) {
-        Key key = lambdaQuery().eq(Key::getKeyId, keyId).eq(Key::getDel, KeyDelEnum.UN_DELETE.getDel()).one();
+        Key key = keyService.getKeyInCache(keyId);
         StringBuffer address = new StringBuffer();
         if (key != null) {
             if (StringUtils.isEmpty(key.getIp())) {
@@ -49,20 +51,19 @@ public class HomeServiceImpl extends ServiceImpl<KeyMapper, Key> implements IHom
     }
 
     @Override
-    public void setAddress(SetWayHomeRequest setWayHomeRequest, String ip) {
-        Key key = lambdaQuery().eq(Key::getKeyId, setWayHomeRequest.getKeyId()).eq(Key::getDel, KeyDelEnum.UN_DELETE.getDel()).one();
-        if (key == null) {
-            throw new KeyException(ExceptionConstant.ADDRESS_NOT_EXIST);
-        }
-        if (!SignUtils.checkTimestamp(setWayHomeRequest.getTimestamp())) {
+    public void setAddress(SetWayHomeRequest request, String ip) {
+        Key key = keyService.getKeyInCache(request.getKeyId());
+        // 检查时间戳是否过期
+        if (!SignUtils.checkTimestamp(request.getTimestamp())) {
             throw new KeyException(ExceptionConstant.TIMESTAMP_ERROR);
         }
-        if (!SignUtils.checkSign(BeanUtils.objectToMap(setWayHomeRequest), key.getSecretKey(), setWayHomeRequest.getSign())) {
+        // 检查签名
+        if (!SignUtils.checkSign(BeanUtils.objectToMap(request), key.getSecretKey(), request.getSign())) {
             throw new KeyException(ExceptionConstant.SIGN_ERROR);
         }
         // 如果数据有变动，则记录信息
-        if (checkChange(key, setWayHomeRequest, ip)) {
-            this.updateById(key);
+        if (checkChange(key, request, ip)) {
+            keyService.saveKeyToCache(key);
         }
     }
 
@@ -73,6 +74,9 @@ public class HomeServiceImpl extends ServiceImpl<KeyMapper, Key> implements IHom
      * @return
      */
     private boolean checkChange(Key key, SetWayHomeRequest req, String ip) {
+        /**
+         * 可能不止1个数据有变化
+         */
         boolean flag = false;
         if (!req.getProtocol().equals(key.getProtocol())) {
             key.setProtocol(req.getProtocol());

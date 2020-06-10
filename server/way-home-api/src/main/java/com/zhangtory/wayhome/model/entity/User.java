@@ -1,6 +1,5 @@
-package com.zhangtory.wayhome.entity;
+package com.zhangtory.wayhome.model.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
