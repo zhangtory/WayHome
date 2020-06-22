@@ -2,6 +2,7 @@ package com.zhangtory.wayhome.service.impl;
 
 import com.zhangtory.wayhome.config.UserContext;
 import com.zhangtory.wayhome.constant.ExceptionConstant;
+import com.zhangtory.wayhome.constant.RedisKey;
 import com.zhangtory.wayhome.exception.KeyException;
 import com.zhangtory.wayhome.model.entity.Key;
 import com.zhangtory.wayhome.enums.KeyDelEnum;
@@ -9,6 +10,8 @@ import com.zhangtory.wayhome.mapper.KeyMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangtory.wayhome.service.IKeyService;
 import com.zhangtory.wayhome.utils.EncryptUtils;
+import com.zhangtory.wayhome.utils.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,9 @@ import java.util.UUID;
  */
 @Service
 public class KeyServiceImpl extends ServiceImpl<KeyMapper, Key> implements IKeyService {
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public Key addKey() {
@@ -62,10 +68,14 @@ public class KeyServiceImpl extends ServiceImpl<KeyMapper, Key> implements IKeyS
         /**
          * TODO 如果缓存中没有key，则从数据库中加载到缓存
          */
-        Key key = lambdaQuery().eq(Key::getKeyId, keyId).eq(Key::getDel, KeyDelEnum.UN_DELETE.getDel()).one();
-        if (key == null) {
-            throw new KeyException(ExceptionConstant.ADDRESS_NOT_EXIST);
+        Object objKey = redisUtil.get(RedisKey.USER_KEY_CACHE + keyId);
+        if (objKey == null) {
+            Key key = lambdaQuery().eq(Key::getKeyId, keyId).eq(Key::getDel, KeyDelEnum.UN_DELETE.getDel()).one();
+            if (key == null) {
+                throw new KeyException(ExceptionConstant.ADDRESS_NOT_EXIST);
+            }
         }
+
         return null;
     }
 

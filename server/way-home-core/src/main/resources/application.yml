@@ -1,0 +1,11 @@
+server:
+  servlet:
+    context-path: /api
+  port: 8011
+spring:
+  profiles:
+    active: dev
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
