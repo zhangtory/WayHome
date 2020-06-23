@@ -2,6 +2,7 @@ package com.zhangtory.wayhomecore.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhangtory.wayhomecore.model.entity.Key;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.zhangtory.wayhomecore.model.entity.Key;
  * @author zhangtory
  * @since 2019-12-01
  */
+@Component
 public interface KeyMapper extends BaseMapper<Key> {
 
     /**

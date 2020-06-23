@@ -6,6 +6,7 @@ import com.zhangtory.wayhomecore.exception.KeyException;
 import com.zhangtory.wayhomecore.model.dto.KeyAddressDTO;
 import com.zhangtory.wayhomecore.model.entity.Key;
 import com.zhangtory.wayhomecore.model.request.SetAddressRequest;
+import com.zhangtory.wayhomecore.model.response.AddressResponse;
 import org.springframework.util.StringUtils;
 
 /**
@@ -84,6 +85,35 @@ public class KeyAddressHelper {
         key.setPort(req.getPort());
         key.setPath(req.getPath());
         return key;
+    }
+
+    /**
+     * 构造地址返回对象
+     * @param key
+     * @return
+     */
+    public static AddressResponse buildAddressResponse(KeyAddressDTO key) {
+        AddressResponse resp = new AddressResponse();
+        if (StringUtils.isEmpty(key.getIp())) {
+            return resp;
+        }
+        resp.setProtocol(key.getProtocol());
+        resp.setIp(key.getIp());
+        resp.setPort(key.getPort());
+        resp.setPath(key.getPath());
+        StringBuilder url = new StringBuilder();
+        if (!StringUtils.isEmpty(key.getProtocol())) {
+            url.append(key.getProtocol()).append("://");
+        }
+        url.append(key.getIp());
+        if (key.getPort() != null) {
+            url.append(":").append(key.getPort());
+        }
+        if (!StringUtils.isEmpty(key.getPath())) {
+            url.append(key.getPath());
+        }
+        resp.setUrl(url.toString());
+        return resp;
     }
 
 }

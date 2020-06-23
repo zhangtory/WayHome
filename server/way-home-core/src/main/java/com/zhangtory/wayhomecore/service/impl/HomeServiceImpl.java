@@ -41,8 +41,9 @@ public class HomeServiceImpl implements IHomeService {
      */
     @Override
     public AddressResponse getAddress(String username, String keyName) {
-
-        return null;
+        KeyAddressDTO keyAddress = getKeyAddressInCache(username, keyName);
+        AddressResponse addressResponse = KeyAddressHelper.buildAddressResponse(keyAddress);
+        return addressResponse;
     }
 
     /**
