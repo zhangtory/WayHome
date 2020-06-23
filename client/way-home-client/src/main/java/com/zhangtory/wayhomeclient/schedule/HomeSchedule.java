@@ -29,7 +29,8 @@ public class HomeSchedule implements ApplicationRunner {
     private void sendHomeAddr() throws IOException {
         log.info("start send home addr...");
         Map<String, Object> params = new HashMap<>(16);
-        params.put("keyId", homeInfo.getKeyId());
+        params.put("username", homeInfo.getUsername());
+        params.put("keyName", homeInfo.getKeyName());
         params.put("protocol", homeInfo.getProtocol());
         params.put("port", homeInfo.getPort());
         params.put("path", homeInfo.getPath());

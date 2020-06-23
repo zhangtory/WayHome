@@ -37,9 +37,14 @@ public class HomeInfo {
     private String path;
 
     /**
-     * Keyd
+     * 用户名
      */
-    private String keyId;
+    private String username;
+
+    /**
+     * 钥匙名
+     */
+    private String keyName;
 
     /**
      * 秘钥
