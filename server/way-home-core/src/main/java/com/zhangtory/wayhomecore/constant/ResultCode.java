@@ -14,11 +14,11 @@ public enum ResultCode {
     /**
      * 请求成功
      */
-    SUCCESS(0, "请求成功"),
+    SUCCESS(0, "success"),
     /**
      * 未知异常
      */
-    FAILURE(-1, "系统繁忙"),
+    FAILURE(-1, "failure"),
     /**
      * 请求参数错误
      */

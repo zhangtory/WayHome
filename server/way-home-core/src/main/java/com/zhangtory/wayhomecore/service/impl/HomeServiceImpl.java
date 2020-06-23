@@ -83,7 +83,7 @@ public class HomeServiceImpl implements IHomeService {
         Object o = redisHelper.get(redisKey);
         if (o == null) {
             // 缓存不存在，从数据库查询钥匙信息
-            Key key = keyMapper.getByUsernameAndKeyName();
+            Key key = keyMapper.getByUsernameAndKeyName(username, keyName);
             // 不论是否有key，都构建对象放入缓存，防止缓存穿透
             KeyAddressDTO keyAddress = KeyAddressHelper.buildByKey(key);
             redisHelper.set(redisKey, JSONObject.toJSONString(keyAddress));

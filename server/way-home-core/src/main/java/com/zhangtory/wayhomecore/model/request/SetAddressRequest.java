@@ -3,6 +3,7 @@ package com.zhangtory.wayhomecore.model.request;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotBlank;
  * @description: 地址信息设置的请求对象
  */
 @Data
-public class SetAddressRequest extends BaseRequest {
+public class SetAddressRequest {
 
     /**
      * 用户名
@@ -39,5 +40,17 @@ public class SetAddressRequest extends BaseRequest {
      * 访问路径参数
      */
     private String path;
+
+    /**
+     * 时间戳，防重放攻击
+     */
+    @NotNull(message = "时间戳不能为空")
+    private Long timestamp;
+
+    /**
+     * 签名，防止恶意调用
+     */
+    @NotBlank(message = "签名不能为空")
+    private String sign;
 
 }
