@@ -13,4 +13,10 @@ import com.zhangtory.wayhomecore.model.entity.Key;
  */
 public interface KeyMapper extends BaseMapper<Key> {
 
+    /**
+     * 通过<username, keyName>的唯一索引查询钥匙信息
+     * @return
+     */
+    Key getByUsernameAndKeyName();
+
 }

@@ -1,14 +1,15 @@
 package com.zhangtory.wayhomecore.controller;
 
-import com.zhangtory.wayhomecore.config.BaseResponseBuilder;
+import com.zhangtory.wayhomecore.component.BaseResponseBuilder;
+import com.zhangtory.wayhomecore.model.request.SetAddressRequest;
 import com.zhangtory.wayhomecore.model.response.BaseResponse;
 import com.zhangtory.wayhomecore.service.IHomeService;
+import com.zhangtory.wayhomecore.utils.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * @author zhangtory
@@ -21,9 +22,15 @@ public class HomeController {
     @Autowired
     private IHomeService homeService;
 
-    @GetMapping("/index/{id}")
-    public BaseResponse index(@PathVariable long id) {
-        return BaseResponseBuilder.success(homeService.getById(id));
+    @GetMapping("/address/{username}/{keyName}")
+    public BaseResponse getAddress(@PathVariable String username, @PathVariable String keyName) {
+        return BaseResponseBuilder.success(homeService.getAddress(username, keyName));
+    }
+
+    @PostMapping("/address")
+    public BaseResponse setAddress(HttpServletRequest request, @RequestBody @Valid SetAddressRequest addr) {
+        homeService.setAddress(IpUtils.getIpAddr(request), addr);
+        return BaseResponseBuilder.success();
     }
 
 }

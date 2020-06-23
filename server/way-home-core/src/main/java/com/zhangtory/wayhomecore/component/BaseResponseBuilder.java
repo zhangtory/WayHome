@@ -1,4 +1,4 @@
-package com.zhangtory.wayhomecore.config;
+package com.zhangtory.wayhomecore.component;
 
 import com.zhangtory.wayhomecore.constant.ResultCode;
 import com.zhangtory.wayhomecore.model.response.BaseResponse;

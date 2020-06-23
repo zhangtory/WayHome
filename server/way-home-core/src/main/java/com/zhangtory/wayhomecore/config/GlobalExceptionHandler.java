@@ -1,6 +1,8 @@
 package com.zhangtory.wayhomecore.config;
 
+import com.zhangtory.wayhomecore.component.BaseResponseBuilder;
 import com.zhangtory.wayhomecore.constant.ResultCode;
+import com.zhangtory.wayhomecore.exception.KeyException;
 import com.zhangtory.wayhomecore.model.response.BaseResponse;
 import com.zhangtory.wayhomecore.utils.ExceptionUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +44,11 @@ public class GlobalExceptionHandler {
             errList.add(errMap);
         });
         return BaseResponseBuilder.failure(ResultCode.REQUEST_PARAMS_ERROR, errList);
+    }
+
+    @ExceptionHandler(value = KeyException.class)
+    public BaseResponse keyException(KeyException e) {
+        return BaseResponseBuilder.failure(e.getResultCode());
     }
 
     @ExceptionHandler(value = Exception.class)
