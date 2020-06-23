@@ -1,4 +1,4 @@
-package com.zhangtory.wayhomecore.constant;
+package com.zhangtory.wayhomeadmin.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
