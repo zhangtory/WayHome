@@ -24,6 +24,14 @@ public enum ResultCode {
      */
     REQUEST_PARAMS_ERROR(-10, "请求参数错误"),
     /**
+     * 时间戳错误
+     */
+    TIMESTAMP_ERROR(-11,"时间戳错误"),
+    /**
+     * 签名错误
+     */
+    SIGN_ERROR(-12, "签名错误"),
+    /**
      * 未找到该钥匙
      */
     KEY_NOT_FOUND(-101, "未找到该钥匙"),

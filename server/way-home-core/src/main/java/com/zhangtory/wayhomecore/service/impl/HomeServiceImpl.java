@@ -4,12 +4,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.zhangtory.wayhomecore.component.KeyAddressHelper;
 import com.zhangtory.wayhomecore.component.RedisHelper;
 import com.zhangtory.wayhomecore.constant.RedisKeyConstant;
+import com.zhangtory.wayhomecore.constant.ResultCode;
+import com.zhangtory.wayhomecore.exception.KeyException;
 import com.zhangtory.wayhomecore.mapper.KeyMapper;
 import com.zhangtory.wayhomecore.model.dto.KeyAddressDTO;
 import com.zhangtory.wayhomecore.model.entity.Key;
 import com.zhangtory.wayhomecore.model.request.SetAddressRequest;
 import com.zhangtory.wayhomecore.model.response.AddressResponse;
 import com.zhangtory.wayhomecore.service.IHomeService;
+import com.zhangtory.wayhomecore.utils.BeanUtils;
+import com.zhangtory.wayhomecore.utils.SignUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,11 +53,19 @@ public class HomeServiceImpl implements IHomeService {
      */
     @Override
     public void setAddress(String ip, SetAddressRequest addr) {
-        // 1.从缓存中获取钥匙地址信息
+        // 1.检查时间戳是否过期
+        if (!SignUtils.checkTimestamp(addr.getTimestamp())) {
+            throw new KeyException(ResultCode.TIMESTAMP_ERROR);
+        }
+        // 2.从缓存中获取钥匙地址信息
         KeyAddressDTO keyAddress = getKeyAddressInCache(addr.getUsername(), addr.getKeyName());
-        // 2.检查该钥匙是否可用
+        // 3.检查签名
+        if (!SignUtils.checkSign(BeanUtils.objectToMap(addr), keyAddress.getSecretKey(), addr.getSign())) {
+            throw new KeyException(ResultCode.SIGN_ERROR);
+        }
+        // 4.检查该钥匙是否可用
         KeyAddressHelper.checkKey(keyAddress);
-        // 3.判断地址信息是否有变动,如果有变动则修改缓存数据
+        // 5.判断地址信息是否有变动,如果有变动则修改缓存数据
         if (KeyAddressHelper.checkEquals(ip, addr, keyAddress)) {
             saveKeyAddressToCache(KeyAddressHelper.copyAddress(ip, addr, keyAddress));
         }
