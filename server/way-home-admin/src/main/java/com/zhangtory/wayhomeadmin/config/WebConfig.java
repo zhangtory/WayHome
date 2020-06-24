@@ -24,6 +24,6 @@ public class WebConfig extends WebMvcConfigurationSupport {
          */
         registry.addInterceptor(loginCheckInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login", "/register", "/go/**");
+                .excludePathPatterns("/login", "/register");
     }
 }
