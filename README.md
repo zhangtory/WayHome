@@ -29,7 +29,7 @@
   1. 下载客户端。  
       目前实现了Java的客户端([点击下载](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip))，在client中有已经编译好的jar包。  
       或者使用python3客户端([查看]{https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py})
-	  如果您觉得Java客户端不方便，也可以根据[API文档](https://github.com/zhangtory/WayHome/blob/master/API.md)自行开发客户端，或给我们提Issue。
+	  如果您觉得Java客户端不方便，也可以根据API自行开发客户端，或给我们提Issue。
   2. 配置home.properties  
       `home.server_url`: 服务器地址，默认为https://wayhome.zhangtory.com/api/address ，如果自己搭建有私服，可以修改为自己的地址。  
       `home.username` : 你的用户名。
@@ -48,7 +48,7 @@
 
 ## API
 
-#### 地址更新上报接口  
+* 地址更新上报接口  
   客户端定时上报跳转信息，需要username、keyName、protocol、port、path、timestamp参数，并签名sign。  
   `POST`请求，地址：https://wayhome.zhangtory.com/api/address
    参数以json形式放入body， 使用UTF-8编码，并设置header : 'Content-Type': 'application/json;charset=utf-8'。     
@@ -59,7 +59,7 @@
   `timestamp` : 毫秒级时间戳。  
   `sign` : 参数名按照ascii升序排序，并以key=value&key=value&secretKey=secret形式拼接成字符串，然后对字符串取MD5摘要，MD5不区分大小写。  
 
-#### 地址信息获取接口
+* 地址信息获取接口  
   获取钥匙对应的地址信息，以json形式返回。
   `GET`请求，https://wayhome.zhangtory.com/api/address/{username}/{keyName}
   `username` : 你的用户名。
