@@ -54,7 +54,11 @@ public enum ResultCode {
     /**
      * 用户登录已过期
      */
-    TOKEN_EXPIRED(-204, "用户登录已过期");
+    TOKEN_EXPIRED(-204, "用户登录已过期"),
+    /**
+     * 用户未登录
+     */
+    USER_NOT_LOGIN(-205, "用户未登录");
 
     private int code;
     private String message;
