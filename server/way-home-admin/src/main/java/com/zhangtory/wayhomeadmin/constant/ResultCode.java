@@ -38,7 +38,23 @@ public enum ResultCode {
     /**
      * 钥匙已被禁用
      */
-    KEY_DISABLED(-102, "钥匙已被禁用");
+    KEY_DISABLED(-102, "钥匙已被禁用"),
+    /**
+     * 重复密码不一致
+     */
+    RE_PASSWORD_NOT_SAME(-201, "两次密码不一致"),
+    /**
+     * 用户已存在
+     */
+    USER_EXISTS(-202, "用户已存在"),
+    /**
+     * 用户或密码错误
+     */
+    USER_OR_PASSWORD_ERROR(-203, "用户或密码错误"),
+    /**
+     * 用户登录已过期
+     */
+    TOKEN_EXPIRED(-204, "用户登录已过期");
 
     private int code;
     private String message;

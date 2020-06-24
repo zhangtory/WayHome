@@ -3,6 +3,7 @@ package com.zhangtory.wayhomeadmin.config;
 import com.zhangtory.wayhomeadmin.component.BaseResponseBuilder;
 import com.zhangtory.wayhomeadmin.constant.ResultCode;
 import com.zhangtory.wayhomeadmin.exception.KeyException;
+import com.zhangtory.wayhomeadmin.exception.UserException;
 import com.zhangtory.wayhomeadmin.model.response.BaseResponse;
 import com.zhangtory.wayhomeadmin.utils.ExceptionUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = KeyException.class)
     public BaseResponse keyException(KeyException e) {
+        return BaseResponseBuilder.failure(e.getResultCode());
+    }
+
+    @ExceptionHandler(value = UserException.class)
+    public BaseResponse userException(KeyException e) {
         return BaseResponseBuilder.failure(e.getResultCode());
     }
 

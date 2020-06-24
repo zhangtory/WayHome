@@ -12,7 +12,7 @@ import lombok.Data;
 @TableName("wh_key")
 public class Key extends BaseEntity {
 
-    private long id;
+    private Long id;
 
     private String secretKey;
 
@@ -20,6 +20,6 @@ public class Key extends BaseEntity {
 
     private String keyName;
 
-    private int status;
+    private Integer status;
 
 }
