@@ -40,6 +40,10 @@ public enum ResultCode {
      */
     KEY_DISABLED(-102, "钥匙已被禁用"),
     /**
+     * 钥匙已存在
+     */
+    KEY_EXISTS(-103, "钥匙已存在"),
+    /**
      * 重复密码不一致
      */
     RE_PASSWORD_NOT_SAME(-201, "两次密码不一致"),

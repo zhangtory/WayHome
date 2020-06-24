@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = UserException.class)
-    public BaseResponse userException(KeyException e) {
+    public BaseResponse userException(UserException e) {
         return BaseResponseBuilder.failure(e.getResultCode());
     }
 

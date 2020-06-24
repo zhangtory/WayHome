@@ -6,6 +6,7 @@ import com.zhangtory.wayhomeadmin.config.UserContext;
 import com.zhangtory.wayhomeadmin.constant.RedisKeyConstant;
 import com.zhangtory.wayhomeadmin.constant.ResultCode;
 import com.zhangtory.wayhomeadmin.exception.KeyException;
+import com.zhangtory.wayhomeadmin.exception.UserException;
 import com.zhangtory.wayhomeadmin.mapper.KeyMapper;
 import com.zhangtory.wayhomeadmin.model.entity.Key;
 import com.zhangtory.wayhomeadmin.model.request.ApplyKeyRequest;
@@ -14,6 +15,7 @@ import com.zhangtory.wayhomeadmin.service.IKeyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -69,7 +71,11 @@ public class KeyServiceImpl implements IKeyService {
         key.setUsername(username);
         String uuid = UUID.randomUUID().toString().replace("-", "");
         key.setSecretKey(uuid);
-        keyMapper.insert(key);
+        try {
+            keyMapper.insert(key);
+        } catch (DuplicateKeyException e) {
+            throw new UserException(ResultCode.KEY_EXISTS);
+        }
     }
 
     /**
