@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /api
+    context-path: /admin
   port: 8001
 spring:
   profiles:

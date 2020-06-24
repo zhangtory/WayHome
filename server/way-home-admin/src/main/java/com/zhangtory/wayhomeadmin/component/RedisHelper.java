@@ -55,6 +55,15 @@ public class RedisHelper {
     }
 
     /**
+     * 删除缓存
+     * @param key
+     * @return
+     */
+    public boolean delete(String key) {
+        return redisTemplate.delete(key);
+    }
+
+    /**
      * 获取随机时间，防止缓存雪崩
      * 随机10秒到180秒
      * @return
