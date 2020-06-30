@@ -36,7 +36,7 @@ public class UserServiceImpl implements IUserService {
      * @param request
      */
     @Override
-    public void register(UserRegisterRequest request) {
+    public String register(UserRegisterRequest request) {
         if (!request.getPassword().equals(request.getRePassword())) {
             throw new UserException(ResultCode.RE_PASSWORD_NOT_SAME);
         }
@@ -46,6 +46,7 @@ public class UserServiceImpl implements IUserService {
         } catch (DuplicateKeyException e) {
             throw new UserException(ResultCode.USER_EXISTS);
         }
+        return JwtUtils.createToken(registerUser);
     }
 
     /**

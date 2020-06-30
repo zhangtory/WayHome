@@ -13,8 +13,9 @@ public interface IUserService {
     /**
      * 用户注册
      * @param request
+     * @return token
      */
-    void register(UserRegisterRequest request);
+    String register(UserRegisterRequest request);
 
     /**
      * 用户登录

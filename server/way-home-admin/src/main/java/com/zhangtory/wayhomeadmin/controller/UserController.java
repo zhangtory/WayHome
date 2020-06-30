@@ -32,9 +32,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public BaseResponse register(@RequestBody @Valid UserRegisterRequest userRegisterRequest) {
-        userService.register(userRegisterRequest);
-        return BaseResponseBuilder.success();
+    public BaseResponse register(@RequestBody @Valid UserRegisterRequest userRegisterRequest, HttpServletResponse response) {
+        String token = userService.register(userRegisterRequest);
+        response.setHeader(BaseConstant.TOKEN_HEADER, token);
+        return BaseResponseBuilder.success(token);
     }
 
     @PostMapping("/login")
