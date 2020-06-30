@@ -92,30 +92,24 @@
       }
     },
     methods: {
-      show() {
-        this.$Message['success']({
-          background: true,
-          content: "注册成功，请登录",
-          duration: 3,
-          onClose: this.goLogin()
-        });
-      },
       goLogin() {
         this.$router.push({name: 'Login'})
       },
       register(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            this.axios.post('https://wayhome.zhangtory.com/api/register', {
+            // this.axios.post('https://wayhome.zhangtory.com/admin/register', {
+            this.axios.post('http://127.0.0.1:8001/admin/register', {
               username: this.formData.username,
               password: this.formData.password,
-              repassword: this.formData.repassword,
+              rePassword: this.formData.repassword,
               email: this.formData.email,
               mobile: this.formData.mobile
             }).then(response => {
               if (response.data['code'] === 0) {
-                // 提示用户跳转到登录页面
-                this.show();
+                // 保存token，跳转到控制台
+                localStorage.setItem("Authorization", response.data['data']);
+                this.$router.push({name: 'AddressList'});
               } else {
                 this.msg = findResultMsg(response.data['msg']);
               }

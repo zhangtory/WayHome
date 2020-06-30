@@ -21,6 +21,11 @@ export default new Router({
       component: resolve => require(['@/components/Login'], resolve)
     },
     {
+      path: '/go/:userName/:keyName',
+      name: 'Go',
+      component: resolve => require(['@/components/Go'], resolve)
+    },
+    {
       path: '/dashboard',
       name: 'Dashboard',
       component: resolve => require(['@/components/Dashboard'], resolve),

@@ -1,7 +1,7 @@
 <template>
   <el-container>
 
-    <el-header>
+    <el-header name="header" v-show="false">
       <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal" router
                background-color="#375274" text-color="#fff" active-text-color="#ffd04b">
         <el-menu-item index="/index"><el-link class="main_title">WayHome</el-link></el-menu-item>
@@ -14,7 +14,7 @@
       <router-view/>
     </el-main>
 
-    <el-footer>© {{year}} WayHome - ZhangTory's Fantastic Studio</el-footer>
+<!--    <el-footer>© {{year}} WayHome - ZhangTory's Fantastic Studio</el-footer>-->
 
   </el-container>
 </template>
