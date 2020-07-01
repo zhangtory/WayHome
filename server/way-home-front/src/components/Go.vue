@@ -8,7 +8,7 @@
     mounted: function () {
       let userName = this.$route.params.userName;
       let keyName = this.$route.params.keyName;
-      this.axios.get("http://127.0.0.1:8011/api/address/" + userName + "/" + keyName).then(response =>{
+      this.axios.get("https://wayhome.zhangtory.com/api/address/" + userName + "/" + keyName).then(response =>{
         let url = response.data.data['url'];
         window.location.href = url;
       }).catch(function (error) {

@@ -98,8 +98,7 @@
       register(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            // this.axios.post('https://wayhome.zhangtory.com/admin/register', {
-            this.axios.post('http://127.0.0.1:8001/admin/register', {
+            this.axios.post('https://wayhome.zhangtory.com/admin/register', {
               username: this.formData.username,
               password: this.formData.password,
               rePassword: this.formData.repassword,

@@ -51,8 +51,7 @@
       login(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            // this.axios.post('https://wayhome.zhangtory.com/admin/login', {
-            this.axios.post('http://127.0.0.1:8001/admin/login', {
+            this.axios.post('https://wayhome.zhangtory.com/admin/login', {
               username: this.formData.username,
               password: this.formData.password
             }).then(response => {

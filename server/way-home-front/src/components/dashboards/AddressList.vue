@@ -60,8 +60,7 @@
     },
     methods: {
       applyKey() {
-        // this.axios.post('https://wayhome.zhangtory.com/admin/key').then(response => {
-        this.axios.post('http://127.0.0.1:8001/admin/key', {
+        this.axios.post('https://wayhome.zhangtory.com/admin/key').then(response => {
           keyName: this.keyName
         }).then(response => {
           if (response.data['code'] === 0) {
@@ -74,8 +73,7 @@
         })
       },
       getAddressList() {
-        // this.axios.get('https://wayhome.zhangtory.com/admin/key').then(response => {
-        this.axios.get('http://127.0.0.1:8001/admin/key').then(response => {
+        this.axios.get('https://wayhome.zhangtory.com/admin/key').then(response => {
           if (response.data['code'] === 0) {
             let arr = response.data.data;
             arr.forEach(item => {
@@ -100,8 +98,7 @@
         })
       },
       remove(keyId, index) {
-        // this.axios.delete('https://wayhome.zhangtory.com/admin/key/' + keyId).then(response => {
-        this.axios.delete('http://127.0.0.1:8001/admin/key/' + keyId).then(response => {
+        this.axios.delete('https://wayhome.zhangtory.com/admin/key/' + keyId).then(response => {
           this.data1.splice(index, 1);
         }).catch(function (error) {
           console.log(error);
