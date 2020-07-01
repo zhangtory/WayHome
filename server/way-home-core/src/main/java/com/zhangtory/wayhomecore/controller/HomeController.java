@@ -24,7 +24,7 @@ public class HomeController {
 
     @GetMapping("/address/{username}/{keyName}")
     public BaseResponse getAddress(@PathVariable String username, @PathVariable String keyName) {
-        return BaseResponseBuilder.success(homeService.getAddress(username, keyName));
+        return BaseResponseBuilder.success(homeService.getAddress(username.toLowerCase(), keyName));
     }
 
     @PostMapping("/address")

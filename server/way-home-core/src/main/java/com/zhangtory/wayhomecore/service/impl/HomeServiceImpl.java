@@ -59,7 +59,7 @@ public class HomeServiceImpl implements IHomeService {
             throw new KeyException(ResultCode.TIMESTAMP_ERROR);
         }
         // 2.从缓存中获取钥匙地址信息
-        KeyAddressDTO keyAddress = getKeyAddressInCache(addr.getUsername(), addr.getKeyName());
+        KeyAddressDTO keyAddress = getKeyAddressInCache(addr.getUsername().toLowerCase(), addr.getKeyName());
         // 3.检查签名
         if (!SignUtils.checkSign(BeanUtils.objectToMap(addr), keyAddress.getSecretKey(), addr.getSign())) {
             throw new KeyException(ResultCode.SIGN_ERROR);
