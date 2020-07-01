@@ -58,7 +58,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String login(LoginRequest request) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("username", request.getUsername());
+        wrapper.eq("username", request.getUsername().toLowerCase());
         User user = userMapper.selectOne(wrapper);
         if (user != null && PasswordUtils.checkPassword(request.getPassword(), user.getPassword())) {
             // 用户名密码匹配，创建token

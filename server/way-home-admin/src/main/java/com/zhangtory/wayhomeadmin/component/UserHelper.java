@@ -20,6 +20,7 @@ public class UserHelper {
     public static User getRegisterUser(UserRegisterRequest request) {
         User user = new User();
         BeanUtils.copyProperties(request, user);
+        user.setUsername(user.getUsername().toLowerCase());
         user.setPassword(PasswordUtils.getEncryptedPassword(user.getPassword()));
         return user;
     }
