@@ -20,7 +20,7 @@ public class EncryptUtils {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(origin.getBytes());
-            return new BigInteger(1, md.digest()).toString(16).toUpperCase();
+            return new BigInteger(1, md.digest()).toString(16);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
