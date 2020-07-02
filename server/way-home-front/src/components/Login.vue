@@ -5,11 +5,11 @@
         <h1>WayHome - 登录</h1>
         <Form ref="formData" :model="formData" :rules="rule">
           <FormItem prop="username">
-            <Input clearable size="large" placeholder="请输入用户名" maxlength="20" prefix="ios-person-outline"
+            <Input clearable size="large" placeholder="请输入用户名" :maxlength="20" prefix="ios-person-outline"
                    v-model="formData.username"/>
           </FormItem>
           <FormItem prop="password">
-            <Input type="password" password size="large" placeholder="请输入密码" maxlength="20" prefix="ios-lock-outline"
+            <Input type="password" password size="large" placeholder="请输入密码" :maxlength="20" prefix="ios-lock-outline"
                    v-model="formData.password"/>
           </FormItem>
           <FormItem v-if="msg">
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-  import {findResultMsg} from '../service/msg.js'
   export default {
     name: "Login",
     data() {
@@ -60,7 +59,7 @@
                 localStorage.setItem("Authorization", response.data['data']);
                 this.$router.push({name: 'AddressList'});
               } else {
-                this.msg = findResultMsg(response.data['msg']);
+                this.msg = response.data['message'];
               }
             }).catch(function (error) {
               console.log(error);

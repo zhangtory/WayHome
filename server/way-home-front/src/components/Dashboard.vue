@@ -15,6 +15,10 @@
             <Icon type="ios-settings"></Icon>
             <span><router-link :to="{name: 'OpenAPI'}" tag="li">Github</router-link></span>
           </MenuItem>
+          <MenuItem name="exit">
+            <Icon type="ios-key-outline"/>
+            <span @click="exit()" tag="li">退出</span>
+          </MenuItem>
         </Menu>
       </Sider>
       <Layout>
@@ -31,6 +35,8 @@
 </template>
 
 <script>
+  import router from "@/router";
+
   export default {
     name: "Dashboard",
     data() {
@@ -55,6 +61,12 @@
     methods: {
       collapsedSider() {
         this.$refs.side1.toggleCollapse();
+      },
+      exit() {
+        localStorage.removeItem("Authorization");
+        router.replace({
+          path: '/'
+        })
       }
     }
   }

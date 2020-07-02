@@ -4,15 +4,15 @@
       <Col>
         <Form ref="formData" :model="formData" :rules="rule">
           <FormItem prop="oldPassword">
-            <Input type="password" password size="large" placeholder="请输入旧密码" maxlength="20" prefix="ios-lock-outline"
+            <Input type="password" password size="large" placeholder="请输入旧密码" :maxlength="20" prefix="ios-lock-outline"
                    v-model="formData.oldPassword"/>
           </FormItem>
           <FormItem prop="password">
-            <Input type="password" password size="large" placeholder="请输入新密码" maxlength="20" prefix="ios-lock-outline"
+            <Input type="password" password size="large" placeholder="请输入新密码" :maxlength="20" prefix="ios-lock-outline"
                    v-model="formData.password"/>
           </FormItem>
           <FormItem prop="repassword">
-            <Input type="password" password size="large" placeholder="请重复新密码" maxlength="20" prefix="ios-lock-outline"
+            <Input type="password" password size="large" placeholder="请重复新密码" :maxlength="20" prefix="ios-lock-outline"
                    v-model="formData.repassword"/>
           </FormItem>
           <FormItem v-if="msg">
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-  import {findResultMsg} from '../../service/msg.js'
   export default {
     name: "ResetPassword",
     data() {
@@ -73,10 +72,10 @@
               reNewPassword: this.formData.repassword
             }).then(response => {
               if (response.data['code'] === 0) {
-                this.$Message.info(findResultMsg(response.data['msg']));
+                this.$Message.info(response.data['message']);
                 this.$router.push({name: 'AddressList'});
               } else {
-                this.msg = findResultMsg(response.data['msg']);
+                this.msg = response.data['message'];
               }
             }).catch(function (error) {
               console.log(error);

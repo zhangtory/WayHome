@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import {findResultMsg} from '../../service/msg.js'
+  import {formatDate} from '../../service/date';
   export default {
     name: "AddressList",
     data() {
@@ -25,15 +25,17 @@
         keyName: '',
         columns1: [
           {
+            width: 100,
             title: 'KeyId',
-            key: 'keyId'
+            key: 'keyId',
+            sortable: true
           },
           {
-            title: 'SecretKey',
+            title: '钥匙秘钥(secretKey)',
             key: 'secretKey'
           },
           {
-            title: 'keyName',
+            title: '钥匙名(keyName)',
             key: 'keyName'
           },
           {
@@ -41,13 +43,15 @@
             key: 'address'
           },
           {
+            width: 200,
             title: '创建时间',
-            key: 'createTime'
+            key: 'createTime',
+            sortable: true
           },
           {
             title: '操作',
             slot: 'action',
-            width: 300,
+            width: 200,
             align: 'center'
           }
         ],
@@ -60,14 +64,15 @@
     },
     methods: {
       applyKey() {
-        this.axios.post('https://wayhome.zhangtory.com/admin/key').then(response => {
+        this.axios.post('https://wayhome.zhangtory.com/admin/key', {
           keyName: this.keyName
         }).then(response => {
           if (response.data['code'] === 0) {
             this.getAddressList();
           } else {
-            this.$Message.info(findResultMsg(response.data['msg']));
+            this.$Message.info(response.data['message']);
           }
+          this.keyName = '';
         }).catch(function (error) {
           console.log(error);
         })
@@ -79,19 +84,14 @@
             arr.forEach(item => {
               let keyId = item.id;
               let secretKey = item.secretKey;
-              this.userName = item.userName;
+              this.userName = item.username;
               let keyName = item.keyName;
-              let address = "https://wayhome.zhangtory.com/go/" + item.userName + "/" +keyName;
-              let createTime = item.createTime[0] + "-"
-                              + item.createTime[1] + "-"
-                              + item.createTime[2] + "  "
-                              + item.createTime[3] + ":"
-                              + item.createTime[4] + ":"
-                              + item.createTime[5];
+              let address = "https://wayhome.zhangtory.com/go/" + item.username + "/" +keyName;
+              let createTime = formatDate(new Date(item.createTime), 'yyyy-MM-dd hh:mm');
               this.data1.push({keyId: keyId, secretKey: secretKey, keyName: keyName, address: address,createTime: createTime});
             });
           } else {
-            this.$Message.info(findResultMsg(response.data['msg']));
+            this.$Message.info(response.data['message']);
           }
         }).catch(function (error) {
           console.log(error);
