@@ -7,7 +7,7 @@
     <div>
       <Table border :columns="columns1" :data="data1">
         <template slot-scope="{ row, index }" slot="action">
-          <Button type="success" size="small" @click="goHome(row.userName, row.keyId)">GoHome</Button>
+          <Button type="success" size="small" @click="goHome(row.address)">GoHome</Button>
           <Button type="error" size="small" @click="remove(row.keyId, index)">删除</Button>
         </template>
       </Table>
@@ -104,8 +104,8 @@
           console.log(error);
         })
       },
-      goHome(userName, keyName) {
-        window.open("https://wayhome.zhangtory.com/api/address/" + userName + "/" + keyName);
+      goHome(address) {
+        window.open(address);
       }
     }
   }
