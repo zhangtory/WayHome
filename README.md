@@ -49,6 +49,21 @@
   5. 网页控制台可以查看对应钥匙设置的跳转地址及其他信息。  
   访问https://wayhome.zhangtory.com/go/{username}/{keyName} 即可跳转到设置的地址上。  
   可以将跳转地址作为书签保存。  
+  
+## WayHome程序架构概览
+
+#### 1. 前端way-home-front
+使用vue + iView作为网页的前端显示。
+主要为用户提供使用说明、后台管理等功能。
+
+#### 2. 管理后台way-home-admin
+实现用户注册、登录，用户钥匙创建等功能的接口，供前端调用。
+
+#### 3. 地址核心way-home-core
+实现地址获取、地址信息上报功能。
+考虑到用户量足够大时，除了对redis进行扩展，还需要对way-home-core进行横向扩展。
+
+![jg](https://raw.githubusercontent.com/zhangtory/WayHome/master/jg.png)
 
 ## API
 
