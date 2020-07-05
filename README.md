@@ -22,19 +22,20 @@
   类似与DDNS，但是不需要自己购买域名。  
   不同于向日葵、ngork、frp，所有流量不会走WayHome服务器，可以最大限度使用主机的上行带宽。  
   
-  1. 注册一个WayHome账号([注册地址](https://wayhome.zhangtory.com/register)或登录。
+  1. 注册一个WayHome账号([注册地址](https://wayhome.zhangtory.com/register))或登录。  
+  您的WayHome账号名将作为访问地址的一部分，建议使用方便记忆的用户名。  
   在管理后台创建一个钥匙，创建时需要输入钥匙名，点击“创建钥匙”，之后就可以在钥匙列表看到钥匙信息。
 
   2. 和DDNS一样，您的主机需要有公网IP。  
-  如果是电信的话，可以直接拨打10000转人工服务开通公网IP地址。  
+  如果是电信的话，可以直接拨打10000转人工服务免费获取公网IP地址。  
 
   3. 在光猫或者拨号的路由器上做端口转发，或者设置为DMZ主机。  
-  因为通过IP地址首先访问的是PPPoE拨号上网的光猫或者路由器，光猫或路由器接收到请求后，不知道将请求转发给内网的哪一台主机，所以我们需要做端口转发，如将外网8123端口的访问请求，转发给内网192.168.1.2的80端口。  
+  因为通过IP地址首先访问的是PPPoE拨号上网的光猫或者路由器，光猫或路由器接收到请求后，不知道将请求转发给内网的哪一台主机，所以我们需要做端口转发，如设置：将外网8123端口的访问请求转发给内网192.168.1.2的80端口。  
   当然也可以设置DMZ主机，将所有外网的请求转发到这台服务器上。  
   注意：电信可能屏蔽了80和443等特殊端口，做端口映射时需要避开这些端口。
 
-  4. 下载Java版WayHome客户端([点击下载](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip))，或者使用python3客户端([查看](https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py))。如果你有其他版本客户端的需要，可以根据API自行开发客户端或给我们提Issue。
-  下载完成后需要完成客户端配置。
+  4. 下载Java版WayHome客户端([点击下载](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip))，或者使用python3客户端([查看](https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py))。如果你有其他版本客户端的需要，可以根据API自行开发客户端或给我们提Issue。  
+  下载完成后需要完成客户端配置。  
   Java客户端配置home.properties，python3客户端直接在脚本文件中配置  
       `home.server_url`: 服务器地址，默认为https://wayhome.zhangtory.com/api/address ，如果自己搭建有私服，可以修改为自己的地址。  
       `home.username` : 你的用户名。
