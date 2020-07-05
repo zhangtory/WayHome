@@ -34,7 +34,7 @@
   当然也可以设置DMZ主机，将所有外网的请求转发到这台服务器上。  
   注意：电信可能屏蔽了80和443等特殊端口，做端口映射时需要避开这些端口。
 
-  4. 下载Java版WayHome客户端([点击下载](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip))，或者使用python3客户端([查看](https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py))。如果你有其他版本客户端的需要，可以根据API自行开发客户端或给我们提Issue。  
+  4. 下载Java版WayHome客户端([点击下载](https://github.com/zhangtory/WayHome/releases/tag/1.1))，或者使用python3客户端([查看](https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py))。如果你有其他版本客户端的需要，可以根据API自行开发客户端或给我们提Issue。  
   下载完成后需要完成客户端配置。  
   Java客户端配置home.properties，python3客户端直接在脚本文件中配置  
       `home.server_url`: 服务器地址，默认为https://wayhome.zhangtory.com/api/address ，如果自己搭建有私服，可以修改为自己的地址。  
