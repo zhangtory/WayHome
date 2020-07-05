@@ -1,35 +1,25 @@
--- ----------------------------
--- Table structure for `wh_key`
--- ----------------------------
-DROP TABLE IF EXISTS `wh_key`;
 CREATE TABLE `wh_key` (
-  `key_id` varchar(255) NOT NULL COMMENT 'keyID',
-  `secret_key` varchar(255) NOT NULL COMMENT '秘钥',
-  `protocol` varchar(255) DEFAULT NULL COMMENT '使用协议',
-  `ip` varchar(255) DEFAULT NULL COMMENT 'IPv4地址',
-  `port` int(5) DEFAULT NULL COMMENT '端口',
-  `path` varchar(1024) DEFAULT NULL COMMENT '请求路径',
-  `user_id` bigint(20) NOT NULL COMMENT '用户id',
-  `del` int(1) NOT NULL DEFAULT 0 COMMENT '是否删除：0未删除；1已删除',
-  `create_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `update_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`key_id`),
-  UNIQUE KEY `pk_wh_key_id` (`key_id`) USING BTREE,
-  KEY `index_wh_key_user_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Table structure for `wh_user`
--- ----------------------------
-DROP TABLE IF EXISTS `wh_user`;
-CREATE TABLE `wh_user` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `username` varchar(255) NOT NULL COMMENT '用户名',
-  `password` varchar(64) NOT NULL COMMENT '密码',
-  `mobile` varchar(16) NOT NULL COMMENT '手机号',
-  `email` varchar(255) NOT NULL COMMENT '邮箱',
-  `create_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `update_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'keyID',
+  `secret_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '签名秘钥',
+  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
+  `key_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL COMMENT '钥匙名',
+  `status` int NOT NULL DEFAULT '1' COMMENT '是否启用：1启用；0禁用',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_wh_user_username` (`username`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1205484131589394435 DEFAULT CHARSET=utf8mb4;
+  UNIQUE KEY `unq_wh_key_user_key` (`username`,`key_name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+CREATE TABLE `wh_user` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
+  `password` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
+  `mobile` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '邮箱',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_wh_user_username` (`username`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
