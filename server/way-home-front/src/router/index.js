@@ -45,6 +45,11 @@ export default new Router({
           path: 'openapi',
           name: 'OpenAPI',
           component: resolve => require(['@/components/dashboards/OpenApi'], resolve)
+        },
+        {
+          path: 'useGuide',
+          name: 'UseGuide',
+          component: resolve => require(['@/components/UseGuide'], resolve)
         }
       ]
     }

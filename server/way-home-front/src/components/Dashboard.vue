@@ -11,6 +11,10 @@
             <Icon type="ios-key-outline"/>
             <span><router-link :to="{name: 'ResetPassword'}" tag="li">修改密码</router-link></span>
           </MenuItem>-->
+          <MenuItem name="useGuide">
+            <Icon type="ios-book"></Icon>
+            <span><router-link :to="{name: 'UseGuide'}" tag="li">使用说明</router-link></span>
+          </MenuItem>
           <MenuItem name="OpenApi">
             <Icon type="ios-settings"></Icon>
             <span><router-link :to="{name: 'OpenAPI'}" tag="li">Github</router-link></span>
