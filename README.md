@@ -27,7 +27,7 @@
 
 #### 客户端配置
   1. 下载客户端。  
-      目前实现了Java的客户端([点击下载](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip))，在client中有已经编译好的jar包。  
+      目前实现了Java的客户端([点击下载](https://github.com/zhangtory/WayHome/releases/tag/1.1))，在client中有已经编译好的jar包。  
       或者使用python3客户端([查看]{https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py})
 	  如果您觉得Java客户端不方便，也可以根据API自行开发客户端，或给我们提Issue。
   2. 配置home.properties  
