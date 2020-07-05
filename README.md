@@ -16,33 +16,36 @@
 与DDNS不同在于没有TTL，可实时同步地址，也不需要自己申请域名，对用户成本更低。  
 与花生壳、frp、Ngrok相比，跳转后的所有流量不需要服务器参与，用户与自己的服务器直连，延迟更低，更好的用尽上下行带宽。所以，如果你在家搭建了NAS，那么WayHome是一个非常好的选择。
 
-## 如何使用
+## 使用指南
 
-#### 用前准备
-  1. 公网ip。  
-     如果没有，打电话让电信分配一个即可。
-  2. 家中光猫or路由器做端口转发或设置DMZ主机。    
-     一般来说电信屏蔽了80、8080和443等特殊端口，所以我们需要通过其他端口做转发，映射到内网的80或443端口。
-  3. 登录WayHome网站，注册用户并在控制台创建一个钥匙，获得对应的secretKey。
+  WayHome可以让你更低成本、快捷的在外网访问有非固定公网IP的主机。  
+  类似与DDNS，但是不需要自己购买域名。  
+  不同于向日葵、ngork、frp，所有流量不会走WayHome服务器，可以最大限度使用主机的上行带宽。  
+  
+  1. 注册一个WayHome账号([注册地址](https://wayhome.zhangtory.com/register)或登录。
+  在管理后台创建一个钥匙，创建时需要输入钥匙名，点击“创建钥匙”，之后就可以在钥匙列表看到钥匙信息。
 
-#### 客户端配置
-  1. 下载客户端。  
-      目前实现了Java的客户端([点击下载](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip))，在client中有已经编译好的jar包。  
-      或者使用python3客户端([查看]{https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py})
-	  如果您觉得Java客户端不方便，也可以根据API自行开发客户端，或给我们提Issue。
-  2. 配置home.properties  
+  2. 和DDNS一样，您的主机需要有公网IP。  
+  如果是电信的话，可以直接拨打10000转人工服务开通公网IP地址。  
+
+  3. 在光猫或者拨号的路由器上做端口转发，或者设置为DMZ主机。  
+  因为通过IP地址首先访问的是PPPoE拨号上网的光猫或者路由器，光猫或路由器接收到请求后，不知道将请求转发给内网的哪一台主机，所以我们需要做端口转发，如将外网8123端口的访问请求，转发给内网192.168.1.2的80端口。  
+  当然也可以设置DMZ主机，将所有外网的请求转发到这台服务器上。  
+  注意：电信可能屏蔽了80和443等特殊端口，做端口映射时需要避开这些端口。
+
+  4. 下载Java版WayHome客户端([点击下载](https://github.com/zhangtory/WayHome/releases/download/1.0/wayhome-client-1.0.zip))，或者使用python3客户端([查看](https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py))。如果你有其他版本客户端的需要，可以根据API自行开发客户端或给我们提Issue。
+  下载完成后需要完成客户端配置。
+  Java客户端配置home.properties，python3客户端直接在脚本文件中配置  
       `home.server_url`: 服务器地址，默认为https://wayhome.zhangtory.com/api/address ，如果自己搭建有私服，可以修改为自己的地址。  
       `home.username` : 你的用户名。
-	  `home.keyName`: 你的钥匙名。  
+      `home.keyName`: 你的钥匙名。  
       `home.secretKey`: 网站控制台申请获取的secretKey，与钥匙对应。  
       `home.protocol`: 跳转的协议。如跳转到家中的路由器，一般为http，如果支持https可以设置为https。另外如果要跳转到ftp服务器，也可以设置为ftp。其他协议同理。  
       `home.port`: 跳转的端口，即在家中光猫or路由器上设置的转发端口。http默认为80端口，如果使用http跳转到80端口，则可以省略。其他协议同理。    
-      `home.path`: 跳转请求的路径参数。如"/login?user=admin&password=123"。没有可以省略，如有需要以"/"开头。  
-  3. 运行客户端  
-      Java客户端使用java -jar命令运行。运行时可以根据控制台的输出日志判断请求是否正常。  
+      `home.path`: 跳转请求的路径参数。如"/login?user=admin&password=123"。没有可以省略，如有需要以"/"开头。   
+  Java客户端使用`nohup java -jar wayhome客户端jar包名 &`命令运行。运行时可以根据控制台的输出日志或nohup文件判断请求是否正常。  
       
-#### 使用
-  网页控制台可以查看对应钥匙设置的跳转地址及其他信息。  
+  5. 网页控制台可以查看对应钥匙设置的跳转地址及其他信息。  
   访问https://wayhome.zhangtory.com/go/{username}/{keyName} 即可跳转到设置的地址上。  
   可以将跳转地址作为书签保存。  
 
