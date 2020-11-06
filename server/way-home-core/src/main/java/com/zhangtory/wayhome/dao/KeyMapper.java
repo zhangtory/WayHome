@@ -2,8 +2,8 @@ package com.zhangtory.wayhome.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhangtory.wayhome.model.entity.Key;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author zhangtory
  * @since 2019-12-01
  */
-@Component
+@Mapper
 public interface KeyMapper extends BaseMapper<Key> {
 
     /**

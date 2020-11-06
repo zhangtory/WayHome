@@ -63,10 +63,6 @@ public class HomeServiceImpl implements IHomeService {
      */
     @Override
     public void setAddress(String ip, SetAddressRequest addr) {
-        // TODO sign-interceptor中需要根据用户查询对应的secret，另外拦截器不支持postBody中的sign
-        // 以下是验签完成后的功能
-
-
         KeyAddressVO keyAddress = keyAddressService.getKeyAddress(addr.getUsername(), addr.getKeyName());
         // 检查钥匙是否可用
         boolean available = checkKeyAvailable(keyAddress);
