@@ -28,7 +28,7 @@ public class HomeController {
     }
 
     @PostMapping("/address")
-    public BaseResponse setAddress(HttpServletRequest request, @RequestBody @Valid SetAddressRequest addr) {
+    public BaseResponse setAddress(HttpServletRequest request, @ModelAttribute @Valid SetAddressRequest addr) {
         homeService.setAddress(IpUtils.getIpAddr(request), addr);
         return ResponseBuilder.success();
     }
