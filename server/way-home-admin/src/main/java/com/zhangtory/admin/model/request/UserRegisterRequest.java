@@ -1,6 +1,7 @@
 package com.zhangtory.admin.model.request;
 
 import com.zhangtory.admin.model.entity.WhUser;
+import com.zhangtory.core.util.PasswordUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -50,7 +51,7 @@ public class UserRegisterRequest {
     public WhUser getWhUser() {
         WhUser user = new WhUser();
         user.setUsername(this.username);
-        user.setPassword(this.password);
+        user.setPassword(PasswordUtils.getEncryptedPassword(this.password));
         user.setEmail(this.email);
         user.setMobile(this.mobile);
         return user;
