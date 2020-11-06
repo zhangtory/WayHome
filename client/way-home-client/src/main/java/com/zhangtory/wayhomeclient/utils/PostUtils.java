@@ -1,15 +1,20 @@
 package com.zhangtory.wayhomeclient.utils;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: ZhangYaoYu
@@ -30,7 +35,7 @@ public class PostUtils {
      */
     private static final int SOCKET_TIMEOUT = 10_000;
 
-    public static String post(String url, String body) throws IOException {
+    public static String post(String url, Map<String, String> params) throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
         // config
@@ -40,11 +45,16 @@ public class PostUtils {
                 .build();
         httpPost.setConfig(requestConfig);
         // set headers
-        httpPost.setHeader("Content-Type","application/json;charset=utf-8");
+        httpPost.setHeader("Content-Type","application/x-www-form-urlencoded");
         httpPost.setHeader("Connection", "Keep-Alive");
-        httpPost.setHeader("User-Agent", "way-home-client");
+        httpPost.setHeader("User-Agent", "way-home-client 1.2");
         // build params
-        httpPost.setEntity(new StringEntity(body, ENCODING));
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+        params.forEach((k, v) -> {
+            NameValuePair nv = new BasicNameValuePair(k, v);
+            nameValuePairs.add(nv);
+        });
+        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, ENCODING));
         CloseableHttpResponse response = httpClient.execute(httpPost);
         HttpEntity entity = response.getEntity();
         String str = EntityUtils.toString(entity, ENCODING);

@@ -1,5 +1,7 @@
 package com.zhangtory.wayhomeclient.utils;
 
+import org.springframework.util.StringUtils;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,37 +15,31 @@ import java.util.TreeMap;
  */
 public class SignUtils {
 
-    public static boolean checkSign(Map<String, Object> params, String secretKey, String signStr) {
-        params.remove("sign");
-        if (signStr.equals(getSign(params, secretKey))) {
-            return true;
-        }
-        return false;
-    }
-
-    public static String getSign(Map<String, Object> params, String secretKey) {
-        //准备签名字符串
-        StringBuilder sb = new StringBuilder();
-        Map<String, Object> map = new TreeMap(params);
-        // 遍历排序的字典,并拼接"key=value&key=value"格式，空value不参与签名
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            if (null == value) {
-                continue;
+    /**
+     * 计算签名
+     * @param params
+     * @param secretKey
+     * @return
+     */
+    public static String getSign(Map<String, String> params, String secretKey) {
+        Map<String, String> sortMap = new TreeMap(params);
+        // 遍历排序的字典,并拼接"key + value + key + value + secret"格式，空value不参与签名
+        StringBuffer originStr = new StringBuffer();
+        sortMap.forEach((k, v) -> {
+            if (!StringUtils.isEmpty(v)) {
+                originStr.append(k).append(v);
             }
-            String s = String.valueOf(value);
-            String trim = s.trim();
-            if ("".equals(trim)) {
-                continue;
-            }
-            sb.append(key).append("=").append(trim).append("&");
-        }
-        sb.append("secretKey=").append(secretKey);
-        String sign = md5(sb.toString()).toUpperCase();
+        });
+        originStr.append(secretKey);
+        String sign = md5(originStr.toString()).toUpperCase();
         return sign;
     }
 
+    /**
+     * 计算md5摘要
+     * @param origin
+     * @return
+     */
     private static String md5(String origin) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

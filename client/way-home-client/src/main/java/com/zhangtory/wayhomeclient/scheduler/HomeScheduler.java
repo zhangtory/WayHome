@@ -1,6 +1,5 @@
-package com.zhangtory.wayhomeclient.schedule;
+package com.zhangtory.wayhomeclient.scheduler;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zhangtory.wayhomeclient.model.HomeInfo;
 import com.zhangtory.wayhomeclient.utils.PostUtils;
 import com.zhangtory.wayhomeclient.utils.SignUtils;
@@ -21,22 +20,22 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class HomeSchedule implements ApplicationRunner {
+public class HomeScheduler implements ApplicationRunner {
 
     @Autowired
     private HomeInfo homeInfo;
 
     private void sendHomeAddr() throws IOException {
         log.info("start send home addr...");
-        Map<String, Object> params = new HashMap<>(16);
+        Map<String, String> params = new HashMap<>(16);
         params.put("username", homeInfo.getUsername());
         params.put("keyName", homeInfo.getKeyName());
         params.put("protocol", homeInfo.getProtocol());
-        params.put("port", homeInfo.getPort());
+        params.put("port", homeInfo.getPort().toString());
         params.put("path", homeInfo.getPath());
-        params.put("timestamp", System.currentTimeMillis());
+        params.put("timestamp", String.valueOf(System.currentTimeMillis()));
         params.put("sign", SignUtils.getSign(params, homeInfo.getSecretKey()));
-        String ret = PostUtils.post(homeInfo.getServerUrl(), JSONObject.toJSONString(params));
+        String ret = PostUtils.post(homeInfo.getServerUrl(), params);
         log.info(ret);
     }
 
