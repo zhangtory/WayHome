@@ -1,10 +1,5 @@
 server:
-  servlet:
-    context-path: /admin
   port: 8001
 spring:
   profiles:
-    active: dev
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true
+    active: @env@

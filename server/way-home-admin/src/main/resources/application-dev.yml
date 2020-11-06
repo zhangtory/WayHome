@@ -9,8 +9,3 @@ spring:
     pool: 6379
     timeout: 5000
     database: 0
-
-# 开发环境打开sql日志
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
