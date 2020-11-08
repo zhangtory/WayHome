@@ -1,8 +1,8 @@
 package com.zhangtory.wayhome.service.impl;
 
+import com.zhangtory.core.exception.CommonException;
 import com.zhangtory.wayhome.constant.KeyResultCode;
 import com.zhangtory.wayhome.constant.KeyStatus;
-import com.zhangtory.wayhome.exception.KeyException;
 import com.zhangtory.wayhome.model.request.SetAddressRequest;
 import com.zhangtory.wayhome.model.response.AddressResponse;
 import com.zhangtory.wayhome.model.vo.KeyAddressVO;
@@ -67,7 +67,7 @@ public class HomeServiceImpl implements IHomeService {
         // 检查钥匙是否可用
         boolean available = checkKeyAvailable(keyAddress);
         if (!available) {
-            throw new KeyException(KeyResultCode.KEY_CAN_NOT_USE);
+            throw new CommonException(KeyResultCode.KEY_CAN_NOT_USE);
         }
         /**
          * 如果地址有变动则修改缓存。
