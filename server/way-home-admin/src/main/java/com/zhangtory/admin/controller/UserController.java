@@ -5,6 +5,7 @@ import com.zhangtory.admin.model.request.UserRegisterRequest;
 import com.zhangtory.admin.service.IUserService;
 import com.zhangtory.core.response.BaseResponse;
 import com.zhangtory.core.response.ResponseBuilder;
+import com.zhangtory.jwt.constant.JwtConstant;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class UserController {
     @ApiOperation("用户注册")
     public BaseResponse register(@RequestBody @Valid UserRegisterRequest userRegisterRequest, HttpServletResponse response) {
         String token = userService.register(userRegisterRequest);
-//        response.setHeader(, token);
+        response.setHeader(JwtConstant.TOKEN_HEADER, token);
         return ResponseBuilder.success(token);
     }
 
@@ -41,7 +42,7 @@ public class UserController {
     @ApiOperation("用户登录")
     public BaseResponse login(@RequestBody @Valid LoginRequest loginRequest, HttpServletResponse response) {
         String token = userService.login(loginRequest);
-//        response.setHeader(BaseConstant.TOKEN_HEADER, token);
+        response.setHeader(JwtConstant.TOKEN_HEADER, token);
         return ResponseBuilder.success(token);
     }
 

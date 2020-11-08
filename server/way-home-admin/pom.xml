@@ -43,6 +43,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.zhangtory</groupId>
+            <artifactId>redis-spring-boot-starter</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
