@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: wayhome
+    username: zyy
     password: 123456
-    url: jdbc:mysql://222.209.233.79/:3306/dbName?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.31.50:3306/wayhome?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     type: com.zaxxer.hikari.HikariDataSource
   redis:
     host: 192.168.31.50

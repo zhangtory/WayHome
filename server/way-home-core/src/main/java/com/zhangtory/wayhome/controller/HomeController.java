@@ -22,7 +22,7 @@ public class HomeController {
     @Autowired
     private IHomeService homeService;
 
-    @GetMapping("/address/{username}/{keyName}")
+    @GetMapping("/get/{username}/{keyName}")
     public BaseResponse getAddress(@PathVariable String username, @PathVariable String keyName) {
         return ResponseBuilder.success(homeService.getAddress(username, keyName));
     }

@@ -36,7 +36,7 @@ public class HomeServiceImpl implements IHomeService {
     public AddressResponse getAddress(String username, String keyName) {
         AddressResponse response = new AddressResponse();
         KeyAddressVO keyAddress = keyAddressService.getKeyAddress(username, keyName);
-        if (StringUtils.isEmpty(keyAddress.getIp())) {
+        if (!StringUtils.isEmpty(keyAddress.getIp())) {
             BeanUtils.copyProperties(keyAddress, response);
             // 构建完整url
             StringBuilder url = new StringBuilder();
@@ -74,6 +74,8 @@ public class HomeServiceImpl implements IHomeService {
          * 如果地址没有变动，需要刷新缓存ttl，防止过期后信息丢失。
          */
         if (!checkEquals(ip, addr, keyAddress)) {
+            BeanUtils.copyProperties(addr, keyAddress);
+            keyAddress.setIp(ip);
             keyAddressService.saveKeyAddress(keyAddress);
         } else {
             keyAddressService.updateExpire(keyAddress.getUsername(), keyAddress.getKeyName());

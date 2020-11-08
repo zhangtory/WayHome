@@ -23,6 +23,7 @@ public class SignCheckerImpl extends SignChecker {
 
     @Override
     public void initCheckInterceptor() {
+        this.patterns.add("/get/**");
     }
 
     @Override
