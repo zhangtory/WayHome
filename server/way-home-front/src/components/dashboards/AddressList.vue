@@ -7,6 +7,7 @@
     <div>
       <Table border :columns="columns1" :data="data1">
         <template slot-scope="{ row, index }" slot="action">
+          <input type="hidden" value="row.keyId"></input>
           <Button type="success" size="small" @click="goHome(row.address)">GoHome</Button>
           <Button type="error" size="small" @click="remove(row.keyId, index)">删除</Button>
         </template>
@@ -21,6 +22,7 @@
     name: "AddressList",
     data() {
       return {
+        currentPage: 1,
         userName: '',
         keyName: '',
         columns1: [
@@ -68,7 +70,7 @@
           this.$Message.info('请输入钥匙名');
           return;
         }
-        this.axios.post('https://wayhome.zhangtory.com/admin/key', {
+        this.axios.post('/admin/key', {
           keyName: this.keyName
         }).then(response => {
           if (response.data['code'] === 0) {
@@ -82,7 +84,7 @@
         })
       },
       getAddressList() {
-        this.axios.get('https://wayhome.zhangtory.com/admin/key').then(response => {
+        this.axios.get('/admin/key/' + this.currentPage).then(response => {
           if (response.data['code'] === 0) {
             let arr = response.data.data;
             arr.forEach(item => {
@@ -90,7 +92,7 @@
               let secretKey = item.secretKey;
               this.userName = item.username;
               let keyName = item.keyName;
-              let address = "https://wayhome.zhangtory.com/go/" + item.username + "/" +keyName;
+              let address = "/go/" + item.username + "/" +keyName;
               let createTime = formatDate(new Date(item.createTime), 'yyyy-MM-dd hh:mm');
               this.data1.push({keyId: keyId, secretKey: secretKey, keyName: keyName, address: address,createTime: createTime});
             });
@@ -102,7 +104,7 @@
         })
       },
       remove(keyId, index) {
-        this.axios.delete('https://wayhome.zhangtory.com/admin/key/' + keyId).then(response => {
+        this.axios.delete('/admin/key/' + keyId).then(response => {
           this.data1.splice(index, 1);
         }).catch(function (error) {
           console.log(error);

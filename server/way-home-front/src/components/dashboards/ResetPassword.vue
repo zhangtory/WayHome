@@ -66,7 +66,7 @@
       reset(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            this.axios.post('https://wayhome.zhangtory.com/api/resetPassword', {
+            this.axios.post('/reset', {
               oldPassword: this.formData.oldPassword,
               newPassword: this.formData.password,
               reNewPassword: this.formData.repassword

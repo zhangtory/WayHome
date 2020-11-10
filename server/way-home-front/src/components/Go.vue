@@ -19,7 +19,7 @@
         this.msg = '该钥匙不存在';
         return;
       }
-      this.axios.get("https://wayhome.zhangtory.com/api/address/" + userName + "/" + keyName).then(response =>{
+      this.axios.get("/get/" + userName + "/" + keyName).then(response =>{
         let url = response.data.data['url'];
         console.log(url);
         if (url != null) {

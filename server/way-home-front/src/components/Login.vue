@@ -50,7 +50,7 @@
       login(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            this.axios.post('https://wayhome.zhangtory.com/admin/login', {
+            this.axios.post('/admin/user/login', {
               username: this.formData.username,
               password: this.formData.password
             }).then(response => {

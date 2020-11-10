@@ -1,30 +1,32 @@
 <template>
   <div class="layout">
-    <Layout style="height: 99.7vh">
-      <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
+    <Layout :style="{minHeight: '100vh'}">
+
+      <Sider ref="side1" hide-trigger collapsible :collapsed-width="90" v-model="isCollapsed">
         <Menu active-name="addressList" theme="dark" width="auto" :class="menuitemClasses">
-          <MenuItem name="addressList">
+          <MenuItem name="addressList" :to="{name: 'AddressList'}">
             <Icon type="ios-navigate"></Icon>
-            <span><router-link :to="{name: 'AddressList'}" tag="li">地址管理</router-link></span>
+            钥匙管理
           </MenuItem>
-          <!--<MenuItem name="resetPassword">
-            <Icon type="ios-key-outline"/>
-            <span><router-link :to="{name: 'ResetPassword'}" tag="li">修改密码</router-link></span>
-          </MenuItem>-->
-          <MenuItem name="useGuide">
+          <MenuItem name="useGuide" :to="{name: 'UseGuide'}">
             <Icon type="ios-book"></Icon>
-            <span><router-link :to="{name: 'UseGuide'}" tag="li">使用说明</router-link></span>
+            使用说明
           </MenuItem>
-          <MenuItem name="OpenApi">
+          <MenuItem name="OpenApi" :to="{name: 'OpenAPI'}">
             <Icon type="ios-settings"></Icon>
-            <span><router-link :to="{name: 'OpenAPI'}" tag="li">Github</router-link></span>
+            Github
           </MenuItem>
-          <MenuItem name="exit">
+<!--          <MenuItem name="resetPassword">-->
+<!--            <Icon type="ios-key-outline"/>-->
+<!--            <span><router-link :to="{name: 'ResetPassword'}" tag="li">修改密码</router-link></span>-->
+<!--          </MenuItem>-->
+          <MenuItem name="exit" :to="{name: 'Exit'}">
             <Icon type="ios-key-outline"/>
-            <span @click="exit()" tag="li">退出</span>
+            退出
           </MenuItem>
         </Menu>
       </Sider>
+
       <Layout>
         <Header :style="{padding: 0}" class="layout-header-bar">
           <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}" type="md-menu"
@@ -34,6 +36,7 @@
           <router-view></router-view>
         </Content>
       </Layout>
+
     </Layout>
   </div>
 </template>
@@ -78,7 +81,7 @@
 
 <style scoped>
   .layout {
-    border: 1px solid #d7dde4;
+    border: 0px solid #d7dde4;
     background: #f5f7f9;
     position: relative;
     border-radius: 4px;

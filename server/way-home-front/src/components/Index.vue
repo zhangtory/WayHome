@@ -10,7 +10,10 @@
           <p>无需注册域名，无需自建服务器，一个书签即可踏上回家之路。</p>
         </div>
 
-        <div>
+        <div v-if="token">
+          <router-link to="/dashboard"><Button type="success" size="large" ghost>进入后台</Button></router-link>
+        </div>
+        <div v-else>
           <router-link to="/login"><Button type="success" size="large" ghost>登录</Button></router-link>
           <router-link to="/register"><Button type="info" size="large" ghost>注册</Button></router-link>
         </div>
@@ -30,7 +33,7 @@
     name: "Index",
     data() {
       return {
-        msg: '123'
+        token: localStorage.getItem("Authorization")
       }
     }
   }

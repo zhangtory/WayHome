@@ -12,8 +12,13 @@ import axios from 'axios';
 Vue.config.productionTip = false
 Vue.prototype.axios = axios
 
+let API_HOST = "http://127.0.0.1:8001"
+// let API_HOST = "https://wayhome.zhangtory.com"
+
 /* 请求拦截器 */
 axios.interceptors.request.use(function (config) {
+  // 设置api地址
+  config.url = API_HOST + config.url;
   // 每次请求时会从localStorage中获取token
   let token = localStorage.getItem("Authorization");
   if (token) {

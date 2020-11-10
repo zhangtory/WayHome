@@ -32,7 +32,7 @@ export default new Router({
       component: resolve => require(['@/components/Dashboard'], resolve),
       children: [
         {
-          path: '/',
+          path: '/addressList',
           name: 'AddressList',
           component: resolve => require(['@/components/dashboards/AddressList'], resolve)
         },
@@ -50,6 +50,11 @@ export default new Router({
           path: 'useGuide',
           name: 'UseGuide',
           component: resolve => require(['@/components/UseGuide'], resolve)
+        },
+        {
+          path: 'exit',
+          name: 'Exit',
+          component: resolve => require(['@/components/dashboards/Exit'], resolve)
         }
       ]
     }
