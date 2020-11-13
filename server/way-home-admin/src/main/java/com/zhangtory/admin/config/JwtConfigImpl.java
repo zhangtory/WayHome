@@ -14,5 +14,7 @@ public class JwtConfigImpl extends JwtConfig {
     public void initJwtConfig() {
         this.patterns.add("/index/**");
         this.patterns.add("/user/**");
+        this.secretKey = "8d4646eb2d7067126eb08adb0672f7bb";
+        this.jwtIssue = "way_home_server";
     }
 }

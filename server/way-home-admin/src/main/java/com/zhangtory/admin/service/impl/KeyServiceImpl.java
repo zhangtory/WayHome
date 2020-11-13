@@ -9,7 +9,7 @@ import com.zhangtory.admin.model.entity.WhKey;
 import com.zhangtory.admin.model.request.AddKeyRequest;
 import com.zhangtory.admin.service.IKeyService;
 import com.zhangtory.core.exception.CommonException;
-import com.zhangtory.jwt.UserContext;
+import com.zhangtory.jwt.component.UserContext;
 import com.zhangtory.redis.service.RedisHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,9 @@ public class KeyServiceImpl implements IKeyService {
     @Autowired
     private RedisHelper redisHelper;
 
+    @Autowired
+    private UserContext userContext;
+
     /**
      * keyAddress信息前缀
      * wayhome:key:{username}:{keyName}
@@ -49,7 +52,7 @@ public class KeyServiceImpl implements IKeyService {
     public IPage<WhKey> queryKeys(Long current) {
         IPage<WhKey> keys = keyMapper.selectPage(new Page<>(current, 10),
                 new QueryWrapper<WhKey>().lambda()
-                        .eq(WhKey::getUsername, UserContext.getUsername())
+                        .eq(WhKey::getUsername, userContext.getUsername())
                         .orderByDesc(WhKey::getCreateTime));
         return keys;
     }
@@ -63,7 +66,7 @@ public class KeyServiceImpl implements IKeyService {
     public void addKey(AddKeyRequest request) {
         WhKey key = new WhKey();
         key.setKeyName(request.getKeyName());
-        key.setUsername(UserContext.getUsername());
+        key.setUsername(userContext.getUsername());
         key.setSecretKey(UUID.randomUUID().toString().replace("-", ""));
         try {
             keyMapper.insert(key);
@@ -80,7 +83,7 @@ public class KeyServiceImpl implements IKeyService {
     @Override
     public void deleteKey(Long id) {
         // 需要验证当前用户是否持有该钥匙
-        String username = UserContext.getUsername();
+        String username = userContext.getUsername();
         WhKey key = keyMapper.selectOne(new QueryWrapper<WhKey>().lambda()
                 .eq(WhKey::getId, id)
                 .eq(WhKey::getUsername, username));

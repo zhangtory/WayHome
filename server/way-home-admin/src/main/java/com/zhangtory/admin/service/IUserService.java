@@ -24,4 +24,11 @@ public interface IUserService {
      */
     String login(LoginRequest request);
 
+    void findAccount();
+
+    /**
+     * 重置密码
+     */
+    void resetPassword();
+
 }

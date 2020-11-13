@@ -57,6 +57,7 @@ public class UserController {
     @ApiOperation("重置密码")
     public BaseResponse resetPassword() {
         // TODO 重置密码
+        userService.resetPassword();
         return ResponseBuilder.success();
     }
 

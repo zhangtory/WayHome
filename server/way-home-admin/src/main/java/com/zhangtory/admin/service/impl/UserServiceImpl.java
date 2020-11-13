@@ -9,8 +9,9 @@ import com.zhangtory.admin.model.request.UserRegisterRequest;
 import com.zhangtory.admin.service.IUserService;
 import com.zhangtory.core.exception.CommonException;
 import com.zhangtory.core.util.PasswordUtils;
+import com.zhangtory.jwt.component.JwtHelper;
+import com.zhangtory.jwt.component.UserContext;
 import com.zhangtory.jwt.model.JwtUserVo;
-import com.zhangtory.jwt.util.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private WhUserMapper whUserMapper;
+
+    @Autowired
+    private JwtHelper jwtHelper;
+
+    @Autowired
+    private UserContext userContext;
 
     /**
      * 用户注册
@@ -47,7 +54,7 @@ public class UserServiceImpl implements IUserService {
         }
         JwtUserVo jwtUserVo = new JwtUserVo();
         BeanUtils.copyProperties(registerUser, jwtUserVo);
-        return JwtUtils.createToken(jwtUserVo);
+        return jwtHelper.createToken(jwtUserVo);
     }
 
     /**
@@ -64,10 +71,23 @@ public class UserServiceImpl implements IUserService {
             // 用户名密码匹配，创建token
             JwtUserVo jwtUserVo = new JwtUserVo();
             BeanUtils.copyProperties(user, jwtUserVo);
-            String token = JwtUtils.createToken(jwtUserVo);
+            String token = jwtHelper.createToken(jwtUserVo);
             return token;
         }
         throw new CommonException(UserResult.USER_OR_PASSWORD_ERROR);
+    }
+
+    @Override
+    public void findAccount() {
+
+    }
+
+    /**
+     * 重置密码
+     */
+    @Override
+    public void resetPassword() {
+        System.out.println(userContext.getUsername());
     }
 
 }
