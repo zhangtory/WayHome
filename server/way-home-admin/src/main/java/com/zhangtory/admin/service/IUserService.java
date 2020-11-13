@@ -1,6 +1,8 @@
 package com.zhangtory.admin.service;
 
+import com.zhangtory.admin.model.request.AccountFindRequest;
 import com.zhangtory.admin.model.request.LoginRequest;
+import com.zhangtory.admin.model.request.ResetPasswordRequest;
 import com.zhangtory.admin.model.request.UserRegisterRequest;
 
 /**
@@ -24,11 +26,30 @@ public interface IUserService {
      */
     String login(LoginRequest request);
 
-    void findAccount();
+    /**
+     * 找回密码-发送邮件
+     * @param email
+     */
+    void findAccountSendMail(String email);
+
+    /**
+     * 找回密码-重置密码
+     * @param secret
+     * @param request
+     */
+    void findAccount(String secret, AccountFindRequest request);
+
+    /**
+     * 验证账户找回秘钥是否可用
+     * @param secret
+     * @return email
+     */
+    String checkAccountFindSecret(String secret);
 
     /**
      * 重置密码
+     * @param request
      */
-    void resetPassword();
+    void resetPassword(ResetPasswordRequest request);
 
 }

@@ -3,3 +3,18 @@ server:
 spring:
   profiles:
     active: @env@
+  mail:
+    host: smtp.exmail.qq.com
+    username: admin@zhangtory.com
+    password: password
+    properties:
+      mail:
+        smtp:
+          starttls:
+            auth: true
+            enable: true
+            required: true
+# 固定链接配置
+url:
+  user:
+    find: https://wayhome.zhangtory.com/account/find/

@@ -1,7 +1,6 @@
 package com.zhangtory.admin.controller;
 
-import com.zhangtory.admin.model.request.LoginRequest;
-import com.zhangtory.admin.model.request.UserRegisterRequest;
+import com.zhangtory.admin.model.request.*;
 import com.zhangtory.admin.service.IUserService;
 import com.zhangtory.core.response.BaseResponse;
 import com.zhangtory.core.response.ResponseBuilder;
@@ -9,10 +8,7 @@ import com.zhangtory.jwt.constant.JwtConstant;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -46,18 +42,31 @@ public class UserController {
         return ResponseBuilder.success(token);
     }
 
-    @PostMapping("/find")
-    @ApiOperation("找回密码")
-    public BaseResponse findAccount() {
-        // TODO 找回密码
+    @PostMapping("/find/mail")
+    @ApiOperation("找回密码-发送邮件")
+    public BaseResponse findAccountSendMail(@RequestBody @Valid AccountFindSendMailRequest request) {
+        userService.findAccountSendMail(request.getEmail());
+        return ResponseBuilder.success();
+    }
+
+    @GetMapping("/find/check/{secret}")
+    @ApiOperation("找回密码-验证secret")
+    public BaseResponse secretCheck(@PathVariable String secret) {
+        userService.checkAccountFindSecret(secret);
+        return ResponseBuilder.success();
+    }
+
+    @PostMapping("/find/{secret}")
+    @ApiOperation("找回密码-重置密码")
+    public BaseResponse findAccount(@PathVariable String secret, @RequestBody @Valid AccountFindRequest request) {
+        userService.findAccount(secret, request);
         return ResponseBuilder.success();
     }
 
     @PostMapping("/reset")
     @ApiOperation("重置密码")
-    public BaseResponse resetPassword() {
-        // TODO 重置密码
-        userService.resetPassword();
+    public BaseResponse resetPassword(@RequestBody @Valid ResetPasswordRequest request) {
+        userService.resetPassword(request);
         return ResponseBuilder.success();
     }
 
