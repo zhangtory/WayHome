@@ -16,10 +16,10 @@
             <Icon type="ios-settings"></Icon>
             Github
           </MenuItem>
-<!--          <MenuItem name="resetPassword">-->
-<!--            <Icon type="ios-key-outline"/>-->
-<!--            <span><router-link :to="{name: 'ResetPassword'}" tag="li">修改密码</router-link></span>-->
-<!--          </MenuItem>-->
+          <MenuItem name="resetPassword">
+            <Icon type="ios-key-outline"/>
+            <span><router-link :to="{name: 'ResetPassword'}" tag="li">修改密码</router-link></span>
+          </MenuItem>
           <MenuItem name="exit" :to="{name: 'Exit'}">
             <Icon type="ios-key-outline"/>
             退出

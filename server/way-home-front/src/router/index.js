@@ -57,6 +57,16 @@ export default new Router({
           component: resolve => require(['@/components/dashboards/Exit'], resolve)
         }
       ]
+    },
+    {
+      path: '/account/find/send',
+      name: 'AccountFindSend',
+      component: resolve => require(['@/components/findAccount/FindAccountSendMail'], resolve)
+    },
+    {
+      path: '/account/find/:secret',
+      name: 'AccountFindReset',
+      component: resolve => require(['@/components/findAccount/FindAccountReset'], resolve)
     }
   ]
 })

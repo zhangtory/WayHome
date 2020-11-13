@@ -19,6 +19,8 @@
           </FormItem>
           <Button type="success" size="large" @click="login('formData')">登录</Button>
           <router-link to="/register">没有账号？马上注册</router-link>
+          <span>&nbsp; | &nbsp;</span>
+          <router-link to="/account/find/send">找回密码</router-link>
         </Form>
       </Col>
     </Row>

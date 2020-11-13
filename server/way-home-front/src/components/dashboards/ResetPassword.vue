@@ -66,10 +66,9 @@
       reset(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            this.axios.post('/reset', {
+            this.axios.post('/user/reset', {
               oldPassword: this.formData.oldPassword,
-              newPassword: this.formData.password,
-              reNewPassword: this.formData.repassword
+              newPassword: this.formData.password
             }).then(response => {
               if (response.data['code'] === 0) {
                 this.$Message.info(response.data['message']);
