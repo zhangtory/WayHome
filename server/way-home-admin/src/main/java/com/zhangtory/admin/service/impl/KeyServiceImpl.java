@@ -4,18 +4,25 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhangtory.admin.constant.KeyResult;
+import com.zhangtory.admin.constant.RedisKey;
 import com.zhangtory.admin.dao.WhKeyMapper;
 import com.zhangtory.admin.model.entity.WhKey;
 import com.zhangtory.admin.model.request.AddKeyRequest;
+import com.zhangtory.admin.model.vo.KeyAddressVO;
+import com.zhangtory.admin.model.vo.KeyInfoVO;
 import com.zhangtory.admin.service.IKeyService;
 import com.zhangtory.core.exception.CommonException;
 import com.zhangtory.jwt.component.UserContext;
 import com.zhangtory.redis.service.RedisHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -37,24 +44,44 @@ public class KeyServiceImpl implements IKeyService {
     private UserContext userContext;
 
     /**
-     * keyAddress信息前缀
-     * wayhome:key:{username}:{keyName}
-     */
-    public static final String KEY_ADDRESS_REDIS_KEY_PREFIX = "wayhome:key:${username}:${keyName}";
-
-    /**
      * 查询当前用户的key
      *
      * @param current 分页请求
      * @return
      */
     @Override
-    public IPage<WhKey> queryKeys(Long current) {
+    public IPage<KeyInfoVO> queryKeys(Long current) {
         IPage<WhKey> keys = keyMapper.selectPage(new Page<>(current, 10),
                 new QueryWrapper<WhKey>().lambda()
                         .eq(WhKey::getUsername, userContext.getUsername())
                         .orderByDesc(WhKey::getCreateTime));
-        return keys;
+        // 转换为返回对象
+        IPage<KeyInfoVO> keyInfoVOIPage = new Page<>(keys.getCurrent(), keys.getSize(), keys.getTotal());
+        keyInfoVOIPage.setPages(keys.getPages());
+        List<WhKey> records = keys.getRecords();
+        List<KeyInfoVO> keyInfoVOList = new ArrayList<>();
+        records.forEach(record -> {
+            KeyInfoVO info = new KeyInfoVO();
+            BeanUtils.copyProperties(record, info);
+            // 从redis获取url
+            KeyAddressVO keyAddress = getAddressKeyInCache(record.getUsername(), record.getKeyName());
+            // 构建完整url
+            StringBuilder url = new StringBuilder();
+            if (!StringUtils.isEmpty(keyAddress.getProtocol())) {
+                url.append(keyAddress.getProtocol()).append("://");
+            }
+            url.append(keyAddress.getIp());
+            if (keyAddress.getPort() != null) {
+                url.append(":").append(keyAddress.getPort());
+            }
+            if (!StringUtils.isEmpty(keyAddress.getPath())) {
+                url.append(keyAddress.getPath());
+            }
+            info.setUrl(url.toString());
+            keyInfoVOList.add(info);
+        });
+        keyInfoVOIPage.setRecords(keyInfoVOList);
+        return keyInfoVOIPage;
     }
 
     /**
@@ -93,8 +120,21 @@ public class KeyServiceImpl implements IKeyService {
         String keyName = key.getKeyName();
         keyMapper.deleteById(id);
         // 删除缓存
-        String redisKey = KEY_ADDRESS_REDIS_KEY_PREFIX
+        String redisKey = RedisKey.KEY_ADDRESS_REDIS_KEY_PREFIX
                 .replace("${username}", username).replace("${keyName}", keyName);
         redisHelper.delete(redisKey);
+    }
+
+    /**
+     * 从缓存中查询钥匙地址
+     * @param username
+     * @param keyName
+     * @return
+     */
+    private KeyAddressVO getAddressKeyInCache(String username, String keyName) {
+        String redisKey = RedisKey.KEY_ADDRESS_REDIS_KEY_PREFIX
+                .replace("${username}", username).replace("${keyName}", keyName);
+        KeyAddressVO keyAddressVO = redisHelper.get(redisKey, KeyAddressVO.class);
+        return keyAddressVO;
     }
 }

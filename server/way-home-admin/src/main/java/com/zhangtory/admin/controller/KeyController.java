@@ -1,8 +1,8 @@
 package com.zhangtory.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhangtory.admin.model.entity.WhKey;
 import com.zhangtory.admin.model.request.AddKeyRequest;
+import com.zhangtory.admin.model.vo.KeyInfoVO;
 import com.zhangtory.admin.service.IKeyService;
 import com.zhangtory.core.response.BaseResponse;
 import com.zhangtory.core.response.ResponseBuilder;
@@ -29,7 +29,7 @@ public class KeyController {
     @GetMapping("/query/{current}")
     @ApiOperation("查询所有的key")
     public BaseResponse query(@PathVariable Long current) {
-        IPage<WhKey> keys = keyService.queryKeys(current);
+        IPage<KeyInfoVO> keys = keyService.queryKeys(current);
         return ResponseBuilder.success(keys);
     }
 

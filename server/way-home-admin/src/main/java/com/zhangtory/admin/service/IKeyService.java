@@ -1,8 +1,8 @@
 package com.zhangtory.admin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhangtory.admin.model.entity.WhKey;
 import com.zhangtory.admin.model.request.AddKeyRequest;
+import com.zhangtory.admin.model.vo.KeyInfoVO;
 
 /**
  * @author zhangtory
@@ -16,7 +16,7 @@ public interface IKeyService {
      * @param current
      * @return
      */
-    IPage<WhKey> queryKeys(Long current);
+    IPage<KeyInfoVO> queryKeys(Long current);
 
     /**
      * 添加key

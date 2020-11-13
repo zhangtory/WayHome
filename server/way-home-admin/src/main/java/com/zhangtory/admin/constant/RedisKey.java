@@ -17,4 +17,10 @@ public class RedisKey {
      */
     public static final String USER_FIND_ACCOUNT_FLAG_KEY = "wayhome:key:account:find:flag";
 
+    /**
+     * keyAddress信息前缀
+     * wayhome:key:{username}:{keyName}
+     */
+    public static final String KEY_ADDRESS_REDIS_KEY_PREFIX = "wayhome:key:${username}:${keyName}";
+
 }
