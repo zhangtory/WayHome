@@ -33,7 +33,7 @@ public class KeyController {
         return ResponseBuilder.success(keys);
     }
 
-    @PostMapping("/")
+    @PostMapping("/add")
     @ApiOperation("添加key")
     public BaseResponse addKey(@RequestBody @Valid AddKeyRequest request) {
         keyService.addKey(request);
