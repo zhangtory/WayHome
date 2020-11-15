@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <span v-if="msg"></span>
+  <div class="go">
+    <h1>{{msg}}</h1>
   </div>
 </template>
 
@@ -22,12 +22,12 @@
       this.axios.get("/get/" + userName + "/" + keyName).then(response =>{
         let url = response.data.data['url'];
         console.log(url);
-        if (url != null) {
-          window.location.href = url;
-        }
-      }).catch(function (error) {
+        // if (url != null) {
+        //   window.location.href = url;
+        // }
+      }).catch(error => {
         console.log(error);
-        this.msg = '该钥匙不存在';
+        this.msg = '该钥匙不存在或地址未上报';
       })
     },
   }

@@ -7,8 +7,7 @@
     <div>
       <Table border :columns="columns1" :data="data1">
         <template slot-scope="{ row, index }" slot="action">
-          <input type="hidden" value="row.keyId"></input>
-          <Button type="success" size="small" @click="goHome(row.address)">GoHome</Button>
+          <Button type="success" size="small" @click="goHome(row.goUrl)">GoHome</Button>
           <Button type="error" size="small" @click="remove(row.keyId, index)">删除</Button>
         </template>
       </Table>
@@ -23,26 +22,25 @@
     data() {
       return {
         currentPage: 1,
-        userName: '',
+        userName: localStorage.getItem("username"),
         keyName: '',
         columns1: [
-          {
-            width: 100,
-            title: 'KeyId',
-            key: 'keyId',
-            sortable: true
-          },
-          {
-            title: '钥匙秘钥(secretKey)',
-            key: 'secretKey'
-          },
+
           {
             title: '钥匙名(keyName)',
             key: 'keyName'
           },
           {
-            title: '访问地址',
+            title: '书签地址',
             key: 'address'
+          },
+          {
+            title: '目标地址',
+            key: 'url'
+          },
+          {
+            title: '钥匙秘钥(secretKey)',
+            key: 'secretKey'
           },
           {
             width: 200,
@@ -70,7 +68,7 @@
           this.$Message.info('请输入钥匙名');
           return;
         }
-        this.axios.post('/admin/key', {
+        this.axios.post('/admin/key/add', {
           keyName: this.keyName
         }).then(response => {
           if (response.data['code'] === 0) {
@@ -84,17 +82,18 @@
         })
       },
       getAddressList() {
-        this.axios.get('/admin/key/' + this.currentPage).then(response => {
+        this.axios.get('/admin/key/query/' + this.currentPage).then(response => {
           if (response.data['code'] === 0) {
-            let arr = response.data.data;
-            arr.forEach(item => {
+            let keyPage = response.data.data;
+            keyPage['records'].forEach(item => {
               let keyId = item.id;
-              let secretKey = item.secretKey;
-              this.userName = item.username;
               let keyName = item.keyName;
-              let address = "/go/" + item.username + "/" +keyName;
+              let goUrl = "/go/" + this.userName + "/" +keyName;
+              let address = document.location.hostname + goUrl;
+              let url = item.url;
+              let secretKey = item.secretKey;
               let createTime = formatDate(new Date(item.createTime), 'yyyy-MM-dd hh:mm');
-              this.data1.push({keyId: keyId, secretKey: secretKey, keyName: keyName, address: address,createTime: createTime});
+              this.data1.push({keyId: keyId, secretKey: secretKey, keyName: keyName, url: url, address: address, goUrl: goUrl, createTime: createTime});
             });
           } else {
             this.$Message.info(response.data['message']);

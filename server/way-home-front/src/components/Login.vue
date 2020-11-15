@@ -59,6 +59,7 @@
               if (response.data['code'] === 0) {
                 // 保存token，跳转到控制台
                 localStorage.setItem("Authorization", response.data['data']);
+                localStorage.setItem("username", this.formData.username);
                 this.$router.push({name: 'AddressList'});
               } else {
                 this.msg = response.data['message'];

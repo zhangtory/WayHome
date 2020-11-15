@@ -34,7 +34,7 @@ export default {
   mounted: function () {
     this.secret = this.$route.params.secret;
     // 验证secret
-    this.axios.get('/user/find/' + this.secret).then(response => {
+    this.axios.get('/admin/user/find/' + this.secret).then(response => {
       if (response.data['code'] === 0) {
         this.showResetForm = true;
       } else {
@@ -79,7 +79,7 @@ export default {
     reset(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-          this.axios.post('/user/find/' + this.secret, {
+          this.axios.post('/admin/user/find/' + this.secret, {
             password: this.formData.password,
           }).then(response => {
             if (response.data['code'] === 0) {

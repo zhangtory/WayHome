@@ -31,7 +31,7 @@ axios.interceptors.request.use(function (config) {
 
 /* 响应拦截器 */
 axios.interceptors.response.use(function (response) {
-  if (response.data.code === -204 || response.data.code === -205) {
+  if (response.data.code === -204) {
     localStorage.removeItem("Authorization");
     router.replace({
       path: '/login' // 到登录页重新获取token

@@ -48,7 +48,7 @@ export default {
     sendMail(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-          this.axios.post('/user/find/mail', {
+          this.axios.post('/admin/user/find/mail', {
             email: this.formData.email
           }).then(response => {
             if (response.data['code'] === 0) {
