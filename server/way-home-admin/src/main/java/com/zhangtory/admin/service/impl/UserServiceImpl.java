@@ -135,6 +135,9 @@ public class UserServiceImpl implements IUserService {
         if (user != null) {
             user.setPassword(PasswordUtils.getEncryptedPassword(request.getPassword()));
             whUserMapper.updateById(user);
+            String redisKey = RedisKey.USER_FIND_ACCOUNT_KEY.replace("${secret}", secret);
+            redisHelper.delete(redisKey);
+            redisHelper.deleteFromMap(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, email);
         } else {
             throw new CommonException(UserResult.USER_NOT_EXISTS);
         }
