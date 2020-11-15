@@ -8,8 +8,8 @@
             <FormItem prop="email">
               <Input clearable size="large" placeholder="请输入邮箱地址" :maxlength="30" prefix="ios-mail-outline"
                      v-model="formData.email"/>
-              <Button type="success" size="large" @click="sendMail('formData')">发送邮件</Button>
             </FormItem>
+            <Button type="success" size="large" @click="sendMail('formData')">发送邮件</Button>
             <FormItem v-if="msg">
               <label class="warning">
                 <Icon class="warning" type="ios-information-circle-outline"/>
@@ -38,8 +38,8 @@ export default {
       },
       rule: {
         email: [
-          {required: true, message: '请输入正确的邮箱地', trigger: 'blur'},
-          {type: 'email', message: '请输入正确的邮箱地', trigger: 'blur'}
+          {required: true, message: '请输入正确的邮箱地址', trigger: 'blur'},
+          {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
         ]
       }
     }

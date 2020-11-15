@@ -29,18 +29,17 @@
 
 <script>
 export default {
-  // 进入页面时提取url中的secret并设置给this.secret，然后调用接口验证是否可用，可用再显示重置表单
   name: "FindAccountReset",
   mounted: function () {
     this.secret = this.$route.params.secret;
     // 验证secret
-    this.axios.get('/admin/user/find/' + this.secret).then(response => {
+    this.axios.get('/admin/user/find/check/' + this.secret).then(response => {
       if (response.data['code'] === 0) {
         this.showResetForm = true;
       } else {
         this.showFail = true;
       }
-    }).catch(function (error) {
+    }).catch(error => {
       console.log(error);
       this.showFail = true;
     })
