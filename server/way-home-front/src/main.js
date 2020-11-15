@@ -12,8 +12,8 @@ import axios from 'axios';
 Vue.config.productionTip = false
 Vue.prototype.axios = axios
 
-let API_HOST = "http://127.0.0.1:8001"
-// let API_HOST = "https://wayhome.zhangtory.com"
+// let API_HOST = "http://127.0.0.1:8001"
+let API_HOST = "https://api.wayhome.zhangtory.com"
 
 /* 请求拦截器 */
 axios.interceptors.request.use(function (config) {
