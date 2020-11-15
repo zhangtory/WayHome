@@ -39,6 +39,16 @@ public class UserResult extends CommonResult {
      */
     public static final UserResult ACCOUNT_FIND_SECRET_ERROR = new UserResult(-6, "account_find_secret_error");
 
+    /**
+     * 用户未登录
+     */
+    public static final UserResult USER_NOT_LOGIN = new UserResult(-204, "user_not_login");
+
+    /**
+     * email错误
+     */
+    public static final UserResult EMAIL_ERROR = new UserResult(-7, "email_error");
+
 
     public UserResult(Integer code, String message) {
         super(code, message);

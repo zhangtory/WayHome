@@ -102,12 +102,18 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public void findAccountSendMail(String email) {
+        // 检查email是否输错
+        WhUser user = whUserMapper.selectOne(new QueryWrapper<WhUser>()
+                .lambda().eq(WhUser::getEmail, email));
+        if (user == null) {
+            throw new CommonException(UserResult.EMAIL_ERROR);
+        }
         // 验证该email是否在重置流程中
         String secret = redisHelper.getHashValue(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, email, String.class);
         if (StringUtils.isEmpty(secret)) {
             // 生成重置密码的secret
-            String redisKey = RedisKey.USER_FIND_ACCOUNT_KEY.replace("${secret}", secret);
             secret = UUID.randomUUID().toString().replace("-", "");
+            String redisKey = RedisKey.USER_FIND_ACCOUNT_KEY.replace("${secret}", secret);
             redisHelper.set(redisKey, email, RedisTimeConstant.ONE_DAY);
             redisHelper.addInMap(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, email, secret, RedisTimeConstant.ONE_DAY);
         }

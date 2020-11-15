@@ -65,19 +65,23 @@ public class KeyServiceImpl implements IKeyService {
             BeanUtils.copyProperties(record, info);
             // 从redis获取url
             KeyAddressVO keyAddress = getAddressKeyInCache(record.getUsername(), record.getKeyName());
-            // 构建完整url
-            StringBuilder url = new StringBuilder();
-            if (!StringUtils.isEmpty(keyAddress.getProtocol())) {
-                url.append(keyAddress.getProtocol()).append("://");
+            if (keyAddress == null) {
+                info.setUrl("未上报");
+            } else {
+                // 构建完整url
+                StringBuilder url = new StringBuilder();
+                if (!StringUtils.isEmpty(keyAddress.getProtocol())) {
+                    url.append(keyAddress.getProtocol()).append("://");
+                }
+                url.append(keyAddress.getIp());
+                if (keyAddress.getPort() != null) {
+                    url.append(":").append(keyAddress.getPort());
+                }
+                if (!StringUtils.isEmpty(keyAddress.getPath())) {
+                    url.append(keyAddress.getPath());
+                }
+                info.setUrl(url.toString());
             }
-            url.append(keyAddress.getIp());
-            if (keyAddress.getPort() != null) {
-                url.append(":").append(keyAddress.getPort());
-            }
-            if (!StringUtils.isEmpty(keyAddress.getPath())) {
-                url.append(keyAddress.getPath());
-            }
-            info.setUrl(url.toString());
             keyInfoVOList.add(info);
         });
         keyInfoVOIPage.setRecords(keyInfoVOList);

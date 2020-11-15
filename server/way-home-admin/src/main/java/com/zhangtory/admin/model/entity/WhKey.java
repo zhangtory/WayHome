@@ -1,12 +1,11 @@
 package com.zhangtory.admin.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.KeySequence;
 import lombok.*;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Author: ZhangTory
@@ -46,8 +45,8 @@ public class WhKey implements Serializable {
      */
     private Integer status;
 
-    private LocalDateTime createTime;
+    private Date createTime;
 
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
 }
