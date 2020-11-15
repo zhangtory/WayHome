@@ -117,8 +117,8 @@ public class UserServiceImpl implements IUserService {
             redisHelper.set(redisKey, email, RedisTimeConstant.ONE_DAY);
             redisHelper.addInMap(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, email, secret, RedisTimeConstant.ONE_DAY);
         }
-        mailService.sendMail(email, EmailMessage.FIND_ACCOUNT.getTitle(),
-                EmailMessage.FIND_ACCOUNT.getText().replace("${url}", userAccountFindUrl + secret));
+        String context = EmailMessage.FIND_ACCOUNT.getText().replace("{$url}", userAccountFindUrl + secret);
+        mailService.sendMail(email, EmailMessage.FIND_ACCOUNT.getTitle(), context);
     }
 
     /**
@@ -148,7 +148,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String checkAccountFindSecret(String secret) {
         String redisKey = RedisKey.USER_FIND_ACCOUNT_KEY.replace("${secret}", secret);
-        String email = redisHelper.get(redisKey);
+        String email = redisHelper.get(redisKey, String.class);
         if (StringUtils.isEmpty(email)) {
             throw new CommonException(UserResult.ACCOUNT_FIND_SECRET_ERROR);
         }
