@@ -4,10 +4,10 @@
       <Col>
         <div class="register" v-show="waitSend">
           <h1>WayHome - 邮箱找回密码</h1>
-          <Form ref="formData" :model="formData" :rules="rule">
-            <FormItem prop="email">
-              <Input clearable size="large" placeholder="请输入邮箱地址" :maxlength="30" prefix="ios-mail-outline"
-                     v-model="formData.email"/>
+          <Form ref="formData" :model="formData">
+            <FormItem prop="username">
+              <Input clearable size="large" placeholder="请输入用户名" :maxlength="30" prefix="ios-mail-outline"
+                     v-model="formData.username"/>
             </FormItem>
             <Button type="success" size="large" @click="sendMail('formData')">发送邮件</Button>
             <FormItem v-if="msg">
@@ -34,13 +34,7 @@ export default {
       msg: '',
       waitSend: true,
       formData: {
-        email: ''
-      },
-      rule: {
-        email: [
-          {required: true, message: '请输入正确的邮箱地址', trigger: 'blur'},
-          {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
-        ]
+        username: ''
       }
     }
   },
@@ -49,7 +43,7 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           this.axios.post('/admin/user/find/mail', {
-            email: this.formData.email
+            username: this.formData.username
           }).then(response => {
             if (response.data['code'] === 0) {
               this.waitSend = false;
