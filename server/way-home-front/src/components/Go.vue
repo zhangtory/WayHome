@@ -22,9 +22,9 @@
       this.axios.get("/get/" + userName + "/" + keyName).then(response =>{
         let url = response.data.data['url'];
         console.log(url);
-        // if (url != null) {
-        //   window.location.href = url;
-        // }
+        if (url != null) {
+          window.location.href = url;
+        }
       }).catch(error => {
         console.log(error);
         this.msg = '该钥匙不存在或地址未上报';

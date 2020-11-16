@@ -89,7 +89,7 @@
               let keyId = item.id;
               let keyName = item.keyName;
               let goUrl = "/go/" + this.userName + "/" +keyName;
-              let address = document.location.hostname + goUrl;
+              let address = "https://" + document.location.hostname + goUrl;
               let url = item.url;
               let secretKey = item.secretKey;
               let createTime = formatDate(new Date(item.createTime), 'yyyy-MM-dd hh:mm');
