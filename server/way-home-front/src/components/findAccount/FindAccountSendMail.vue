@@ -9,7 +9,7 @@
               <Input clearable size="large" placeholder="请输入用户名" :maxlength="30" prefix="ios-mail-outline"
                      v-model="formData.username"/>
             </FormItem>
-            <Button type="success" size="large" @click="sendMail('formData')">发送邮件</Button>
+            <Button v-bind:disabled="dis" type="success" size="large" @click="sendMail('formData')">发送邮件</Button>
             <FormItem v-if="msg">
               <label class="warning">
                 <Icon class="warning" type="ios-information-circle-outline"/>
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       msg: '',
+      dis: false,
       waitSend: true,
       formData: {
         username: ''
@@ -42,6 +43,7 @@ export default {
     sendMail(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          this.dis = true;
           this.axios.post('/admin/user/find/mail', {
             username: this.formData.username
           }).then(response => {
