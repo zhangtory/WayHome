@@ -28,9 +28,9 @@ public interface IUserService {
 
     /**
      * 找回密码-发送邮件
-     * @param email
+     * @param username
      */
-    void findAccountSendMail(String email);
+    void findAccountSendMail(String username);
 
     /**
      * 找回密码-重置密码
@@ -42,7 +42,7 @@ public interface IUserService {
     /**
      * 验证账户找回秘钥是否可用
      * @param secret
-     * @return email
+     * @return username
      */
     String checkAccountFindSecret(String secret);
 

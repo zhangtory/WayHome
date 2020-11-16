@@ -101,24 +101,24 @@ public class UserServiceImpl implements IUserService {
      * 找回密码-发送邮件
      */
     @Override
-    public void findAccountSendMail(String email) {
+    public void findAccountSendMail(String username) {
         // 检查email是否输错
         WhUser user = whUserMapper.selectOne(new QueryWrapper<WhUser>()
-                .lambda().eq(WhUser::getEmail, email));
+                .lambda().eq(WhUser::getUsername, username));
         if (user == null) {
-            throw new CommonException(UserResult.EMAIL_ERROR);
+            throw new CommonException(UserResult.USER_NOT_EXISTS);
         }
-        // 验证该email是否在重置流程中
-        String secret = redisHelper.getHashValue(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, email, String.class);
+        // 验证该用户是否在重置流程中
+        String secret = redisHelper.getHashValue(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, username, String.class);
         if (StringUtils.isEmpty(secret)) {
             // 生成重置密码的secret
             secret = UUID.randomUUID().toString().replace("-", "");
             String redisKey = RedisKey.USER_FIND_ACCOUNT_KEY.replace("${secret}", secret);
-            redisHelper.set(redisKey, email, RedisTimeConstant.ONE_DAY);
-            redisHelper.addInMap(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, email, secret, RedisTimeConstant.ONE_DAY);
+            redisHelper.set(redisKey, username, RedisTimeConstant.ONE_DAY);
+            redisHelper.addInMap(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, username, secret, RedisTimeConstant.ONE_DAY);
         }
         String context = EmailMessage.FIND_ACCOUNT.getText().replace("{$url}", userAccountFindUrl + secret);
-        mailService.sendMail(email, EmailMessage.FIND_ACCOUNT.getTitle(), context);
+        mailService.sendMail(user.getEmail(), EmailMessage.FIND_ACCOUNT.getTitle(), context);
     }
 
     /**
@@ -128,16 +128,16 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public void findAccount(String secret, AccountFindRequest request) {
-        // 验证secret并获取email
-        String email = checkAccountFindSecret(secret);
+        // 验证secret并获取username
+        String username = checkAccountFindSecret(secret);
         WhUser user = whUserMapper.selectOne(new QueryWrapper<WhUser>()
-                .lambda().eq(WhUser::getEmail, email));
+                .lambda().eq(WhUser::getUsername, username));
         if (user != null) {
             user.setPassword(PasswordUtils.getEncryptedPassword(request.getPassword()));
             whUserMapper.updateById(user);
             String redisKey = RedisKey.USER_FIND_ACCOUNT_KEY.replace("${secret}", secret);
             redisHelper.delete(redisKey);
-            redisHelper.deleteFromMap(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, email);
+            redisHelper.deleteFromMap(RedisKey.USER_FIND_ACCOUNT_FLAG_KEY, username);
         } else {
             throw new CommonException(UserResult.USER_NOT_EXISTS);
         }
@@ -151,11 +151,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String checkAccountFindSecret(String secret) {
         String redisKey = RedisKey.USER_FIND_ACCOUNT_KEY.replace("${secret}", secret);
-        String email = redisHelper.get(redisKey, String.class);
-        if (StringUtils.isEmpty(email)) {
+        String username = redisHelper.get(redisKey, String.class);
+        if (StringUtils.isEmpty(username)) {
             throw new CommonException(UserResult.ACCOUNT_FIND_SECRET_ERROR);
         }
-        return email;
+        return username;
     }
 
     /**

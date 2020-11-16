@@ -45,7 +45,7 @@ public class UserController {
     @PostMapping("/find/mail")
     @ApiOperation("找回密码-发送邮件")
     public BaseResponse findAccountSendMail(@RequestBody @Valid AccountFindSendMailRequest request) {
-        userService.findAccountSendMail(request.getEmail());
+        userService.findAccountSendMail(request.getUsername());
         return ResponseBuilder.success();
     }
 

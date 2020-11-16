@@ -16,9 +16,9 @@ import javax.validation.constraints.NotBlank;
 @ApiModel("邮件找回密码请求方法")
 public class AccountFindSendMailRequest {
 
-    @ApiModelProperty("用户邮箱")
-    @Email(message = "请输入正确的邮箱")
-    @NotBlank(message = "邮箱不能为空")
-    private String email;
+    @ApiModelProperty("用户名")
+    @Email(message = "请输入正确的用户名")
+    @NotBlank(message = "用户名不能为空")
+    private String username;
 
 }
