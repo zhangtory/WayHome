@@ -65,8 +65,8 @@ public class KeyServiceImpl implements IKeyService {
             BeanUtils.copyProperties(record, info);
             // 从redis获取url
             KeyAddressVO keyAddress = getAddressKeyInCache(record.getUsername(), record.getKeyName());
-            if (keyAddress == null) {
-                info.setUrl("未上报");
+            if (keyAddress == null || StringUtils.isEmpty(keyAddress.getIp())) {
+                info.setUrl("未上报，请下载客户端。");
             } else {
                 // 构建完整url
                 StringBuilder url = new StringBuilder();
