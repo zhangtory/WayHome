@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -17,7 +16,6 @@ import javax.validation.constraints.NotBlank;
 public class AccountFindSendMailRequest {
 
     @ApiModelProperty("用户名")
-    @Email(message = "请输入正确的用户名")
     @NotBlank(message = "用户名不能为空")
     private String username;
 
