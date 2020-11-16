@@ -34,11 +34,11 @@
   当然也可以设置DMZ主机，将所有外网的请求转发到这台服务器上。  
   注意：电信可能屏蔽了80和443等特殊端口，做端口映射时需要避开这些端口。
 
-  4. 下载Java版WayHome客户端([点击下载](https://github.com/zhangtory/WayHome/releases/tag/1.1))，或者使用python3客户端([查看](https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py))。如果你有其他版本客户端的需要，可以根据API自行开发客户端或给我们提Issue。  
+  4. 下载Java版WayHome客户端或者python客户端。如果你有其他版本客户端的需要，可以根据API自行开发客户端或给我们提Issue。  
   下载完成后需要完成客户端配置。  
   Java客户端配置home.properties，python3客户端直接在脚本文件中配置  
-      `home.server_url`: 服务器地址，默认为https://wayhome.zhangtory.com/api/address ，如果自己搭建有私服，可以修改为自己的地址。  
-      `home.username` : 你的用户名。
+      `home.server_url`: 服务器地址，默认为https://api.wayhome.zhangtory.com/address ，如果自己搭建有私服，可以修改为自己的地址。  
+      `home.username` : 你的用户名。  
       `home.keyName`: 你的钥匙名。  
       `home.secretKey`: 网站控制台申请获取的secretKey，与钥匙对应。  
       `home.protocol`: 跳转的协议。如跳转到家中的路由器，一般为http，如果支持https可以设置为https。另外如果要跳转到ftp服务器，也可以设置为ftp。其他协议同理。  
@@ -71,7 +71,7 @@
   客户端定时上报跳转信息，需要username、keyName、protocol、port、path、timestamp参数，并签名sign。  
   `POST`请求，地址：https://wayhome.zhangtory.com/api/address
    参数以json形式放入body， 使用UTF-8编码，并设置header : 'Content-Type': 'application/json;charset=utf-8'。     
-  `username` : 你的用户名。
+  `username` : 你的用户名。  
   `keyName` : 你的钥匙名。  
   `protocol` : 访问协议，如http、https、ftp。  
   `path` : 路径参数，可选，如?user=admin&password=123456。  
