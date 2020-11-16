@@ -52,6 +52,11 @@ export default new Router({
           component: resolve => require(['@/components/UseGuide'], resolve)
         },
         {
+          path: 'clientDownload',
+          name: 'ClientDownload',
+          component: resolve => require(['@/components/dashboards/ClientDownload'], resolve)
+        },
+        {
           path: 'exit',
           name: 'Exit',
           component: resolve => require(['@/components/dashboards/Exit'], resolve)

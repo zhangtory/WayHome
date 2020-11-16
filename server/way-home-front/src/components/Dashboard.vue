@@ -8,6 +8,10 @@
             <Icon type="ios-navigate"></Icon>
             钥匙管理
           </MenuItem>
+          <MenuItem name="clientDownload" :to="{name: 'ClientDownload'}">
+            <Icon type="ios-build"></Icon>
+            客户端下载
+          </MenuItem>
           <MenuItem name="useGuide" :to="{name: 'UseGuide'}">
             <Icon type="ios-book"></Icon>
             使用说明
