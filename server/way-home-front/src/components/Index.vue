@@ -19,7 +19,7 @@
         </div>
 
         <div class="link">
-          <a href="https://github.com/zhangtory/WayHome/blob/dev/README.md" target="view_window">使用说明</a>
+          <a href="https://github.com/zhangtory/WayHome/blob/master/README.md#%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" target="view_window">使用说明</a>
           <span> &nbsp; | &nbsp; </span>
           <a href="https://github.com/zhangtory/WayHome" target="view_window">View On GitHub</a>
         </div>

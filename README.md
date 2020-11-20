@@ -24,31 +24,24 @@
   
   1. 注册一个WayHome账号([注册地址](https://wayhome.zhangtory.com/register))或登录。  
   您的WayHome账号名将作为访问地址的一部分，建议使用方便记忆的用户名。  
-  在管理后台创建一个钥匙，创建时需要输入钥匙名，点击“创建钥匙”，之后就可以在钥匙列表看到钥匙信息。
-
-  2. 和DDNS一样，您的主机需要有公网IP。  
-  如果是电信的话，可以直接拨打10000转人工服务免费获取公网IP地址。  
-
-  3. 在光猫或者拨号的路由器上做端口转发，或者设置为DMZ主机。  
-  因为通过IP地址首先访问的是PPPoE拨号上网的光猫或者路由器，光猫或路由器接收到请求后，不知道将请求转发给内网的哪一台主机，所以我们需要做端口转发，如设置：将外网8123端口的访问请求转发给内网192.168.1.2的80端口。  
-  当然也可以设置DMZ主机，将所有外网的请求转发到这台服务器上。  
-  注意：电信可能屏蔽了80和443等特殊端口，做端口映射时需要避开这些端口。
-
-  4. 下载Java版WayHome客户端([点击下载](https://github.com/zhangtory/WayHome/releases/tag/1.1))，或者使用python3客户端([查看](https://github.com/zhangtory/WayHome/tree/master/client/way-home-client-py))。如果你有其他版本客户端的需要，可以根据API自行开发客户端或给我们提Issue。  
-  下载完成后需要完成客户端配置。  
-  Java客户端配置home.properties，python3客户端直接在脚本文件中配置  
-      `home.server_url`: 服务器地址，默认为https://wayhome.zhangtory.com/api/address ，如果自己搭建有私服，可以修改为自己的地址。  
-      `home.username` : 你的用户名。
-      `home.keyName`: 你的钥匙名。  
-      `home.secretKey`: 网站控制台申请获取的secretKey，与钥匙对应。  
-      `home.protocol`: 跳转的协议。如跳转到家中的路由器，一般为http，如果支持https可以设置为https。另外如果要跳转到ftp服务器，也可以设置为ftp。其他协议同理。  
-      `home.port`: 跳转的端口，即在家中光猫or路由器上设置的转发端口。http默认为80端口，如果使用http跳转到80端口，则可以省略。其他协议同理。    
-      `home.path`: 跳转请求的路径参数。如"/login?user=admin&password=123"。没有可以省略，如有需要以"/"开头。   
-  Java客户端使用`nohup java -jar wayhome客户端jar包名 &`命令运行。运行时可以根据控制台的输出日志或nohup文件判断请求是否正常。  
-      
-  5. 网页控制台可以查看对应钥匙设置的跳转地址及其他信息。  
-  访问https://wayhome.zhangtory.com/go/{username}/{keyName} 即可跳转到设置的地址上。  
-  可以将跳转地址作为书签保存。  
+  
+  2. 在管理后台创建一个钥匙，创建时需要输入钥匙名，点击“创建钥匙”，之后就可以在钥匙列表看到钥匙信息。  
+  ![](pic/1.jpg)
+  
+  3. 下载客户端，现在有java和python两种客户端，基本满足了linux服务器的使用。  
+  ![](pic/2.jpg)
+  
+  4. 根据钥匙信息配置客户端。  
+  用户名、钥匙名和秘钥是必填的。  
+  协议一般是http，也支持https和ftp等；端口是你自己服务器对外开放的端口，注意80/443/8080已被电信屏蔽；路径可不填。  
+  ![](pic/3.jpg)
+  
+  5. 运行客户端。  
+  java可以直接执行start.sh脚本。  
+  
+  6. 最后在控制台就能看到目标地址，也就是你家的公网IP和你配置的协议及路径。  
+  点击GoHome按钮可以直接跳转到目标地址。  
+  书签地址是固定的，由你的用户名和钥匙名组成，可以发送给别人或创建书签。  
   
 ## WayHome程序架构概览
 

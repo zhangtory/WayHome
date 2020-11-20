@@ -4,6 +4,10 @@
 
       <Sider ref="side1" hide-trigger collapsible :collapsed-width="90" v-model="isCollapsed">
         <Menu active-name="addressList" theme="dark" width="auto" :class="menuitemClasses">
+          <MenuItem name="index" :to="{name: 'Index'}">
+            <Icon type="ios-home"></Icon>
+            主页
+          </MenuItem>
           <MenuItem name="addressList" :to="{name: 'AddressList'}">
             <Icon type="ios-navigate"></Icon>
             钥匙管理
