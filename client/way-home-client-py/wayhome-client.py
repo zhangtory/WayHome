@@ -11,6 +11,7 @@ SECRET_KEY = "YOUR_SECRET_KEY"
 PROTOCOL = "http"
 PORT = 8123
 PATH = ""
+PATH = "/zentao"
 
 
 def build_params_str():
@@ -32,10 +33,22 @@ def post_address():
     headers = {'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'way-home-client-py 1.2', 'Connection': 'Keep-Alive'}
     rep = requests.post(SERVER_URL, data=params, headers=headers)
     print(rep.text)
-
-
+    #print(rep.text)
+    return rep.text
+    
+        
 if __name__ == "__main__":
     print("start wayhome-client 1.2...")
+    flag = True
     while True:
-        post_address()
-        time.sleep(1)
+        try: 
+            repData = json.loads(post_address())
+            if repData['code'] != 0:
+                print(repData)
+            elif flag:
+                print(repData)
+                print("running...")
+                flag = False
+            time.sleep(1)
+        except err:
+            print(err)
