@@ -26,6 +26,11 @@ public class KeyAddressVO {
     private String secretKey;
 
     /**
+     * 短链
+     */
+    private String shortUrl;
+
+    /**
      * 钥匙状态
      */
     private Integer status;

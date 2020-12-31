@@ -25,6 +25,8 @@ public class Key {
 
     private String keyName;
 
+    private String shortUrl;
+
     private int status;
 
     private Date createTime;

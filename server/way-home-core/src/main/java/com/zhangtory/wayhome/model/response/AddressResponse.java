@@ -28,4 +28,7 @@ public class AddressResponse {
     @ApiModelProperty("完整url")
     private String url;
 
+    @ApiModelProperty("短链")
+    private String shortUrl;
+
 }

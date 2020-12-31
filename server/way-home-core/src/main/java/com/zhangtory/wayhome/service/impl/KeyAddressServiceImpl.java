@@ -93,6 +93,7 @@ public class KeyAddressServiceImpl implements IKeyAddressService {
         keyAddress.setKeyName(key.getKeyName());
         keyAddress.setSecretKey(key.getSecretKey());
         keyAddress.setStatus(key.getStatus());
+        keyAddress.setShortUrl(key.getShortUrl());
         return keyAddress;
     }
 
