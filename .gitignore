@@ -1,0 +1,13 @@
+/client/way-home-client/target/
+/client/way-home-client/logs/
+/client/way-home-client/.idea/
+
+/client/way-home-core/target/
+/client/way-home-core/logs/
+/client/way-home-core/.idea/
+
+/client/way-home-admin/target/
+/client/way-home-admin/logs/
+/client/way-home-admin/.idea/
+
+**/*.iml
