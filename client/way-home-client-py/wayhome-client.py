@@ -42,6 +42,7 @@ if __name__ == "__main__":
     flag = True
     while True:
         try: 
+            time.sleep(1)
             repData = json.loads(post_address())
             if repData['code'] != 0:
                 print(repData)
@@ -49,6 +50,5 @@ if __name__ == "__main__":
                 print(repData)
                 print("running...")
                 flag = False
-            time.sleep(1)
         except err:
             print(err)

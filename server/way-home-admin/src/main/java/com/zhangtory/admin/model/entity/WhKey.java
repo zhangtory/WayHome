@@ -41,6 +41,11 @@ public class WhKey implements Serializable {
     private String keyName;
 
     /**
+     * 短链接
+     */
+    private String shortUrl;
+
+    /**
      * 是否启用：1启用；0禁用
      */
     private Integer status;

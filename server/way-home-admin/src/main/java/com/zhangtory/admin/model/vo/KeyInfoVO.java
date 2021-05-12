@@ -18,6 +18,9 @@ public class KeyInfoVO {
     @ApiModelProperty("keyID")
     private Long id;
 
+    @ApiModelProperty("短链接")
+    private String shortUrl;
+
     @ApiModelProperty("钥匙名")
     private String keyName;
 

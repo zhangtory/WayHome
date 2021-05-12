@@ -3,6 +3,7 @@ package com.zhangtory.admin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zhangtory.admin.componet.ShortUrlCreator;
 import com.zhangtory.admin.constant.KeyResult;
 import com.zhangtory.admin.constant.RedisKey;
 import com.zhangtory.admin.dao.WhKeyMapper;
@@ -17,6 +18,7 @@ import com.zhangtory.redis.service.RedisHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -43,6 +45,12 @@ public class KeyServiceImpl implements IKeyService {
     @Autowired
     private UserContext userContext;
 
+    @Autowired
+    private ShortUrlCreator shortUrlCreator;
+
+    @Value("${url.go}")
+    private String goUrl;
+
     /**
      * 查询当前用户的key
      *
@@ -68,19 +76,7 @@ public class KeyServiceImpl implements IKeyService {
             if (keyAddress == null || StringUtils.isEmpty(keyAddress.getIp())) {
                 info.setUrl("未上报，请下载客户端。");
             } else {
-                // 构建完整url
-                StringBuilder url = new StringBuilder();
-                if (!StringUtils.isEmpty(keyAddress.getProtocol())) {
-                    url.append(keyAddress.getProtocol()).append("://");
-                }
-                url.append(keyAddress.getIp());
-                if (keyAddress.getPort() != null) {
-                    url.append(":").append(keyAddress.getPort());
-                }
-                if (!StringUtils.isEmpty(keyAddress.getPath())) {
-                    url.append(keyAddress.getPath());
-                }
-                info.setUrl(url.toString());
+                info.setUrl(buildUrl(keyAddress));
             }
             keyInfoVOList.add(info);
         });
@@ -99,6 +95,10 @@ public class KeyServiceImpl implements IKeyService {
         key.setKeyName(request.getKeyName());
         key.setUsername(userContext.getUsername());
         key.setSecretKey(UUID.randomUUID().toString().replace("-", ""));
+        // 拼凑url，创建短链
+        String url = goUrl.replace("{username}", key.getUsername()).replace("{keyName}", key.getKeyName());
+        String shortUrl = shortUrlCreator.getShortUrl(url);
+        key.setShortUrl(shortUrl);
         try {
             keyMapper.insert(key);
         } catch (DuplicateKeyException e) {
@@ -140,5 +140,25 @@ public class KeyServiceImpl implements IKeyService {
                 .replace("${username}", username).replace("${keyName}", keyName);
         KeyAddressVO keyAddressVO = redisHelper.get(redisKey, KeyAddressVO.class);
         return keyAddressVO;
+    }
+
+    /**
+     * 构建完整url
+     * @param keyAddress
+     * @return
+     */
+    private String buildUrl(KeyAddressVO keyAddress) {
+        StringBuilder url = new StringBuilder();
+        if (!StringUtils.isEmpty(keyAddress.getProtocol())) {
+            url.append(keyAddress.getProtocol()).append("://");
+        }
+        url.append(keyAddress.getIp());
+        if (keyAddress.getPort() != null) {
+            url.append(":").append(keyAddress.getPort());
+        }
+        if (!StringUtils.isEmpty(keyAddress.getPath())) {
+            url.append(keyAddress.getPath());
+        }
+        return url.toString();
     }
 }

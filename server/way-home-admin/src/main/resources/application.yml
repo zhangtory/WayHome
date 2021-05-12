@@ -18,5 +18,9 @@ spring:
             required: true
 # 固定链接配置
 url:
+  go: https://wayhome.zhangtory.com/go/{username}/{keyName}
   user:
     find: https://wayhome.zhangtory.com/account/find/
+
+# 三维维短链平台接口key
+short_url_api_token: 5fef92d06e8d10012bc1724e29@96d552e7c7630ad1bf0e8d9b88776e4a
