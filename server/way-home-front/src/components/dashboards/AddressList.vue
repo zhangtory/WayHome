@@ -35,6 +35,10 @@
             key: 'address'
           },
           {
+            title: '短链接',
+            key: 'shortUrl'
+          },
+          {
             title: '目标地址',
             key: 'url'
           },
@@ -89,11 +93,13 @@
               let keyId = item.id;
               let keyName = item.keyName;
               let goUrl = "/go/" + this.userName + "/" +keyName;
+              let shortUrl = item.shortUrl;
               let address = "https://" + document.location.hostname + goUrl;
               let url = item.url;
               let secretKey = item.secretKey;
               let createTime = formatDate(new Date(item.createTime), 'yyyy-MM-dd hh:mm');
-              this.data1.push({keyId: keyId, secretKey: secretKey, keyName: keyName, url: url, address: address, goUrl: goUrl, createTime: createTime});
+              this.data1.push({keyId: keyId, secretKey: secretKey, keyName: keyName, url: url, address: address,
+                goUrl: goUrl, createTime: createTime, shortUrl: shortUrl});
             });
           } else {
             this.$Message.info(response.data['message']);
